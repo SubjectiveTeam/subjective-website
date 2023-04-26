@@ -6,9 +6,11 @@ import {
   import type { LayoutLoad } from './$types';
   import type { Database } from '$lib/supabase/database.types';
   
-  export const load: LayoutLoad = async ({ fetch, data, depends }) => {
+  export const load: LayoutLoad = async ({ fetch, data, depends}) => {
     depends('supabase:auth');
-  
+
+    const { hasConsentedToCookies } = data; 
+    
     const supabase = createSupabaseLoadClient<Database>({
       supabaseUrl: PUBLIC_SUPABASE_URL,
       supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -20,5 +22,5 @@ import {
       data: { session }
     } = await supabase.auth.getSession();
   
-    return { supabase, session };
+    return { hasConsentedToCookies ,supabase, session };
   };
