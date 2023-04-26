@@ -1,17 +1,10 @@
 <script lang="ts">
 	import { page } from "$app/stores";
-	import { Avatar } from "@skeletonlabs/skeleton";
 
 	type NavigationItem = {
 		name: string;
 		href: string;
 	}
-
-
-	$page.data.supabase.auth.signInWithPassword({
-      email: "hugokorteapple@gmail.com",
-      password: "Kikker7543!"
-    });
 
 	const navItems: NavigationItem[] = [
 		{	
@@ -38,7 +31,7 @@
 			<li><a href="/sign-in">Sign In</a></li>
 			<li><a href="/sign-up">Sign Up</a></li>
 		{:else}
-			<Avatar initials={""} />
+			<li class="mt-auto"><a href="/account">Account</a></li>
 		{/if}
 	</ul>
 </nav>

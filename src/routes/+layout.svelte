@@ -10,6 +10,7 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
+	import DrawerContentManager from '$lib/components/DrawerContentManager.svelte';
 
 	export let data: LayoutData;
 
@@ -31,14 +32,14 @@
 <!-- Overlays -->
 <Toast />
 <Modal />
-<Drawer />
+<Drawer><DrawerContentManager/></Drawer>
 
 {#if !hasConsentedToCookies}
 	<!-- COOKIE BANNER -->
 {/if}
 
 <!-- App Shell -->
-<AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 p-4">
+<AppShell slotSidebarLeft="hidden lg:block w-64 p-4">
 	<svelte:fragment slot="sidebarLeft"><Navigation /></svelte:fragment>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
 	<slot />

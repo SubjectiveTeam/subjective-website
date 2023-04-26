@@ -1,12 +1,12 @@
 <script lang="ts">
-	import { enhance, type SubmitFunction } from '$app/forms';
+	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 
 	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	const signInCallBack: SubmitFunction = async () => {
 		return async ({ result, update }) => {
+			await applyAction(result);
 			let toastSettings: ToastSettings;
-			console.log(result);
 			if (result.type === 'redirect') {
 				toastSettings = {
 					message: 'Successfully signed in.',
@@ -24,7 +24,7 @@
 </script>
 
 <form action="?/signIn" method="post" use:enhance={signInCallBack}>
-	<input class="input" placeholder="Email" type="text" />
-	<input class="input" placeholder="Password" type="password" />
+	<input class="input" placeholder="Email" type="text" name="email"/>
+	<input class="input" placeholder="Password" type="password" name="password" />
 	<button class="btn variant-filled-secondary">Sign In</button>
 </form>

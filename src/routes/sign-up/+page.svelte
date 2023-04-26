@@ -1,9 +1,10 @@
 <script lang="ts">
-	import { enhance, type SubmitFunction } from '$app/forms';
+	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	const signInCallBack: SubmitFunction = async () => {
 		return async ({ result, update }) => {
+			await applyAction(result);
 			let toastSettings: ToastSettings;
 			if (result.type === 'redirect') {
 				toastSettings = {
