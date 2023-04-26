@@ -1,11 +1,12 @@
 <script lang="ts">
 	// Note: Import order for stylesheets is important (theme -> all -> app)
-	import '@skeletonlabs/skeleton/themes/theme-skeleton.css';
+	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import { Toast, Modal, Drawer, AppShell } from '@skeletonlabs/skeleton';
-
-	
+	import Header from './Header.svelte';
+	import Sidebar from './Sidebar.svelte';
+	import Footer from './Footer.svelte';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
@@ -38,11 +39,8 @@
 
 <!-- App Shell -->
 <AppShell>
-	<svelte:fragment slot="header">Header</svelte:fragment>
-	<svelte:fragment slot="sidebarLeft">Sidebar Left</svelte:fragment>
-	<svelte:fragment slot="sidebarRight">Sidebar Right</svelte:fragment>
-	<svelte:fragment slot="pageHeader">Page Header</svelte:fragment>
+	<svelte:fragment slot="sidebarRight"><Sidebar /></svelte:fragment>
+	<svelte:fragment slot="header"><Header /></svelte:fragment>
 	<slot />
-	<svelte:fragment slot="pageFooter">Page Footer</svelte:fragment>
-	<svelte:fragment slot="footer">Footer</svelte:fragment>
+	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
