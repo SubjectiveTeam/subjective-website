@@ -22,5 +22,5 @@ import {
       data: { session }
     } = await supabase.auth.getSession();
   
-    return { hasConsentedToCookies ,supabase, session };
+    return { hasConsentedToCookies, supabase, session };
   };

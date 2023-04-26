@@ -2,7 +2,7 @@
     import { AppBar } from "@skeletonlabs/skeleton";
     import { drawerStore, type DrawerSettings } from "@skeletonlabs/skeleton";
 
-    function toggleSideBar() {
+    const toggleSideBar = () => {
         const drawerSettings: DrawerSettings = {
             
         }
