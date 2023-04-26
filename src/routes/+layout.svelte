@@ -5,7 +5,7 @@
 	import '../app.postcss';
 	import { Toast, Modal, Drawer, AppShell } from '@skeletonlabs/skeleton';
 	import Header from './Header.svelte';
-	import Sidebar from './Sidebar.svelte';
+	import Navigation from './Navigation.svelte';
 	import Footer from './Footer.svelte';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -38,8 +38,8 @@
 {/if}
 
 <!-- App Shell -->
-<AppShell>
-	<svelte:fragment slot="sidebarRight"><Sidebar /></svelte:fragment>
+<AppShell slotSidebarLeft="bg-surface-500/5 w-0 lg:w-64 p-4">
+	<svelte:fragment slot="sidebarLeft"><Navigation /></svelte:fragment>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
 	<slot />
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
