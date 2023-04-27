@@ -3,6 +3,7 @@
     import { drawerStore, type DrawerSettings } from "@skeletonlabs/skeleton";
     import { cartStore } from "$lib/stores/cart";
 	import PreviewCartItem from "$lib/components/PreviewCartItem.svelte";
+    import Navigation from "./Navigation.svelte";
 
     const toggleSideBar = () => {
         const drawerSettings: DrawerSettings = {
@@ -28,11 +29,12 @@
         });
         totalPrice = result;
     }
-</script>
+</script>   
 
-<AppBar padding="py-4 px-8">
+<AppBar padding="py-4 px-8" class="h-[var(--header-height)]">
     <svelte:fragment slot="lead">
-        <p class="hidden lg:inline">(logo)</p>
+        
+        <span class="hidden lg:block"><Navigation orientation="horizontal" /></span>
         <button class="lg:hidden btn" on:click={toggleSideBar}>
             <svg viewBox="0 0 100 100" class="fill-token w-8">
                 <rect x="10" y="20" width="80" height="10" rx="2" />
