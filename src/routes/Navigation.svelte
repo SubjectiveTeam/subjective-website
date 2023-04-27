@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { page } from "$app/stores";
+	import { drawerStore } from "@skeletonlabs/skeleton";
 
 	type NavigationItem = {
 		name: string;
@@ -25,13 +26,13 @@
 <nav class="list-nav">
 	<ul>
 		{#each navItems as {name, href}} 
-			<li><a href={href}>{name}</a></li>
+			<li><a on:click={() => drawerStore.close()} href={href}>{name}</a></li>
 		{/each}
 		{#if !$page.data.session}
-			<li><a href="/sign-in">Sign In</a></li>
-			<li><a href="/sign-up">Sign Up</a></li>
+			<li><a on:click={() => drawerStore.close()} href="/sign-in">Sign In</a></li>
+			<li><a on:click={() => drawerStore.close()} href="/sign-up">Sign Up</a></li>
 		{:else}
-			<li class="mt-auto"><a href="/account">Account</a></li>
+			<li class="mt-auto"><a on:click={() => drawerStore.close()} href="/account">Account</a></li>
 		{/if}
 	</ul>
 </nav>
