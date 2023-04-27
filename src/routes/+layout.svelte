@@ -4,6 +4,8 @@
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
 	import { Toast, Modal, Drawer, AppShell } from '@skeletonlabs/skeleton';
+	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
+	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from './Header.svelte';
 	import Navigation from './Navigation.svelte';
 	import Footer from './Footer.svelte';
@@ -11,12 +13,15 @@
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
 	import DrawerContentManager from '$lib/components/DrawerContentManager.svelte';
+	import { cartStore } from '$lib/stores/cart';
 
 	export let data: LayoutData;
 
 	$: ({ supabase, session, hasConsentedToCookies } = data);
 
 	onMount(() => {
+		cartStore.init();
+
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {
@@ -27,12 +32,16 @@
 
 		return () => subscription.unsubscribe();
 	});
+
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 </script>
 
 <!-- Overlays -->
 <Toast />
 <Modal />
-<Drawer><DrawerContentManager/></Drawer>
+<Drawer>
+	<DrawerContentManager/>
+</Drawer>
 
 {#if !hasConsentedToCookies}
 	<!-- COOKIE BANNER -->
