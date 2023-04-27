@@ -52,7 +52,7 @@
                 {#each [...$cartStore.values()] as cartItem}
                     <PreviewCartItem cartItem={cartItem} />
                 {:else}
-                    <p>Your shopping cart is empty</p>
+                    <p>Your shopping cart is empty. <a class="underline" href="/clothing">Start shopping.</a></p>
                 {/each}
             </ul> 
             <hr />

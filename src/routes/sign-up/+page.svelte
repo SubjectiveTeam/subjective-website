@@ -22,7 +22,7 @@
 	};
 </script>
 
-<section class="card px-6 py-12 mx-auto flex w-fit flex-col gap-10 mt-[12.5vh]">
+<section class="card shadow-xl px-6 py-12 mx-auto flex w-fit flex-col gap-10 mt-[12.5vh]">
 	<h1 class="text-center !leading-relaxed">Sign Up</h1>
 	<form class="flex flex-col gap-4 max-w-lg" method="post" use:enhance={signInCallBack}>
 		<input class="input" placeholder="Email" type="text" name="email"/>

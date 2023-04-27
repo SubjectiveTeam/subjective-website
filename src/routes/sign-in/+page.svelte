@@ -4,7 +4,7 @@
 	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
 
 	const signInCallBack: SubmitFunction = async () => {
-		return async ({ result, update }) => {
+		return async ({ result }) => {
 			await applyAction(result);
 			let toastSettings: ToastSettings;
 			if (result.type === 'redirect') {
@@ -23,7 +23,7 @@
 	};
 </script>
 
-<section class="card px-6 py-12 mx-auto flex w-fit flex-col gap-10 mt-[12.5vh]">
+<section class="card shadow-xl px-6 py-12 mx-auto flex w-fit flex-col gap-10 mt-[12.5vh]">
 	<h1 class="text-center !leading-relaxed">Sign In</h1>
 	<form class="flex flex-col gap-4 max-w-lg" method="post" use:enhance={signInCallBack}>
 		<input class="input" placeholder="Email" type="text" name="email"/>
