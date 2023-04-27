@@ -52,6 +52,8 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<slot />
+	<div class="p-4">
+		<slot />
+	</div>
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>

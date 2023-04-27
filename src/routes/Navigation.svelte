@@ -16,7 +16,7 @@
 		},
 		{	
 			name: 'Clothing',
-			href : '/shop'
+			href : '/clothing'
 		},
 		{	
 			name: 'About',
