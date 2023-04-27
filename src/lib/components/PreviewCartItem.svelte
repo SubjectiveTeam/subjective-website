@@ -3,11 +3,16 @@
     export let cartItem: CartItem;
 </script>
 
-<div class="flex justify-between items-center">
+<li class="flex justify-between items-center px-">
     <div class="flex flex-col">
-        <p>{cartItem.product.name}</p>
-        <p class="!text-[0.75rem] leading-0 opacity-75">Qt: {cartItem.quantity}</p>
+        <p class="overflow-ellipsis">{cartItem.product.name}</p>
+        <div class="flex justify-between">
+            <p class="!text-[0.75rem] leading-0 opacity-75">Qt: {cartItem.quantity}</p>
+            <p class="!text-[0.75rem] leading-0 opacity-75">${cartItem.product.price}</p>
+        </div>
     </div>
-    <button class="btn btn-sm p-1 variant-filled-success" on:click={() => cartStore.add(cartItem.product)}>+</button>
-    <button class="btn btn-sm p-1 variant-filled-error" on:click={() => cartStore.remove(cartItem.product)}>-</button>
-</div>
+    <div>
+        <button class="btn btn-sm variant-filled-error" on:click={() => cartStore.remove(cartItem.product)}>-</button>
+        <button class="btn btn-sm variant-filled-success" on:click={() => cartStore.add(cartItem.product)}>+</button>
+    </div>
+</li>

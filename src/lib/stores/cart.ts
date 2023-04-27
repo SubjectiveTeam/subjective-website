@@ -58,6 +58,10 @@ const createCartStore = () => {
             }
             customSet(cart);
         },
+        clear: () => {
+            const cart = new Map<number, CartItem>();
+            customSet(cart);
+        },
         init: () => {
             const stringifiedCart = window.localStorage.getItem('cart');
             if (stringifiedCart) customSet(parseMap(stringifiedCart));
