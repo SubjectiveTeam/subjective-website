@@ -21,10 +21,7 @@
 
 	onMount(() => {
 		cartStore.init();
-		cartStore.add({id: 2, name: 'Tesla', price: 5000, tags: []});
-		cartStore.add({id: 3, name: 'Mustang', price: 5000, tags: []});
-		cartStore.add({id: 4, name: 'Volvo', price: 5000, tags: []});
-		cartStore.add({id: 5, name: 'Toyota', price: 5000, tags: []});
+		
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {

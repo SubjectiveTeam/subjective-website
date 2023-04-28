@@ -63,8 +63,10 @@ const createCartStore = () => {
             customSet(cart);
         },
         init: () => {
+            // Init will either grab the cart from localstorage if it exists or create a new one
             const stringifiedCart = window.localStorage.getItem('cart');
             if (stringifiedCart) customSet(parseMap(stringifiedCart));
+            else customSet(new Map<number, CartItem>());
         }
     }
 }
