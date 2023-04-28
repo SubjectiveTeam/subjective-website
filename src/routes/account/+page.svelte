@@ -25,12 +25,12 @@
         <Tab bind:group={tabSet} name="payment-info" value={1}>Payment Info</Tab>
         <svelte:fragment slot="panel">
             {#if tabSet === 0}
-                <form>
-                    <label class="label">
+                <form class="flex flex-col gap-4">
+                    <label class="label max-w-lg">
                         <span>Email:</span>
                         <input type="text" class="input" disabled value={$page.data.session?.user.email} />
                     </label>
-                    <button class="btn variant-ringed-error" on:click={triggerNewPasswordModal}>Change Password</button>
+                    <button class="btn variant-ringed-error w-fit" on:click={triggerNewPasswordModal}>Change Password</button>
                 </form>
             {:else if tabSet === 1}
                 (tab panel 2 contents)

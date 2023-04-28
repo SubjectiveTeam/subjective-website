@@ -8,15 +8,15 @@
         <form class="flex flex-col gap-4">
             <label class="label">
                 <span>Current Password:</span>
-                <input type="password" class="input" placeholder="Current Password..." />
+                <input type="password" class="input" placeholder="Current Password" />
             </label>
             <label class="label">
                 <span>New Password:</span>
-                <input type="password" class="input" placeholder="New Password..." />
+                <input type="password" class="input" placeholder="New Password" />
             </label>
             <label class="label">
                 <span>Confirm New Password:</span>
-                <input type="password" class="input" placeholder="Confirm New Password..." />
+                <input type="password" class="input" placeholder="Confirm New Password" />
             </label>
             <button class="btn variant-ringed-error">Change Password</button>
         </form>
