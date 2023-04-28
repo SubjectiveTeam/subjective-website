@@ -30,7 +30,6 @@ export const actions: Actions = {
             });
         }
         const redirectTo = url.searchParams.get('redirectTo');
-        console.log(redirectTo);
         if (redirectTo && redirectTo.startsWith('/')) throw redirect(303, redirectTo);
         else throw redirect(303, '/');
     }
