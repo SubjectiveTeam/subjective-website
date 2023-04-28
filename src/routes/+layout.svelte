@@ -49,7 +49,7 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<div class="p-4">
+	<div class="py-4 px-[5vw] md:px-[15vw]">
 		<slot />
 	</div>
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>

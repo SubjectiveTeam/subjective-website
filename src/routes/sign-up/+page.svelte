@@ -11,7 +11,7 @@
 					background: 'variant-filled-sucesss'
 				};
 				toastStore.trigger(toastSettings);
-			} else if (result.type === 'failure'){
+			} else if (result.type === 'failure') {
 				const toastSettings: ToastSettings = {
 					message: result.data?.message,
 					background: 'variant-filled-error'
@@ -23,12 +23,23 @@
 </script>
 
 <section class="card shadow-xl px-6 py-12 mx-auto flex w-fit flex-col gap-10 mt-[12.5vh]">
-	<h1 class="text-center !leading-relaxed">Sign Up</h1>
+	<h1 class="text-center !leading-loose">Sign Up</h1>
 	<form class="flex flex-col gap-4 max-w-lg" method="post" use:enhance={signInCallBack}>
-		<input class="input" placeholder="Email" type="text" name="email"/>
-		<input class="input" placeholder="Password" type="password" name="password" />
-		<input class="input" placeholder="Confirm Password" type="password" name="confirmPassword" />
-		<p class="text-center mt-4">Already have an account? Click <a href="/sign-up">here</a> to sign in.</p>
+		<label class="label">
+			<span>Email:</span>
+			<input class="input" placeholder="Email" type="text" name="email" />
+		</label>
+		<label class="label">
+			<span>Password:</span>
+			<input class="input" placeholder="Password" type="password" name="password" />
+		</label>
+		<label class="label">
+			<span>Confirm Password:</span>
+			<input class="input" placeholder="Confirm Password" type="password" name="confirmPassword" />
+		</label>
+		<p class="text-center mt-4">
+			Already have an account? Click <a href="/sign-up">here</a> to sign in.
+		</p>
 		<button class="btn variant-filled-secondary mt-4">Sign Up</button>
 	</form>
 </section>
