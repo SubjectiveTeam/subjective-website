@@ -7,7 +7,6 @@
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from './Header.svelte';
-	import Navigation from './Navigation.svelte';
 	import Footer from './Footer.svelte';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -51,9 +50,10 @@
 {/if}
 
 <!-- App Shell -->
-<AppShell slotSidebarLeft="hidden lg:block w-64 p-4">
-	<svelte:fragment slot="sidebarLeft"><Navigation /></svelte:fragment>
+<AppShell>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<slot />
+	<div class="p-4">
+		<slot />
+	</div>
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>

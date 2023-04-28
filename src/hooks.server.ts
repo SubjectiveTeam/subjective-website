@@ -1,8 +1,12 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
-import type { Handle } from '@sveltejs/kit';
+import { redirect, type Handle } from '@sveltejs/kit';
+
+const authRoutes: string[] = ['/account'];
+const antiAuthRoutes: string[] = ['/sign-in', '/sign-up'];
 
 export const handle: Handle = async ({ event, resolve }) => {
+
     event.locals.supabase = createSupabaseServerClient({
         supabaseUrl: PUBLIC_SUPABASE_URL,
         supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
@@ -20,6 +24,13 @@ export const handle: Handle = async ({ event, resolve }) => {
         } = await event.locals.supabase.auth.getSession();
         return session;
     };
+
+    // Auth guarding
+    const session = await event.locals.getSession();
+    const loggedIn: boolean = session !== null;
+    const destination: string = event.route.id as string;
+    if (!loggedIn && authRoutes.includes(destination)) throw redirect(303, `/sign-in?redirectTo=${destination}`);
+    else if (loggedIn && antiAuthRoutes.includes(destination)) throw redirect(303, '/account');
 
     return resolve(event, {
         /**

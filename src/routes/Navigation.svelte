@@ -2,6 +2,8 @@
 	import { page } from "$app/stores";
 	import { drawerStore } from "@skeletonlabs/skeleton";
 
+	export let orientation: string;
+
 	type NavigationItem = {
 		name: string;
 		href: string;
@@ -9,12 +11,12 @@
 
 	const navItems: NavigationItem[] = [
 		{	
-			name: 'Home',
+			name: '(logo)',
 			href : '/'
 		},
 		{	
 			name: 'Clothing',
-			href : '/shop'
+			href : '/clothing'
 		},
 		{	
 			name: 'About',
@@ -23,16 +25,14 @@
 	];
 </script>
 
-<nav class="list-nav">
-	<ul>
-		{#each navItems as {name, href}} 
-			<li><a on:click={() => drawerStore.close()} href={href}>{name}</a></li>
-		{/each}
-		{#if !$page.data.session}
-			<li><a on:click={() => drawerStore.close()} href="/sign-in">Sign In</a></li>
-			<li><a on:click={() => drawerStore.close()} href="/sign-up">Sign Up</a></li>
-		{:else}
-			<li class="mt-auto"><a on:click={() => drawerStore.close()} href="/account">Account</a></li>
-		{/if}
-	</ul>
+<nav class="list-nav flex {orientation === "horizontal" ? "flex-row" : "flex-col"}">
+	{#each navItems as {name, href}} 
+		<a on:click={() => drawerStore.close()} href={href}>{name}</a>
+	{/each}
+	{#if !$page.data.session}
+		<a on:click={() => drawerStore.close()} href="/sign-in">Sign In</a>
+		<a on:click={() => drawerStore.close()} href="/sign-up">Sign Up</a>
+	{:else}
+		<a on:click={() => drawerStore.close()} href="/account">Account</a>
+	{/if}
 </nav>
