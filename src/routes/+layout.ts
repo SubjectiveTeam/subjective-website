@@ -9,7 +9,7 @@ import {
   export const load: LayoutLoad = async ({ fetch, data, depends}) => {
     depends('supabase:auth');
 
-    const { hasConsentedToCookies } = data; 
+    const { consentCookiePresent } = data; 
     
     const supabase = createSupabaseLoadClient<Database>({
       supabaseUrl: PUBLIC_SUPABASE_URL,
@@ -22,5 +22,5 @@ import {
       data: { session }
     } = await supabase.auth.getSession();
   
-    return { hasConsentedToCookies, supabase, session };
+    return { consentCookiePresent, supabase, session };
   };

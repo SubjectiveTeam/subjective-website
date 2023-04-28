@@ -8,15 +8,16 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from './Header.svelte';
 	import Footer from './Footer.svelte';
+	import CookieConsentBanner from './CookieConsentBanner.svelte';
+	import DrawerContentManager from '$lib/components/DrawerContentManager.svelte';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import type { LayoutData } from './$types';
-	import DrawerContentManager from '$lib/components/DrawerContentManager.svelte';
 	import { cartStore } from '$lib/stores/cart';
 
 	export let data: LayoutData;
 
-	$: ({ supabase, session, hasConsentedToCookies } = data);
+	$: ({ supabase, session, consentCookiePresent } = data);
 
 	onMount(() => {
 		cartStore.init();
@@ -44,9 +45,8 @@
 <Drawer>
 	<DrawerContentManager/>
 </Drawer>
-
-{#if !hasConsentedToCookies}
-	<!-- COOKIE BANNER -->
+{#if !consentCookiePresent}
+	<CookieConsentBanner />
 {/if}
 
 <!-- App Shell -->
