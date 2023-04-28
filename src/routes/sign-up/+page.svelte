@@ -5,19 +5,19 @@
 	const signInCallBack: SubmitFunction = async () => {
 		return async ({ result }) => {
 			await applyAction(result);
-			let toastSettings: ToastSettings;
 			if (result.type === 'redirect') {
-				toastSettings = {
+				const toastSettings: ToastSettings = {
 					message: 'Successfully signed up, confirm your email please.',
 					background: 'variant-filled-sucesss'
 				};
-			} else {
-				toastSettings = {
-					message: result.data.message,
+				toastStore.trigger(toastSettings);
+			} else if (result.type === 'failure'){
+				const toastSettings: ToastSettings = {
+					message: result.data?.message,
 					background: 'variant-filled-error'
 				};
+				toastStore.trigger(toastSettings);
 			}
-			toastStore.trigger(toastSettings);
 		};
 	};
 </script>

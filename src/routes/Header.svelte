@@ -18,7 +18,8 @@
     const cartMenuPopupSettings: PopupSettings = {
         event: 'click',
         target: 'cart-menu',
-        closeQuery: '*:not(*)'
+        // TODO: Fix closequery after https://github.com/skeletonlabs/skeleton/issues/1350 is closed
+        closeQuery: 'marquee'
     }
 
     let totalPrice = 0;
