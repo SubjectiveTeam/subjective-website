@@ -4,5 +4,7 @@
 </script>
 
 {#if $drawerStore.id === 'sidebar'}
-    <Navigation />
+	<div class="mt-[var(--header-height)]">
+		<Navigation orientation="vertical" />
+	</div>
 {/if}
