@@ -27,4 +27,9 @@ declare global {
     price: string;
     quantity: number;
   }
+
+  type CheckoutResponse = {
+    type: 'success' | 'failure';
+    url?: string;
+  }
 }

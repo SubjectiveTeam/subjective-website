@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { cartStore } from '$lib/stores/cart';
-	import { popup, type PopupSettings } from '@skeletonlabs/skeleton';
+	import {
+		popup,
+		toastStore,
+		type PopupSettings,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import PreviewCartItem from './PreviewCartItem.svelte';
+	import { goto } from '$app/navigation';
 
 	const cartMenuPopupSettings: PopupSettings = {
 		event: 'click',
@@ -20,9 +26,21 @@
 	}
 
 	let checkingOut: boolean = false;
-	const checkout = () => {
+	const checkout = async () => {
 		checkingOut = true;
-		cartStore.checkout();
+		const checkoutResponse: CheckoutResponse = await cartStore.checkout();
+
+		if (checkoutResponse.type === 'success' && checkoutResponse.url) {
+			await goto(checkoutResponse.url);
+		} 
+        else {
+			const toast: ToastSettings = {
+				message: 'Something went wrong while checking out. Try again later.',
+				background: 'variant-filled-error'
+			};
+			toastStore.trigger(toast);
+		}
+		checkingOut = false;
 	};
 </script>
 
@@ -48,14 +66,14 @@
 			<button
 				disabled={$cartStore.size === 0 || checkingOut}
 				class="btn variant-ringed-primary"
-				on:click={checkout}>
-                {#if checkingOut}
-                    Working...
-                {:else}
-                    Checkout
-                {/if}
-                </button
+				on:click={checkout}
 			>
+				{#if checkingOut}
+					Working...
+				{:else}
+					Checkout
+				{/if}
+			</button>
 			<button
 				disabled={$cartStore.size === 0}
 				class="btn p-2 variant-filled-error"

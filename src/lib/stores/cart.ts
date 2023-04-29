@@ -78,7 +78,19 @@ const createCartStore = () => {
                 },
                 body: JSON.stringify({ items: items})
             });
-            await goto((await checkoutReponse.json()).url);
+            if (checkoutReponse.ok) {
+                const response: CheckoutResponse = {
+                    type: 'success',
+                    url: (await checkoutReponse.json()).url
+                }
+                return response;
+            }
+            else {
+                const response: CheckoutResponse = {
+                    type: 'failure'
+                }
+                return response;
+            }
         },
     }
 }
