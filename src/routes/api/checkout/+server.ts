@@ -9,20 +9,22 @@ export const POST: RequestHandler = async ({ request }) => {
 
     // Convert products to stripe acceptable objects
     const stripeItems: StripeItem[] = [];
-    items.forEach(item => {
+
+    for (const item of items) {
         stripeItems.push(
             {
                 price: item.product.stripe_id,
                 quantity: item.quantity            
             }
         );
-    });
+    }
+    console.log(stripeItems);
 
     const session = await stripe.checkout.sessions.create({
         line_items: stripeItems,
         mode: 'payment',
-        success_url: 'localhost:5173/success',
-        cancel_url: 'localhost:5173/cancel'
+        success_url: 'http://localhost:5173/success',
+        cancel_url: 'http://localhost:5173/cancel'
     });
 
     return new Response(

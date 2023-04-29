@@ -9,7 +9,7 @@ export const load: PageLoad = async ({ parent }) => {
     .select('*');
 
     if (error) throw redirect(303, '/');
-    
+
     return {
         products: data as Product[]
     }

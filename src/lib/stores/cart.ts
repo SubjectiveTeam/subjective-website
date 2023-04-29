@@ -1,4 +1,5 @@
-import { writable } from "svelte/store"
+import { goto } from "$app/navigation";
+import { get, writable } from "svelte/store"
 
 const createCartStore = () => {
     const cartMap = new Map<number, CartItem>();
@@ -32,6 +33,12 @@ const createCartStore = () => {
     }
     return {
         subscribe,
+        init: () => {
+            // Init will either grab the cart from localstorage if it exists or create a new one
+            const stringifiedCart = window.localStorage.getItem('cart');
+            if (stringifiedCart) customSet(parseMap(stringifiedCart));
+            else customSet(new Map<number, CartItem>());
+        },
         add: (product: Product) => {
             const cart = customGet();
             const item = cart.get(product.id);
@@ -62,12 +69,17 @@ const createCartStore = () => {
             const cart = new Map<number, CartItem>();
             customSet(cart);
         },
-        init: () => {
-            // Init will either grab the cart from localstorage if it exists or create a new one
-            const stringifiedCart = window.localStorage.getItem('cart');
-            if (stringifiedCart) customSet(parseMap(stringifiedCart));
-            else customSet(new Map<number, CartItem>());
-        }
+        checkout: async () => {
+            const items = Array.from(customGet().values());
+            const checkoutReponse = await fetch('/api/checkout', {
+                method: 'POST',
+                headers: {
+                    'content-type' : 'application.json'
+                },
+                body: JSON.stringify({ items: items})
+            });
+            await goto((await checkoutReponse.json()).url);
+        },
     }
 }
 
