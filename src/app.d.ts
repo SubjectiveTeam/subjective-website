@@ -15,4 +15,11 @@ declare global {
     // interface Error {}
     // interface Platform {}
   }
+  
+  type Product = Database['public']['Tables']['products']['Row'];
+
+  type CartItem = {
+      product: Product
+      quantity: number;
+  }
 }

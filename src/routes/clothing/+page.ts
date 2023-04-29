@@ -11,6 +11,6 @@ export const load: PageLoad = async ({ parent }) => {
     if (error) throw redirect(303, '/');
     
     return {
-        products: data
+        products: data as Product[]
     }
 }
