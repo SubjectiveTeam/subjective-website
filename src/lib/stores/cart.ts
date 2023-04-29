@@ -70,7 +70,7 @@ const createCartStore = () => {
             customSet(cart);
         },
         checkout: async () => {
-            const items = Array.from(customGet().values());
+            const items = [...customGet().values()];
             const checkoutReponse = await fetch('/api/checkout', {
                 method: 'POST',
                 headers: {
