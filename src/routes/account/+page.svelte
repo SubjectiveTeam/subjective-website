@@ -22,18 +22,16 @@
     <h1 class="!leading-loose">Account</h1>
     <TabGroup>
         <Tab bind:group={tabSet} name="personal-info" value={0}>Personal Info</Tab>
-        <Tab bind:group={tabSet} name="payment-info" value={1}>Payment Info</Tab>
         <svelte:fragment slot="panel">
             {#if tabSet === 0}
-                <form class="flex flex-col gap-4">
+                <form class="flex flex-col gap-4" method="post">
                     <label class="label max-w-lg">
                         <span>Email:</span>
                         <input type="text" class="input" disabled value={$page.data.session?.user.email} />
                     </label>
                     <button class="btn variant-ringed-error w-fit" on:click={triggerNewPasswordModal}>Change Password</button>
+                    <button class="btn variant-filled-error w-fit" formaction="?/signOut">Sign Out</button>
                 </form>
-            {:else if tabSet === 1}
-                (tab panel 2 contents)
             {/if}
         </svelte:fragment>
     </TabGroup>

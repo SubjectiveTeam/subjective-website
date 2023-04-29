@@ -23,7 +23,7 @@ export const actions: Actions = {
                 });
             }
             return fail(500, {
-                message: 'Server error. Try again later.',
+                message: error.message,
                 values: {
                     email
                 }
