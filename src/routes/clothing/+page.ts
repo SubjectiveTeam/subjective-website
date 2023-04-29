@@ -5,10 +5,12 @@ export const load: PageLoad = async ({ parent }) => {
     const { supabase } = await parent();
 
     const { data, error } = await supabase
-    .from("products")
+    .from('products')
     .select('*');
 
     if (error) throw redirect(303, '/');
+
+    console.log(data);
     
     return {
         products: data as Product[]
