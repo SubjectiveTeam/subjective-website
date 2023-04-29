@@ -10,11 +10,11 @@
             ref: NewPasswordModal,
             props: { background: 'bg-red-500' },
         }
-        const modalSettings: ModalSettings = {
+        const modal: ModalSettings = {
             type: 'component',
             component: ModalComponent
         }
-        modalStore.trigger(modalSettings);
+        modalStore.trigger(modal);
     }
 </script>
 

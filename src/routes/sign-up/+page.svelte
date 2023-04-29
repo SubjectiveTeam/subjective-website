@@ -6,17 +6,17 @@
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'redirect') {
-				const toastSettings: ToastSettings = {
+				const toast: ToastSettings = {
 					message: 'Successfully signed up, confirm your email please.',
 					background: 'variant-filled-sucesss'
 				};
-				toastStore.trigger(toastSettings);
+				toastStore.trigger(toast);
 			} else if (result.type === 'failure') {
-				const toastSettings: ToastSettings = {
+				const toast: ToastSettings = {
 					message: result.data?.message,
 					background: 'variant-filled-error'
 				};
-				toastStore.trigger(toastSettings);
+				toastStore.trigger(toast);
 			}
 		};
 	};
