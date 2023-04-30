@@ -95,16 +95,17 @@ export const actions: Actions = {
 
 		if (supabaseDeleteResponse.error)
 			return fail(500, { message: 'There was an error deleting product from supabase' });
-        
-        const { data, error } = await supabase.storage.from('product_images').list(String(product.id));
 
-        if (error) return fail(500, { message: 'There was an error deleting product images from supabase' });
+		const { data, error } = await supabase.storage.from('product_images').list(String(product.id));
 
-        const paths: string[] = [];
-        data.forEach((file) => {
-            paths.push(`${product.id}/${file.name}`);
-        })
-        supabase.storage.from('product_images').remove(paths);
+		if (error)
+			return fail(500, { message: 'There was an error deleting product images from supabase' });
+
+		const paths: string[] = [];
+		data.forEach((file) => {
+			paths.push(`${product.id}/${file.name}`);
+		});
+		supabase.storage.from('product_images').remove(paths);
 
 		await stripe.products.update(product.stripe_id as string, {
 			active: false
