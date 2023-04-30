@@ -13,7 +13,8 @@ export interface Database {
 					name: string;
 					price: number;
 					sizes: string[];
-					stripe_id: string;
+					stripe_id: string | null;
+					stripe_price: string;
 					tags: string[] | null;
 				};
 				Insert: {
@@ -25,7 +26,8 @@ export interface Database {
 					name: string;
 					price: number;
 					sizes: string[];
-					stripe_id: string;
+					stripe_id?: string | null;
+					stripe_price: string;
 					tags?: string[] | null;
 				};
 				Update: {
@@ -37,7 +39,8 @@ export interface Database {
 					name?: string;
 					price?: number;
 					sizes?: string[];
-					stripe_id?: string;
+					stripe_id?: string | null;
+					stripe_price?: string;
 					tags?: string[] | null;
 				};
 			};

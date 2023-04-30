@@ -26,12 +26,14 @@ export const actions: Actions = {
 			}
 		});
 
-		const stripe_id = stripeProduct.default_price as string;
+		const stripe_id = stripeProduct.id as string;
+		const stripe_price = stripeProduct.default_price as string;
 
-		const insertReponse = await supabase
+		const supabaseInsertResponse = await supabase
 			.from('products')
 			.insert({
 				stripe_id,
+				stripe_price,
 				name,
 				description,
 				price,
@@ -43,13 +45,13 @@ export const actions: Actions = {
 			.limit(1)
 			.single();
 
-		if (insertReponse.error) {
+		if (supabaseInsertResponse.error) {
 			return fail(500, {
 				message: 'Server error. Try again later.'
 			});
 		}
 
-		const supabaseProduct: Product = insertReponse.data as Product;
+		const supabaseProduct: Product = supabaseInsertResponse.data as Product;
 
 		const imageURLs: string[] = [];
 		for (let i = 0; i < images.length; i++) {
@@ -66,18 +68,46 @@ export const actions: Actions = {
 			imageURLs.push(imageURL);
 		}
 
-		const updateResponse = await supabase
+		const supabaseUpdateReponse = await supabase
 			.from('products')
 			.update({
 				images: imageURLs
 			})
 			.eq('id', supabaseProduct.id);
 
-		if (updateResponse.error)
+		if (supabaseUpdateReponse.error)
 			return fail(500, { message: 'There was an error updating the product with your images' });
 
 		await stripe.products.update(stripeProduct.id, {
 			images: imageURLs
+		});
+
+		return {
+			success: true
+		};
+	},
+	deleteProduct: async ({ url, locals: { supabase } }) => {
+		const stringifiedProduct: string | null = url.searchParams.get('product');
+		if (!stringifiedProduct) return fail(400, { message: 'No product was provided' });
+		const product: Product = JSON.parse(stringifiedProduct) as Product;
+
+		const supabaseDeleteResponse = await supabase.from('products').delete().eq('id', product.id);
+
+		if (supabaseDeleteResponse.error)
+			return fail(500, { message: 'There was an error deleting product from supabase' });
+        
+        const { data, error } = await supabase.storage.from('product_images').list(String(product.id));
+
+        if (error) return fail(500, { message: 'There was an error deleting product images from supabase' });
+
+        const paths: string[] = [];
+        data.forEach((file) => {
+            paths.push(`${product.id}/${file.name}`);
+        })
+        supabase.storage.from('product_images').remove(paths);
+
+		await stripe.products.update(product.stripe_id as string, {
+			active: false
 		});
 
 		return {
