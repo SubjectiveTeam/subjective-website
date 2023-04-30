@@ -74,9 +74,11 @@ export const actions: Actions = {
             })
             .eq('id', supabaseProduct.id);
 
-        // TODO UPDATE STRIPE PRODUCT WITH IMAGE URL
-
         if (updateResponse.error) return fail(500, { message: 'There was an error updating the product with your images' });
+
+        await stripe.products.update(stripeProduct.id, {
+            images: imageURLs
+        });
 
         return {
             success: true
