@@ -2,6 +2,7 @@
 	import AddProductModal from '$lib/components/AddProductModal.svelte';
 	import { Tab, TabGroup, type ModalComponent, type ModalSettings, modalStore } from '@skeletonlabs/skeleton';
 	import type { PageData } from './$types';
+	import { invalidateAll } from '$app/navigation';
 
     export let data: PageData;
 
@@ -18,6 +19,13 @@
 		};
 		modalStore.trigger(modal);
 	};
+
+    let refreshingProducts: boolean = false;
+    const refreshProducts = async () => {
+        refreshingProducts = true;
+        await invalidateAll();
+        refreshingProducts = false;
+    }
 </script>
 
 <section>
@@ -30,7 +38,17 @@
         <svelte:fragment slot="panel">
             {#if tabSet === 0}
                 <section class="flex flex-col gap-4 items-end">
-                    <button class="btn !btn-sm variant-filled-secondary" on:click={triggerNewPasswordModal}>Add Product</button>
+                    <div>
+                        <button disabled={refreshingProducts} class="btn btn-sm variant-filled-tertiary" on:click={refreshProducts}>
+                            {#if refreshingProducts}
+                                Working...
+                            {:else}
+                                Refresh
+                            {/if}
+                        </button>
+                        <button class="btn btn-sm variant-filled-secondary" on:click={triggerNewPasswordModal}>Add Product</button>
+                    </div>
+
                     <div class="table-container">
                         <table class="table table-hover">
                             <thead>
@@ -40,6 +58,7 @@
                                     <th>Name</th>
                                     <th>Description</th>
                                     <th>Price</th>
+                                    <th>Active</th>
                                     <th>Sizes</th>
                                     <th>Tags</th>
                                 </tr>
@@ -51,7 +70,8 @@
                                         <td>{product.stripe_id}</td>
                                         <td>{product.name}</td>
                                         <td>{product.description}</td>
-                                        <td>{product.price}</td>
+                                        <td>€{product.price}</td>
+                                        <td>{product.active}</td>
                                         <td>{product.sizes}</td>
                                         <td>{product.tags}</td>
                                     </tr>
