@@ -15,7 +15,7 @@ export interface Database {
           created_at: string | null
           description: string | null
           id: number
-          images: string[]
+          images: string[] | null
           name: string
           price: number
           sizes: string[]
@@ -27,7 +27,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
-          images: string[]
+          images?: string[] | null
           name: string
           price: number
           sizes: string[]
@@ -39,7 +39,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
-          images?: string[]
+          images?: string[] | null
           name?: string
           price?: number
           sizes?: string[]

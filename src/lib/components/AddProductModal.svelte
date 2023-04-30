@@ -19,7 +19,7 @@
                 <span>Price</span>
                 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
                     <div class="input-group-shim hide-number-input-arrows">€</div>
-                    <input type="number" placeholder="Price" name="price" required />
+                    <input type="number" step="0.01" placeholder="Price" name="price" required />
                 </div>
             </label>
             <label for="active">Active</label>

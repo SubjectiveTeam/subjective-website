@@ -33,6 +33,9 @@
 		<a on:click={() => drawerStore.close()} href="/sign-in">Sign In</a>
 		<a on:click={() => drawerStore.close()} href="/sign-up">Sign Up</a>
 	{:else}
+		{#if $page.data.session.user.role === 'admin'}
+			<a on:click={() => drawerStore.close()} href="/dashboard">Dashboard</a>
+		{/if}
 		<a on:click={() => drawerStore.close()} href="/account">Account</a>
 	{/if}
 </nav>

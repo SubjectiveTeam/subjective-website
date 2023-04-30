@@ -5,46 +5,46 @@ export const actions: Actions = {
     addProduct: async ({ request, locals: { supabase } }) => {
         const formData = await request.formData() as FormData;
 
-        console.log(Number(formData.get('price')));
         const name: string = formData.get('name') as string;
         const description: string = formData.get('description') as string;
         const active: boolean =  formData.get('active') === 'on' ? true : false;
-        const price: number = Number(Number(formData.get('price')).toFixed(2));
-        // TODO CONVERT PRICE TO 2 DECIMAL FLOAT VALUE
-    
+        const price: number = parseFloat((Math.round(Number(formData.get('price')) * 100) / 100).toFixed(2));
+        const sizes: string[] = formData.getAll('sizes') as string[];
+        const tags: string[] = formData.getAll('tags') as string[];
+        const images: File[] = formData.getAll('images') as File[];
 
         const stripeProduct = await stripe.products.create({
-            name: formData.get('name') as string,
-            description: formData.get('description') as string,
-            active: formData.get('active') === 'on' ? true : false,
+            name,
+            description,
+            active,
             default_price_data: {
                 currency: 'EUR',
-                unit_amount: Number(formData.get('price')),
+                // We do times 100 because Stripe uses cents so 1 euro would be 100 cents 
+                unit_amount: price * 100
             }
         });
-
-        console.log(stripeProduct);
 
         const { data, error } = await supabase
         .from('products')
         .insert({ 
             stripe_id: stripeProduct.default_price as string,
-            name: formData.get('name') as string,
-            description: formData.get('description') as string,
-            price: Number(formData.get('price')),
-            active: formData.get('active') === 'on' ? true : false,
-            sizes: formData.getAll('sizes') as string[],
-            tags: formData.getAll('tags') as string[],
-            images: [] as string[]
-        });
+            name,
+            description,
+            price,
+            active,
+            sizes,
+            tags
+        })
+        .select()
+        .limit(1)
+        .single();
 
-        if (error || !data) throw Error('Failed to create product');
+        if (error) throw new Error('Something went wrong whilst writing your product to the database');
 
         const supabaseProduct: Product = data as Product;
 
-        const images = formData.getAll('images') as File[];
         for (let i = 0; i < images.length; i++) {
-            const uploadRequest = await supabase.storage
+            const { data, error } = await supabase.storage
             .from('product_images')
             .upload(`${supabaseProduct.id}/${images[i].name}`, images[i]);
         }
