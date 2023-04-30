@@ -32,14 +32,4 @@ declare global {
 		type: 'success' | 'failure';
 		url?: string;
 	};
-
-  type AddProductObject = {
-    name: string;
-    description: string;
-    price: number;
-    active: boolean;
-    sizes: ('xl' | 'l' | 'm' | 's')[];
-    tags: string[];
-    images: File[];
-  }
 }
