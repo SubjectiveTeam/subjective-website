@@ -1,4 +1,4 @@
-import { stripe } from '$lib/components/stripe/stripe';
+import { stripe } from '$lib/stripe/stripe';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({ request }) => {

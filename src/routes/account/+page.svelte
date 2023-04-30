@@ -13,8 +13,7 @@
 
 	const triggerNewPasswordModal = () => {
 		const ModalComponent: ModalComponent = {
-			ref: NewPasswordModal,
-			props: { background: 'bg-red-500' }
+			ref: NewPasswordModal
 		};
 		const modal: ModalSettings = {
 			type: 'component',

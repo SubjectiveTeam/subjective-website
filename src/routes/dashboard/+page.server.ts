@@ -1,5 +1,5 @@
 import type { Actions } from '@sveltejs/kit';
-import { stripe } from '$lib/components/stripe/stripe';
+import { stripe } from '$lib/stripe/stripe';
 
 export const actions: Actions = {
 	addProduct: async ({ request, locals: { supabase } }) => {
