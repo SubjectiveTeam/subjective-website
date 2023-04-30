@@ -37,8 +37,8 @@
     
         <svelte:fragment slot="panel">
             {#if tabSet === 0}
-                <section class="flex flex-col gap-4 items-end">
-                    <div>
+                <section class="flex flex-col gap-4 ">
+                    <div class="ml-auto ">
                         <button disabled={refreshingProducts} class="btn btn-sm variant-filled-tertiary" on:click={refreshProducts}>
                             {#if refreshingProducts}
                                 Working...
@@ -48,7 +48,7 @@
                         </button>
                         <button class="btn btn-sm variant-filled-secondary" on:click={triggerNewPasswordModal}>Add Product</button>
                     </div>
-
+                    {#if products.length > 0}
                     <div class="table-container">
                         <table class="table table-hover">
                             <thead>
@@ -85,6 +85,9 @@
                             </tfoot> -->
                         </table>
                     </div>
+                    {:else}
+                        <p class="text-center">No Products</p>
+                    {/if}
                 </section>
             {:else if tabSet === 1}
                 (Orders)

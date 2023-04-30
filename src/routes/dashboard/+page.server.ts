@@ -1,4 +1,4 @@
-import type { Actions } from '@sveltejs/kit';
+import { fail, type Actions } from '@sveltejs/kit';
 import { stripe } from '$lib/stripe/stripe';
 
 export const actions: Actions = {
@@ -24,10 +24,12 @@ export const actions: Actions = {
             }
         });
 
+        const stripe_id = stripeProduct.default_price as string;
+
         const { data, error } = await supabase
         .from('products')
         .insert({ 
-            stripe_id: stripeProduct.default_price as string,
+            stripe_id,
             name,
             description,
             price,
@@ -39,7 +41,11 @@ export const actions: Actions = {
         .limit(1)
         .single();
 
-        if (error) throw new Error('Something went wrong whilst writing your product to the database');
+        if (error) {
+            return fail(500, {
+				message: 'Server error. Try again later.'
+			});
+        }
 
         const supabaseProduct: Product = data as Product;
 
@@ -49,10 +55,8 @@ export const actions: Actions = {
             .upload(`${supabaseProduct.id}/${images[i].name}`, images[i]);
         }
 
-        // TODO Host images in supabase buckets
-        // TODO Create product using stripe
-        // TODO Create product using supabase with info from stripe product (id and images links)
-
-
+        return {
+            success: true
+        }
     }
 };
