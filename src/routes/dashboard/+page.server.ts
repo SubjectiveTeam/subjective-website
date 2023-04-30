@@ -53,6 +53,7 @@ export const actions: Actions = {
             const { data, error } = await supabase.storage
             .from('product_images')
             .upload(`${supabaseProduct.id}/${images[i].name}`, images[i]);
+            console.log(error);
         }
 
         return {
