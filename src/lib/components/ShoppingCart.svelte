@@ -32,8 +32,7 @@
 
 		if (checkoutResponse.type === 'success' && checkoutResponse.url) {
 			await goto(checkoutResponse.url);
-		} 
-        else {
+		} else {
 			const toast: ToastSettings = {
 				message: 'Something went wrong while checking out. Try again later.',
 				background: 'variant-filled-error'

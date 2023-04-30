@@ -21,7 +21,7 @@
 
 	onMount(() => {
 		cartStore.init();
-		
+
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {
@@ -40,7 +40,7 @@
 <Toast />
 <Modal />
 <Drawer>
-	<DrawerContentManager/>
+	<DrawerContentManager />
 </Drawer>
 {#if !consentCookiePresent}
 	<CookieConsentBanner />

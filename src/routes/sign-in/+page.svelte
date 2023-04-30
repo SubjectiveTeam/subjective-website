@@ -28,13 +28,15 @@
 	<form class="flex flex-col gap-4 max-w-lg" method="post" use:enhance={signInCallBack}>
 		<label class="label">
 			<span>Email:</span>
-			<input class="input" placeholder="Email" type="text" name="email"/>
+			<input class="input" placeholder="Email" type="text" name="email" />
 		</label>
 		<label class="label">
 			<span>Password:</span>
 			<input class="input" placeholder="Password" type="password" name="password" />
 		</label>
-		<p class="text-center my-4">Don't have an account yet? Click <a href="/sign-up">here</a> to sign up.</p>
+		<p class="text-center my-4">
+			Don't have an account yet? Click <a href="/sign-up">here</a> to sign up.
+		</p>
 		<button class="btn variant-filled-secondary mt-4">Sign In</button>
 	</form>
 </section>
