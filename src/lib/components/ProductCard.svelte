@@ -5,7 +5,9 @@
 
 <div class="card p-4 w-64">
 	<p>{product.name}</p>
-	<!-- TODO ADD IMAGES HERE -->
+
+	<img src={product.images[0]} alt="{product.name}">
+
 	<div class="flex justify-between">
 		<p class="chip variant-filled py-1">€{product.price}</p>
 		<button class="btn btn-sm variant-ghost-success" on:click={() => cartStore.add(product)}

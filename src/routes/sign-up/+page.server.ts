@@ -7,8 +7,8 @@ export const actions: Actions = {
 
 		const email = formData.get('email') as string;
 		const password = formData.get('password') as string;
-		const confirmPassword = formData.get('confirmPassowrd') as string;
-
+		const confirmPassword = formData.get('confirmPassword') as string;
+		
 		if (password !== confirmPassword) {
 			return fail(400, {
 				message: 'Password mismatch.'
@@ -36,6 +36,6 @@ export const actions: Actions = {
 				}
 			});
 		}
-		throw redirect(303, '/');
+		throw redirect(303, '/sign-in');
 	}
 };

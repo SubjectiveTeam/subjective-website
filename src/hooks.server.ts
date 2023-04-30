@@ -29,7 +29,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Auth guarding
 	const session = await event.locals.getSession();
 	const loggedIn: boolean = session !== null;
-	const isAdmin: boolean = session?.user.role === 'admin';
+	const isAdmin: boolean = session?.user.app_metadata.claims_admin;
 	const destination: string = event.route.id as string;
 	if (!loggedIn && authRoutes.includes(destination)) throw redirect(303, `/sign-in?redirectTo=${destination}`);
 	else if (loggedIn && !isAdmin && adminRoutes.includes(destination)) throw redirect(303, '/account');

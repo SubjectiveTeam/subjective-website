@@ -15,7 +15,7 @@ export interface Database {
           created_at: string | null
           description: string | null
           id: number
-          images: string[] | null
+          images: string[]
           name: string
           price: number
           sizes: string[]
@@ -27,7 +27,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
-          images?: string[] | null
+          images?: string[]
           name: string
           price: number
           sizes: string[]
@@ -39,7 +39,7 @@ export interface Database {
           created_at?: string | null
           description?: string | null
           id?: number
-          images?: string[] | null
+          images?: string[]
           name?: string
           price?: number
           sizes?: string[]
@@ -52,7 +52,48 @@ export interface Database {
       [_ in never]: never
     }
     Functions: {
-      [_ in never]: never
+      delete_claim: {
+        Args: {
+          uid: string
+          claim: string
+        }
+        Returns: string
+      }
+      get_claim: {
+        Args: {
+          uid: string
+          claim: string
+        }
+        Returns: Json
+      }
+      get_claims: {
+        Args: {
+          uid: string
+        }
+        Returns: Json
+      }
+      get_my_claim: {
+        Args: {
+          claim: string
+        }
+        Returns: Json
+      }
+      get_my_claims: {
+        Args: Record<PropertyKey, never>
+        Returns: Json
+      }
+      is_claims_admin: {
+        Args: Record<PropertyKey, never>
+        Returns: boolean
+      }
+      set_claim: {
+        Args: {
+          uid: string
+          claim: string
+          value: Json
+        }
+        Returns: string
+      }
     }
     Enums: {
       [_ in never]: never

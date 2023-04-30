@@ -7,7 +7,7 @@ export const actions: Actions = {
 
         const name: string = formData.get('name') as string;
         const description: string = formData.get('description') as string;
-        const active: boolean =  formData.get('active') === 'on' ? true : false;
+        const active: boolean = formData.get('active') === 'on' ? true : false;
         const price: number = parseFloat((Math.round(Number(formData.get('price')) * 100) / 100).toFixed(2));
         const sizes: string[] = formData.getAll('sizes') as string[];
         const tags: string[] = formData.getAll('tags') as string[];
@@ -26,35 +26,57 @@ export const actions: Actions = {
 
         const stripe_id = stripeProduct.default_price as string;
 
-        const { data, error } = await supabase
-        .from('products')
-        .insert({ 
-            stripe_id,
-            name,
-            description,
-            price,
-            active,
-            sizes,
-            tags
-        })
-        .select()
-        .limit(1)
-        .single();
+        const insertReponse = await supabase
+            .from('products')
+            .insert({
+                stripe_id,
+                name,
+                description,
+                price,
+                active,
+                sizes,
+                tags
+            })
+            .select()
+            .limit(1)
+            .single();
 
-        if (error) {
+        if (insertReponse.error) {
             return fail(500, {
-				message: 'Server error. Try again later.'
-			});
+                message: 'Server error. Try again later.'
+            });
         }
 
-        const supabaseProduct: Product = data as Product;
+        const supabaseProduct: Product = insertReponse.data as Product;
 
+        const imageURLs: string[] = [];
         for (let i = 0; i < images.length; i++) {
             const { data, error } = await supabase.storage
-            .from('product_images')
-            .upload(`${supabaseProduct.id}/${images[i].name}`, images[i]);
-            console.log(error);
+                .from('product_images')
+                .upload(`${supabaseProduct.id}/${images[i].name}`, images[i]);
+
+            if (error) return fail(500, { message: 'There was an error uploading one of the product images' });
+
+            const imageURL = supabase
+                .storage
+                .from('product_images')
+                .getPublicUrl(data.path)
+                .data
+                .publicUrl;
+
+            imageURLs.push(imageURL);
         }
+
+        const updateResponse = await supabase
+            .from('products')
+            .update({
+                images: imageURLs
+            })
+            .eq('id', supabaseProduct.id);
+
+        // TODO UPDATE STRIPE PRODUCT WITH IMAGE URL
+
+        if (updateResponse.error) return fail(500, { message: 'There was an error updating the product with your images' });
 
         return {
             success: true
