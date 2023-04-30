@@ -1,7 +1,5 @@
+import { stripe } from '$lib/components/stripe/stripe';
 import type { RequestHandler } from './$types';
-import Stripe from 'stripe';
-import { SECRET_STRIPE_KEY } from '$env/static/private';
-const stripe = new Stripe(SECRET_STRIPE_KEY, { apiVersion: '2022-11-15' });
 
 export const POST: RequestHandler = async ({ request }) => {
 	const data = await request.json();
@@ -16,7 +14,6 @@ export const POST: RequestHandler = async ({ request }) => {
 			quantity: item.quantity
 		});
 	}
-	console.log(stripeItems);
 
 	const session = await stripe.checkout.sessions.create({
 		line_items: stripeItems,

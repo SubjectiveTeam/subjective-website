@@ -60,7 +60,7 @@
 	</ul>
 	<hr />
 	<div class="mt-4 flex flex-col gap-2">
-		<p>Total: ${totalPrice}</p>
+		<p>Total: €{totalPrice}</p>
 		<div class="flex justify-between">
 			<button
 				disabled={$cartStore.size === 0 || checkingOut}
