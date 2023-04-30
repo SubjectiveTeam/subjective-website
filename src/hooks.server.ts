@@ -6,7 +6,6 @@ const adminRoutes: string[] = ['/dashboard'];
 const authRoutes: string[] = ['/account', '/dashboard'];
 const antiAuthRoutes: string[] = ['/sign-in', '/sign-up'];
 
-
 export const handle: Handle = async ({ event, resolve }) => {
 	event.locals.supabase = createSupabaseServerClient({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
@@ -31,8 +30,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const loggedIn: boolean = session !== null;
 	const isAdmin: boolean = session?.user.app_metadata.claims_admin;
 	const destination: string = event.route.id as string;
-	if (!loggedIn && authRoutes.includes(destination)) throw redirect(303, `/sign-in?redirectTo=${destination}`);
-	else if (loggedIn && !isAdmin && adminRoutes.includes(destination)) throw redirect(303, '/account');
+	if (!loggedIn && authRoutes.includes(destination))
+		throw redirect(303, `/sign-in?redirectTo=${destination}`);
+	else if (loggedIn && !isAdmin && adminRoutes.includes(destination))
+		throw redirect(303, '/account');
 	else if (loggedIn && antiAuthRoutes.includes(destination)) throw redirect(303, '/account');
 
 	return resolve(event, {
