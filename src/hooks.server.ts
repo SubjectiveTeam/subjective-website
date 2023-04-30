@@ -2,7 +2,7 @@ import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/publi
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 
-const authRoutes: string[] = ['/account'];
+const authRoutes: string[] = ['/account', '/dashboard'];
 const antiAuthRoutes: string[] = ['/sign-in', '/sign-up'];
 
 export const handle: Handle = async ({ event, resolve }) => {

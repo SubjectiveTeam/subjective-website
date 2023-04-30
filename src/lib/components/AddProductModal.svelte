@@ -1,11 +1,12 @@
-<script>
-	import { FileDropzone, InputChip, modalStore } from "@skeletonlabs/skeleton";
+<script lang="ts">
+	import { enhance } from "$app/forms";
+	import { FileDropzone, InputChip, SlideToggle, modalStore } from "@skeletonlabs/skeleton";
 </script>
 
 {#if $modalStore[0]}
     <div class="flex flex-col gap-10 bg-surface-800 p-16">
-        <h1 class="!leading-loose">Add Product</h1>
-        <form class="flex flex-col gap-4" method="post" action="?/addProduct">
+        <h1 class="!leading-loose">Add Product</h1> 
+        <form class="flex flex-col gap-4" method="post" action="?/addProduct" use:enhance>
             <label class="label">
                 <span>Name</span>
                 <input class="input" type="text" placeholder="Name" name="name" required />
@@ -21,6 +22,9 @@
                     <input type="number" placeholder="Price" name="price" required />
                 </div>
             </label>
+            <label for="active">Active</label>
+            <SlideToggle name="active" />
+            <label for="sizes">Sizes</label>
             <InputChip
                 name="sizes"
                 label="Sizes"
@@ -29,9 +33,15 @@
                 whitelist={['xl', 'l', 'm', 's']}
                 required
             />
+            <label for="tags">Tags</label>
             <InputChip name="tags" placeholder="Tags" allowDuplicates={false} />
+            <label for="images">Images</label>
             <FileDropzone name="images" required />
-            <button class="btn variant-filled-secondary">Add Product</button>
+            <div class="flex gap-4 justify-between">
+                <button class="btn variant-ringed-error" type="reset" on:click={() => modalStore.close()}>Cancel</button>
+                <button class="btn variant-filled-secondary">Add Product</button>
+            </div>
+
         </form>
     </div>
 {/if}
