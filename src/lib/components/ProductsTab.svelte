@@ -1,7 +1,14 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
+	import {
+		modalStore,
+		type ModalSettings,
+		type ModalComponent,
+		toastStore,
+		type ToastSettings
+	} from '@skeletonlabs/skeleton';
 	import AddProductModal from '$lib/components/AddProductModal.svelte';
+	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 
 	export let products: Product[];
 
@@ -16,7 +23,25 @@
 		modalStore.trigger(modal);
 	};
 
-	const triggerDeleteProductModal = () => {};
+	const deleteProductCallback: SubmitFunction = () => {
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success') {
+				await refreshProducts();
+				const toast: ToastSettings = {
+					message: 'Successfully deleted product.',
+					background: 'variant-filled-success'
+				};
+				toastStore.trigger(toast);
+			} else {
+				const toast: ToastSettings = {
+					message: 'Something went wrong. Try again later.',
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(toast);
+			}
+		};
+	};
 
 	let refreshingProducts: boolean = false;
 	const refreshProducts = async () => {
@@ -73,7 +98,11 @@
 							<td>{product.sizes}</td>
 							<td>{product.tags}</td>
 							<td>
-								<form action="?/deleteProduct&product={JSON.stringify(product)}" method="post">
+								<form
+									action="?/deleteProduct&product={JSON.stringify(product)}"
+									method="post"
+									use:enhance={deleteProductCallback}
+								>
 									<button class="btn btn-sm variant-filled-error">
 										<svg
 											class="h-4 aspect-square fill-token"

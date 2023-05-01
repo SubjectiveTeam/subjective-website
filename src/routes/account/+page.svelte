@@ -27,6 +27,7 @@
 	<h1 class="!leading-loose">Account</h1>
 	<TabGroup>
 		<Tab bind:group={tabSet} name="personal-info" value={0}>Personal Info</Tab>
+		<Tab bind:group={tabSet} name="my-orders" value={1}>My Orders</Tab>
 		<svelte:fragment slot="panel">
 			{#if tabSet === 0}
 				<form class="flex flex-col gap-4" method="post">
@@ -39,6 +40,8 @@
 					>
 					<button class="btn variant-filled-error w-fit" formaction="?/signOut">Sign Out</button>
 				</form>
+			{:else if tabSet === 1}
+				(orders)
 			{/if}
 		</svelte:fragment>
 	</TabGroup>
