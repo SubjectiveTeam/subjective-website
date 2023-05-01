@@ -8,7 +8,6 @@ const authRoutes: string[] = ['/account', '/dashboard'];
 const antiAuthRoutes: string[] = ['/sign-in', '/sign-up'];
 
 export const handle: Handle = async ({ event, resolve }) => {
-
 	// Setup supabase client (for user usage)
 	event.locals.supabase = createSupabaseServerClient({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
