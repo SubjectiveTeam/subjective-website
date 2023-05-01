@@ -11,7 +11,8 @@
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"test:unit": "vitest",
 		"lint": "prettier --plugin-search-dir . --check . && eslint .",
-		"format": "prettier --plugin-search-dir . --write ."
+		"format": "prettier --plugin-search-dir . --write .",
+		"generate-supabase-types": "npx supabase gen types typescript --project-id \"jkcymtlnxiygulxfzgbf\" --schema public > src/lib/supabase/database.types.ts"
 	},
 	"devDependencies": {
 		"@playwright/test": "^1.28.1",
@@ -42,6 +43,7 @@
 	"dependencies": {
 		"@floating-ui/dom": "^1.2.7",
 		"@supabase/auth-helpers-sveltekit": "^0.9.4",
-		"@supabase/supabase-js": "^2.21.0"
+		"@supabase/supabase-js": "^2.21.0",
+		"stripe": "^12.3.0"
 	}
 }

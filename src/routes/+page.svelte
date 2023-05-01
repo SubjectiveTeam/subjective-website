@@ -1,9 +1,11 @@
-
 <section class="mx-auto flex flex-col items-center gap-8 mt-[12.5vh]">
-    <h1 class="font-bold">Welcome to Subjective</h1>
-    <blockquote>At Subjective, we believe that fashion should be personal. Shop with us and discover your unique style.</blockquote>
-    <div class="flex gap-12 mt-8">
-        <a class="unstyled btn variant-filled-primary" href="/clothing">Start Shopping</a>
-        <a class="unstyled btn variant-ghost-primary" href="/about">Learn more</a>
-    </div>
+	<h1 class="font-bold">Welcome to Subjective</h1>
+	<blockquote>
+		At Subjective, we believe that fashion should be personal. Shop with us and discover your unique
+		style.
+	</blockquote>
+	<div class="flex gap-12 mt-8">
+		<a class="unstyled btn variant-filled-primary" href="/clothing">Start Shopping</a>
+		<a class="unstyled btn variant-ghost-primary" href="/about">Learn more</a>
+	</div>
 </section>

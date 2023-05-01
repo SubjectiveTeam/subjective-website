@@ -6,9 +6,9 @@
 	import { Toast, Modal, Drawer, AppShell } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import Header from './Header.svelte';
-	import Footer from './Footer.svelte';
-	import CookieConsentBanner from './CookieConsentBanner.svelte';
+	import Header from '$lib/components/Header.svelte';
+	import Footer from '$lib/components/Footer.svelte';
+	import CookieConsentBanner from '$lib/components/CookieConsentBanner.svelte';
 	import DrawerContentManager from '$lib/components/DrawerContentManager.svelte';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
@@ -21,10 +21,7 @@
 
 	onMount(() => {
 		cartStore.init();
-		cartStore.add({id: 2, name: 'Tesla', price: 5000, tags: []});
-		cartStore.add({id: 3, name: 'Mustang', price: 5000, tags: []});
-		cartStore.add({id: 4, name: 'Volvo', price: 5000, tags: []});
-		cartStore.add({id: 5, name: 'Toyota', price: 5000, tags: []});
+
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {
@@ -43,7 +40,7 @@
 <Toast />
 <Modal />
 <Drawer>
-	<DrawerContentManager/>
+	<DrawerContentManager />
 </Drawer>
 {#if !consentCookiePresent}
 	<CookieConsentBanner />
@@ -52,7 +49,7 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<div class="p-4">
+	<div class="py-4 px-[5vw] md:px-[15vw]">
 		<slot />
 	</div>
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
