@@ -9,7 +9,7 @@
 			if (result.type === 'redirect') {
 				const toast: ToastSettings = {
 					message: 'Successfully signed in.',
-					background: 'variant-filled-sucesss'
+					background: 'variant-filled-sucess'
 				};
 				toastStore.trigger(toast);
 			} else if (result.type === 'failure') {

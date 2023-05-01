@@ -19,13 +19,13 @@
 				modalStore.close();
 				const toast: ToastSettings = {
 					message: 'Successfully added product',
-					background: 'bg-filled-success'
+					background: 'variant-filled-success'
 				};
 				toastStore.trigger(toast);
 			} else {
 				const toast: ToastSettings = {
 					message: 'Something went wrong. Try again later',
-					background: 'bg-filled-error'
+					background: 'variant-filled-error'
 				};
 				toastStore.trigger(toast);
 			}
