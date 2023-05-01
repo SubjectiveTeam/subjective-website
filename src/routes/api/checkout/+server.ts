@@ -10,7 +10,7 @@ export const POST: RequestHandler = async ({ request }) => {
 
 	for (const item of items) {
 		stripeItems.push({
-			price: item.product.stripe_id,
+			price: item.product.stripe_price,
 			quantity: item.quantity
 		});
 	}

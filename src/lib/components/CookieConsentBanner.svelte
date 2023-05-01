@@ -2,6 +2,7 @@
 	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { fly } from 'svelte/transition';
+	import { elasticIn } from 'svelte/easing';
 
 	const acceptConsentCookie = {
 		essential: true,
@@ -28,7 +29,7 @@
 
 <div
 	class="card p-4 fixed bottom-12 left-16 flex flex-col w-96 gap-12"
-	transition:fly={{ x: -500 }}
+	transition:fly={{ x: -500, easing: elasticIn }}
 >
 	<p>
 		We care about your data, and we'd love to use cookies in accordance with our <a

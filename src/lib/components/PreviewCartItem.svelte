@@ -8,7 +8,7 @@
 		<p class="overflow-ellipsis">{cartItem.product.name}</p>
 		<div class="flex justify-between">
 			<p class="!text-[0.75rem] leading-0 opacity-75">Qt: {cartItem.quantity}</p>
-			<p class="!text-[0.75rem] leading-0 opacity-75">€{cartItem.product.price}</p>
+			<p class="!text-[0.75rem] leading-0 opacity-75">€{cartItem.product.price * cartItem.quantity}</p>
 		</div>
 	</div>
 	<div>
