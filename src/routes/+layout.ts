@@ -18,6 +18,6 @@ export const load: LayoutLoad = async ({ fetch, data, depends }) => {
 	const {
 		data: { session }
 	} = await supabase.auth.getSession();
-
+	
 	return { consentCookiePresent, supabase, session };
 };

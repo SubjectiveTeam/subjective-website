@@ -23,13 +23,13 @@
 		modalStore.trigger(modal);
 	};
 
-	const deleteProductCallback: SubmitFunction = () => {
+	const updateProductCallback: SubmitFunction = () => {
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success') {
 				await refreshProducts();
 				const toast: ToastSettings = {
-					message: 'Successfully deleted product.',
+					message: 'Successfully updated product.',
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(toast);
@@ -74,7 +74,6 @@
 				<thead>
 					<tr>
 						<th>ID</th>
-						<th>Stripe_ID</th>
 						<th>Stripe_Price</th>
 						<th>Name</th>
 						<th>Description</th>
@@ -89,7 +88,6 @@
 					{#each products as product, i}
 						<tr>
 							<td>{product.id}</td>
-							<td>{product.stripe_id}</td>
 							<td>{product.stripe_price}</td>
 							<td>{product.name}</td>
 							<td>{product.description}</td>
@@ -98,23 +96,13 @@
 							<td>{product.sizes}</td>
 							<td>{product.tags}</td>
 							<td>
+								<!-- TODO Create modal just like add product modal for editing existing product  -->
 								<form
-									action="?/deleteProduct&product={JSON.stringify(product)}"
+									action="?/updateProduct&product={JSON.stringify(product)}"
 									method="post"
-									use:enhance={deleteProductCallback}
+									use:enhance={updateProductCallback}
 								>
-									<button class="btn btn-sm variant-filled-error">
-										<svg
-											class="h-4 aspect-square fill-token"
-											viewBox="0 0 32 32"
-											version="1.1"
-											xmlns="http://www.w3.org/2000/svg"
-										>
-											<path
-												d="M8 26c0 1.656 1.343 3 3 3h10c1.656 0 3-1.344 3-3l2-16h-20l2 16zM19 13h2v13h-2v-13zM15 13h2v13h-2v-13zM11 13h2v13h-2v-13zM25.5 6h-6.5c0 0-0.448-2-1-2h-4c-0.553 0-1 2-1 2h-6.5c-0.829 0-1.5 0.671-1.5 1.5s0 1.5 0 1.5h22c0 0 0-0.671 0-1.5s-0.672-1.5-1.5-1.5z"
-											/>
-										</svg>
-									</button>
+									<button class="btn btn-sm variant-filled-error">Edit</button>
 								</form>
 							</td>
 						</tr>

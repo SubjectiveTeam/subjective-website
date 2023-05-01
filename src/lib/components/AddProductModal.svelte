@@ -94,7 +94,7 @@
 					</span>
 					<span>
 						<label for="images">Images</label>
-						<FileDropzone class="mt-1" name="images" required />
+						<FileDropzone class="mt-1" name="images" multiple required />
 					</span>
 				</div>
 			</div>
