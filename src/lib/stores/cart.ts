@@ -1,27 +1,27 @@
 import { writable } from 'svelte/store';
 
 const createCartStore = () => {
-	const cartMap = new Map<number, CartItem>();
-	const { subscribe, set } = writable<Map<number, CartItem>>(cartMap);
+	const cartMap = new Map<string, CartItem>();
+	const { subscribe, set } = writable<Map<string, CartItem>>(cartMap);
 
-	function stringifyMap(map: Map<number, CartItem>): string {
-		const obj: { [key: number]: CartItem } = {};
+	function stringifyMap(map: Map<string, CartItem>): string {
+		const obj: { [key: string]: CartItem } = {};
 		map.forEach((value, key) => {
 			obj[key] = value;
 		});
 		return JSON.stringify(obj);
 	}
 
-	function parseMap(str: string): Map<number, CartItem> {
-		const obj: { [key: number]: CartItem } = JSON.parse(str);
-		const map = new Map<number, CartItem>();
+	function parseMap(str: string): Map<string, CartItem> {
+		const obj: { [key: string]: CartItem } = JSON.parse(str);
+		const map = new Map<string, CartItem>();
 		Object.keys(obj).forEach((key) => {
-			map.set(Number(key), obj[Number(key)]);
+			map.set(key, obj[key]);
 		});
 		return map;
 	}
 
-	const customSet = (cart: Map<number, CartItem>) => {
+	const customSet = (cart: Map<string, CartItem>) => {
 		window.localStorage.setItem('cart', stringifyMap(cart));
 		set(cart);
 	};
@@ -36,7 +36,7 @@ const createCartStore = () => {
 			// Init will either grab the cart from localstorage if it exists or create a new one
 			const stringifiedCart = window.localStorage.getItem('cart');
 			if (stringifiedCart) customSet(parseMap(stringifiedCart));
-			else customSet(new Map<number, CartItem>());
+			else customSet(new Map<string, CartItem>());
 		},
 		add: (product: Product) => {
 			const cart = customGet();
@@ -64,7 +64,7 @@ const createCartStore = () => {
 			customSet(cart);
 		},
 		clear: () => {
-			const cart = new Map<number, CartItem>();
+			const cart = new Map<string, CartItem>();
 			customSet(cart);
 		},
 		checkout: async () => {

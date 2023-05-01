@@ -30,6 +30,10 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 		}
 		case 'checkout.session.completed': {
 			const checkoutSessionCompleted = event.data.object;
+			console.log('payment complete');
+			console.log(checkoutSessionCompleted);
+			
+			
 			// Then define and call a function to handle the event checkout.session.completed
 			break;
 		}
@@ -95,7 +99,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 		}
 	}
 
-	return new Response(null, {
+	return new Response(`Successfully received event: ${event.type}`, {
 		status: 200
 	});
 };
