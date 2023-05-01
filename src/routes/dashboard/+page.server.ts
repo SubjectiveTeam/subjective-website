@@ -7,7 +7,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin) {
-			return fail(401, { message: 'Unauthorized '});
+			return fail(401, { message: 'Unauthorized ' });
 		}
 
 		const formData = (await request.formData()) as FormData;
@@ -27,11 +27,9 @@ export const actions: Actions = {
 			const { data, error } = await supabase.storage
 				.from('product_images')
 				.upload(`${id}/${files[i].name}`, files[i]);
-			if (error) return fail(500, { message: `Something went wrong uploading file: ${files[i].name}` });
-			images.push(
-				supabase.storage.from('product_images').getPublicUrl(data.path)
-					.data.publicUrl
-			);
+			if (error)
+				return fail(500, { message: `Something went wrong uploading file: ${files[i].name}` });
+			images.push(supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl);
 		}
 
 		// TODO Add url to product in production
@@ -61,7 +59,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin) {
-			return fail(401, { message: 'Unauthorized '});
+			return fail(401, { message: 'Unauthorized ' });
 		}
 
 		const stringifiedProduct: string | null = url.searchParams.get('product');

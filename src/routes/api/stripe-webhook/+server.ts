@@ -40,10 +40,8 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 		}
 		case 'product.created': {
 			const productCreated: StripeProduct = event.data.object as StripeProduct;
-			
-			const { error } = await supabase_service_role
-			.from('products')
-			.insert({
+
+			const { error } = await supabase_service_role.from('products').insert({
 				id: productCreated.id,
 				stripe_price: productCreated.default_price,
 				tags: JSON.parse(productCreated.metadata.tags),
@@ -55,34 +53,40 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 				images: productCreated.images
 			});
 			if (error) {
-				return new Response('Something went wrong during creating supabase product. Try again later.', {
-					status: 400
-				});
+				return new Response(
+					'Something went wrong during creating supabase product. Try again later.',
+					{
+						status: 400
+					}
+				);
 			}
 			break;
 		}
 		case 'product.updated': {
 			const productUpdated: StripeProduct = event.data.object as StripeProduct;
-			
+
 			const { error } = await supabase_service_role
-			.from('products')
-			.update({
-				id: productUpdated.id,
-				stripe_price: productUpdated.default_price,
-				tags: JSON.parse(productUpdated.metadata.tags),
-				sizes: JSON.parse(productUpdated.metadata.sizes),
-				price: productUpdated.metadata.price,
-				active: productUpdated.active,
-				name: productUpdated.name,
-				description: productUpdated.description,
-				images: productUpdated.images
-			})
-			.eq('id', productUpdated.id);
+				.from('products')
+				.update({
+					id: productUpdated.id,
+					stripe_price: productUpdated.default_price,
+					tags: JSON.parse(productUpdated.metadata.tags),
+					sizes: JSON.parse(productUpdated.metadata.sizes),
+					price: productUpdated.metadata.price,
+					active: productUpdated.active,
+					name: productUpdated.name,
+					description: productUpdated.description,
+					images: productUpdated.images
+				})
+				.eq('id', productUpdated.id);
 			if (error) {
 				console.log(error);
-				return new Response('Something went wrong during updating supabase product. Try again later.', {
-					status: 400
-				});
+				return new Response(
+					'Something went wrong during updating supabase product. Try again later.',
+					{
+						status: 400
+					}
+				);
 			}
 			break;
 		}

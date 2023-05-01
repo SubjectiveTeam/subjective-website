@@ -60,7 +60,7 @@ declare global {
 		unit_label: string;
 		updated: number;
 		url: string;
-	}
+	};
 
 	// {
 	// 	id: 'e291fe2f-a9d2-4682-b1ac-3b0e7f2e1f45',
