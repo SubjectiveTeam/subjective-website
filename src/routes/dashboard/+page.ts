@@ -13,6 +13,6 @@ export const load: PageLoad = async ({ parent }) => {
 
 	return {
 		products: productRequest.data as Product[],
-		orders: orderRequest.data as Order[]
+		orders: orderRequest.data as Order[],
 	};
 };

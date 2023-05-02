@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { page } from '$app/stores';
-	import NewPasswordModal from '$lib/components/NewPasswordModal.svelte';
+	import NewPasswordModal from '$lib/components/modal/NewPasswordModal.svelte';
 	import {
 		TabGroup,
 		Tab,

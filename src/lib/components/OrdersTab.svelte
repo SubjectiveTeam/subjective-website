@@ -1,10 +1,20 @@
 <script lang="ts">
 	import { invalidateAll } from "$app/navigation";
+	import { modalStore, type ModalSettings, type ModalComponent } from "@skeletonlabs/skeleton";
+	import ViewProductsModal from "$lib/components/modal/ViewProductsModal.svelte";
 
     export let orders: Order[];
 
-    const triggerViewContentModal = (order: Order) => {
-
+    const triggerViewProductsModal = (order: Order) => {
+        const modalComponent: ModalComponent = {
+            ref: ViewProductsModal,
+            props: { order }
+        }
+        const modal: ModalSettings = {
+            type: 'component',
+            component: modalComponent
+        }
+        modalStore.trigger(modal);
     }
 
     const triggerEditOrderModal = (order: Order) => {
@@ -60,7 +70,7 @@
 							<td class="flex gap-4">
                                 <button
                                 class="btn btn-sm variant-filled-primary"
-                                on:click={() => triggerViewContentModal(order)}>View Products</button
+                                on:click={() => triggerViewProductsModal(order)}>View Products</button
                                 >   
 								<button
 									class="btn btn-sm variant-filled-primary"
