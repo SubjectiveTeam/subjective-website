@@ -9,6 +9,7 @@
 	export let data: PageData;
 
 	$: ({ products } = data);
+	$: ({ orders } = data);
 
 	let tabSet: number = 0;
 </script>
@@ -25,7 +26,7 @@
 			{#if tabSet === 0}
 				<ProductsTab {products} />
 			{:else if tabSet === 1}
-				<OrdersTab />
+				<OrdersTab {orders} />
 			{:else if tabSet === 2}
 				<AnalyticsTab />
 			{:else if tabSet === 3}

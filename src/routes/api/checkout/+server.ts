@@ -1,17 +1,33 @@
 import { stripe } from '$lib/stripe/stripe';
 import type { RequestHandler } from './$types';
 
-export const POST: RequestHandler = async ({ request, locals: { getSession } }) => {
+export const POST: RequestHandler = async ({ request, locals: { supabase_service_role, getSession } }) => {
 	const data = await request.json();
-	const items: CartItem[] = data.items;
+	const cartItems: CartItem[] = data.items;
+
+	cartItems.forEach(async (cartItem: CartItem) => {
+		const { data } = await supabase_service_role
+		.from('products')
+		.select('*')
+		.eq('id', cartItem.product.id)
+		.eq('active', true)
+		.limit(1)
+		.single();
+
+		if (!data) {
+			return new Response('One of the products is unavailable', {
+				status: 400
+			});
+		}
+	});
 
 	// Convert products to stripe acceptable objects
 	const line_items: StripeItem[] = [];
 
-	for (const item of items) {
+	for (const cartItem of cartItems) {
 		line_items.push({
-			price: item.product.stripe_price,
-			quantity: item.quantity
+			price: cartItem.product.stripe_price,
+			quantity: cartItem.quantity
 		});
 	}
 
@@ -25,7 +41,7 @@ export const POST: RequestHandler = async ({ request, locals: { getSession } }) 
 			allowed_countries: ['NL']
 		},
 		metadata: {
-			items: JSON.stringify(items)
+			cartItems: JSON.stringify(cartItems)
 		}
 	});
 
