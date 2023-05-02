@@ -27,11 +27,18 @@ export const POST: RequestHandler = async ({
 	// Convert products to stripe acceptable objects
 	const line_items: StripeItem[] = [];
 
+	const line_items_with_sizes: CartItemSimplified[] = [];
+
 	for (const cartItem of cartItems) {
 		line_items.push({
 			price: cartItem.product.stripe_price,
-			quantity: cartItem.quantity
+			quantity: cartItem.quantity,
 		});
+		line_items_with_sizes.push({
+			id: cartItem.product.id,
+			quantity: cartItem.quantity,
+			size: cartItem.size
+		})
 	}
 
 	const session = await stripe.checkout.sessions.create({
@@ -44,7 +51,7 @@ export const POST: RequestHandler = async ({
 			allowed_countries: ['NL']
 		},
 		metadata: {
-			cartItems: JSON.stringify(cartItems)
+			stripeItemsWithSizes: JSON.stringify(line_items_with_sizes)
 		}
 	});
 

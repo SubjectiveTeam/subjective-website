@@ -35,6 +35,7 @@
 							<th>Order ID</th>
 							<th>Product ID</th>
 							<th>Quantity</th>
+							<th>Size</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,6 +44,7 @@
 								<td>{orderProducts.order_id}</td>
 								<td>{orderProducts.product_id}</td>
 								<td>{orderProducts.quantity}</td>
+								<td>{orderProducts.size}</td>
 							</tr>
 						{/each}
 					</tbody>

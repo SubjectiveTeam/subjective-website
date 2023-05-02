@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 	switch (event.type) {
 		case 'checkout.session.completed': {
 			const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
-
+			
 			if (!checkoutSessionCompleted.metadata) {
 				return new Response('Missing vital parameters: "metadata" to create an order', {
 					status: 400
@@ -46,12 +46,15 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 				);
 			}
 
-			const cartItems = JSON.parse(checkoutSessionCompleted.metadata.cartItems) as CartItem[];
-			cartItems.forEach(async (cartItem: CartItem) => {
+			const cartItems = JSON.parse(checkoutSessionCompleted.metadata.stripeItemsWithSizes) as CartItemSimplified[];
+			cartItems.forEach(async (cartItemSimplified: CartItemSimplified) => {
+				console.log(cartItemSimplified);
+	
 				const { error } = await supabase_service_role.from('order_products').insert({
 					order_id: order_id,
-					product_id: cartItem.product.id,
-					quantity: cartItem.quantity
+					product_id: cartItemSimplified.id,
+					quantity: cartItemSimplified.quantity,
+					size: cartItemSimplified.size,
 				});
 				if (error) {
 					return new Response(

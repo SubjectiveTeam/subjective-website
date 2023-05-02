@@ -19,9 +19,9 @@
 	let totalPrice = 0;
 	$: {
 		let result = 0;
-		[...$cartStore.values()].forEach((cartItem) => {
+		for (const cartItem of $cartStore) {
 			result += cartItem.product.price * cartItem.quantity;
-		});
+		}
 		totalPrice = result;
 	}
 
@@ -63,7 +63,7 @@
 		<p>Total: €{totalPrice}</p>
 		<div class="flex justify-between">
 			<button
-				disabled={$cartStore.size === 0 || checkingOut}
+				disabled={$cartStore.length === 0 || checkingOut}
 				class="btn variant-ringed-primary"
 				on:click={checkout}
 			>
@@ -74,7 +74,7 @@
 				{/if}
 			</button>
 			<button
-				disabled={$cartStore.size === 0}
+				disabled={$cartStore.length  === 0}
 				class="btn p-2 variant-filled-error"
 				on:click={() => cartStore.clear()}
 			>

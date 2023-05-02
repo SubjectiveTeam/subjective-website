@@ -24,12 +24,19 @@ declare global {
 	type CartItem = {
 		product: Product;
 		quantity: number;
+		size: string;
 	};
 
 	type StripeItem = {
 		price: string;
 		quantity: number;
 	};
+
+	type CartItemSimplified = {
+		id: string;
+		quantity: number;
+		size: string;
+	}
 
 	type CheckoutResponse = {
 		type: 'success' | 'failure';
