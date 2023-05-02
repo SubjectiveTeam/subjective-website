@@ -21,9 +21,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 		case 'checkout.session.completed': {
 			const checkoutSessionCompleted = event.data.object;
 
-			const { error } = await supabase_service_role
-			.from('orders')
-			.insert({
+			const { error } = await supabase_service_role.from('orders').insert({
 				id: v4(),
 				products: JSON.parse(checkoutSessionCompleted.metadata.items),
 				postal_code: checkoutSessionCompleted.shipping_details.address.postal_code,

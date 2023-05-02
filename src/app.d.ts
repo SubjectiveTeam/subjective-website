@@ -19,6 +19,8 @@ declare global {
 
 	type Product = Database['public']['Tables']['products']['Row'];
 
+	type Order = Database['public']['Tables']['orders']['Row'];
+
 	type CartItem = {
 		product: Product;
 		quantity: number;

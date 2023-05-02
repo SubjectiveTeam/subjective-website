@@ -8,8 +8,11 @@
 		type ModalSettings,
 		type ModalComponent
 	} from '@skeletonlabs/skeleton';
+	import type { PageData } from './$types';
 
-	let tabSet: number = 0;
+	export let data: PageData;
+
+	$: ({ orders } = data);
 
 	const triggerNewPasswordModal = () => {
 		const ModalComponent: ModalComponent = {
@@ -21,6 +24,8 @@
 		};
 		modalStore.trigger(modal);
 	};
+
+	let tabSet: number = 0;
 </script>
 
 <section>
@@ -41,7 +46,9 @@
 					<button class="btn variant-filled-error w-fit" formaction="?/signOut">Sign Out</button>
 				</form>
 			{:else if tabSet === 1}
-				(orders)
+				{#each orders as order}
+					<p>{order.id}</p>
+				{/each}
 			{/if}
 		</svelte:fragment>
 	</TabGroup>

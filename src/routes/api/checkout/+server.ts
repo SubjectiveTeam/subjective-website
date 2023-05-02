@@ -22,7 +22,7 @@ export const POST: RequestHandler = async ({ request, locals: { getSession } }) 
 		success_url: 'http://localhost:5173/success',
 		cancel_url: 'http://localhost:5173/cancel',
 		shipping_address_collection: {
-			allowed_countries: ['NL'],
+			allowed_countries: ['NL']
 		},
 		metadata: {
 			items: JSON.stringify(items)
