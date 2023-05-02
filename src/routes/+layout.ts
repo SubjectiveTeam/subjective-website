@@ -19,4 +19,4 @@ export async function load({ fetch, data, depends }) {
 	} = await supabase.auth.getSession();
 
 	return { consentCookiePresent, supabase, session };
-};
+}

@@ -14,4 +14,4 @@ export async function load({ parent }) {
 		products: productRequest.data as Product[],
 		orders: orderRequest.data as Order[]
 	};
-};
+}

@@ -10,4 +10,4 @@ export async function load({ parent }) {
 	return {
 		orders: data as Order[]
 	};
-};
+}

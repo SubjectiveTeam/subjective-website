@@ -16,4 +16,4 @@ export async function load({ parent, params }) {
 	return {
 		product: data as Product
 	};
-};
+}
