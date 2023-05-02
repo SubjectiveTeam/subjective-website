@@ -65,7 +65,7 @@
 						<th>Description</th>
 						<th>Price</th>
 						<th>Active</th>
-						<th>Sizes</th>
+						<th>Size</th>
 						<th>Tags</th>
 						<th />
 					</tr>
@@ -79,7 +79,7 @@
 							<td>{product.description}</td>
 							<td>€{product.price}</td>
 							<td>{product.active}</td>
-							<td>{product.sizes}</td>
+							<td>{product.size}</td>
 							<td>{product.tags}</td>
 							<td>
 								<button

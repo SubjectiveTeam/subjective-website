@@ -24,7 +24,6 @@ declare global {
 	type CartItem = {
 		product: Product;
 		quantity: number;
-		size: string;
 	};
 
 	type StripeItem = {
@@ -33,10 +32,9 @@ declare global {
 	};
 
 	type CartItemSimplified = {
-		id: string;
+		product_id: string;
 		quantity: number;
-		size: string;
-	}
+	};
 
 	type CheckoutResponse = {
 		type: 'success' | 'failure';
@@ -55,7 +53,7 @@ declare global {
 		livemode: boolean;
 		metadata: {
 			tags: string;
-			sizes: string;
+			size: string;
 			price: number;
 		};
 		name: string;

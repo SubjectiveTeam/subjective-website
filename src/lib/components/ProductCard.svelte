@@ -25,23 +25,16 @@
 		</button>
 		<div class="card w-48 shadow-xl py-2" data-popup="combobox">
 			<ListBox rounded="rounded-none">
-				<ListBoxItem bind:group={size} name="size" value="XL">
-					XL
-				</ListBoxItem>
-				<ListBoxItem bind:group={size} name="size" value="L">
-					L
-				</ListBoxItem>
-				<ListBoxItem bind:group={size} name="size" value="M">
-					M
-				</ListBoxItem>
-				<ListBoxItem bind:group={size} name="size" value="S">
-					S
-				</ListBoxItem>
+				<ListBoxItem bind:group={size} name="size" value="XL">XL</ListBoxItem>
+				<ListBoxItem bind:group={size} name="size" value="L">L</ListBoxItem>
+				<ListBoxItem bind:group={size} name="size" value="M">M</ListBoxItem>
+				<ListBoxItem bind:group={size} name="size" value="S">S</ListBoxItem>
 			</ListBox>
 			<div class="arrow bg-surface-100-800-token" />
 		</div>
-		<button class="btn btn-sm variant-ghost-success" on:click={() => cartStore.add({ product, quantity: 1, size })}
-			>Add To Cart</button
+		<button
+			class="btn btn-sm variant-ghost-success"
+			on:click={() => cartStore.add({ product, quantity: 1 })}>Add To Cart</button
 		>
 	</div>
 </div>

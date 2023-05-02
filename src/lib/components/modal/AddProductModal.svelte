@@ -7,7 +7,11 @@
 		SlideToggle,
 		modalStore,
 		type ToastSettings,
-		toastStore
+		toastStore,
+		type PopupSettings,
+		ListBox,
+		ListBoxItem,
+		popup
 	} from '@skeletonlabs/skeleton';
 
 	const addProductCallback: SubmitFunction = () => {
@@ -31,6 +35,16 @@
 			}
 			adding = false;
 		};
+	};
+
+	export let size: string = 'M';
+
+	const popupCombobox: PopupSettings = {
+		event: 'click',
+		target: 'combobox',
+		placement: 'bottom',
+		// Close the popup when the item is clicked
+		closeQuery: '.listbox-item'
 	};
 
 	let adding: boolean = false;
@@ -75,19 +89,18 @@
 				</div>
 
 				<div class="flex flex-col gap-4 justify-between">
-					<span>
-						<label for="sizes">Sizes {'(XL, L, M, S)'}</label>
-						<InputChip
-							class="mt-1"
-							name="sizes"
-							label="Sizes"
-							placeholder="Sizes"
-							allowDuplicates={false}
-							whitelist={['XL', 'L', 'M', 'S']}
-							allowUpperCase
-							required
-						/>
-					</span>
+					<button class="btn variant-filled w-8" use:popup={popupCombobox}>
+						{size}
+					</button>
+					<div class="card w-48 shadow-xl py-2" data-popup="combobox">
+						<ListBox rounded="rounded-none">
+							<ListBoxItem bind:group={size} name="size" value="XL">XL</ListBoxItem>
+							<ListBoxItem bind:group={size} name="size" value="L">L</ListBoxItem>
+							<ListBoxItem bind:group={size} name="size" value="M">M</ListBoxItem>
+							<ListBoxItem bind:group={size} name="size" value="S">S</ListBoxItem>
+						</ListBox>
+						<div class="arrow bg-surface-100-800-token" />
+					</div>
 					<span>
 						<label for="tags">Tags</label>
 						<InputChip class="mt-1" name="tags" placeholder="Tags" allowDuplicates={false} />

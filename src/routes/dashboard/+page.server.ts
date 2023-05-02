@@ -18,7 +18,7 @@ export const actions: Actions = {
 		const price: number = parseFloat(
 			(Math.round(Number(formData.get('price')) * 100) / 100).toFixed(2)
 		);
-		const sizes: string[] = formData.getAll('sizes') as string[];
+		const size: string = formData.get('size') as string;
 		const tags: string[] = formData.getAll('tags') as string[];
 		const files: File[] = formData.getAll('images') as File[];
 
@@ -45,9 +45,9 @@ export const actions: Actions = {
 				unit_amount: price * 100
 			},
 			metadata: {
-				sizes: JSON.stringify(sizes),
-				tags: JSON.stringify(tags),
-				price
+				size,
+				price,
+				tags: JSON.stringify(tags)
 			}
 		});
 

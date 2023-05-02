@@ -74,7 +74,7 @@
 				{/if}
 			</button>
 			<button
-				disabled={$cartStore.length  === 0}
+				disabled={$cartStore.length === 0}
 				class="btn p-2 variant-filled-error"
 				on:click={() => cartStore.clear()}
 			>

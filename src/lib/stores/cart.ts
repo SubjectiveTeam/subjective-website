@@ -25,7 +25,7 @@ const createCartStore = () => {
 		add: (cartItem: CartItem) => {
 			const cart = customGet();
 			for (const item of cart) {
-				if (cartItem.product.id === item.product.id && cartItem.size == item.size) {
+				if (cartItem.product.id === item.product.id) {
 					item.quantity++;
 					customSet(cart);
 					return;
@@ -38,7 +38,7 @@ const createCartStore = () => {
 		remove: (cartItem: CartItem) => {
 			const cart = customGet();
 			for (const item of cart) {
-				if (cartItem.product.id === item.product.id && cartItem.size == item.size) {
+				if (cartItem.product.id === item.product.id) {
 					item.quantity--;
 					if (item.quantity <= 0) cart.splice(cart.indexOf(item), 1);
 					customSet(cart);

@@ -5,19 +5,25 @@ export interface Database {
 		Tables: {
 			order_products: {
 				Row: {
+					id: string;
 					order_id: string;
 					product_id: string | null;
 					quantity: number;
+					size: string | null;
 				};
 				Insert: {
+					id?: string;
 					order_id: string;
 					product_id?: string | null;
 					quantity: number;
+					size?: string | null;
 				};
 				Update: {
+					id?: string;
 					order_id?: string;
 					product_id?: string | null;
 					quantity?: number;
+					size?: string | null;
 				};
 			};
 			orders: {
@@ -58,7 +64,7 @@ export interface Database {
 					images: string[];
 					name: string;
 					price: number;
-					sizes: string[];
+					size: string;
 					stripe_price: string;
 					tags: string[];
 				};
@@ -70,7 +76,7 @@ export interface Database {
 					images: string[];
 					name: string;
 					price: number;
-					sizes: string[];
+					size: string;
 					stripe_price: string;
 					tags: string[];
 				};
@@ -82,7 +88,7 @@ export interface Database {
 					images?: string[];
 					name?: string;
 					price?: number;
-					sizes?: string[];
+					size?: string;
 					stripe_price?: string;
 					tags?: string[];
 				};

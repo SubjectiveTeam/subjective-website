@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 	switch (event.type) {
 		case 'checkout.session.completed': {
 			const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
-			
+
 			if (!checkoutSessionCompleted.metadata) {
 				return new Response('Missing vital parameters: "metadata" to create an order', {
 					status: 400
@@ -46,15 +46,14 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 				);
 			}
 
-			const cartItems = JSON.parse(checkoutSessionCompleted.metadata.stripeItemsWithSizes) as CartItemSimplified[];
+			const cartItems = JSON.parse(
+				checkoutSessionCompleted.metadata.stripeItemsWithSizes
+			) as CartItemSimplified[];
 			cartItems.forEach(async (cartItemSimplified: CartItemSimplified) => {
-				console.log(cartItemSimplified);
-	
 				const { error } = await supabase_service_role.from('order_products').insert({
 					order_id: order_id,
-					product_id: cartItemSimplified.id,
-					quantity: cartItemSimplified.quantity,
-					size: cartItemSimplified.size,
+					product_id: cartItemSimplified.product_id,
+					quantity: cartItemSimplified.quantity
 				});
 				if (error) {
 					return new Response(
@@ -77,7 +76,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 				id: productCreated.id,
 				stripe_price: productCreated.default_price,
 				tags: JSON.parse(productCreated.metadata.tags),
-				sizes: JSON.parse(productCreated.metadata.sizes),
+				size: productCreated.metadata.size,
 				price: productCreated.metadata.price,
 				active: productCreated.active,
 				name: productCreated.name,
@@ -103,7 +102,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 					id: productUpdated.id,
 					stripe_price: productUpdated.default_price,
 					tags: JSON.parse(productUpdated.metadata.tags),
-					sizes: JSON.parse(productUpdated.metadata.sizes),
+					size: productUpdated.metadata.size,
 					price: productUpdated.metadata.price,
 					active: productUpdated.active,
 					name: productUpdated.name,
