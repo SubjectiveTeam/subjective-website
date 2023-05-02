@@ -1,12 +1,11 @@
 <script lang="ts">
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
-	import type { PageData } from './$types';
 	import ProductsTab from '$lib/components/ProductsTab.svelte';
 	import OrdersTab from '$lib/components/OrdersTab.svelte';
 	import AnalyticsTab from '$lib/components/AnalyticsTab.svelte';
 	import PromotionCodesTab from '$lib/components/PromotionCodesTab.svelte';
 
-	export let data: PageData;
+	export let data;
 
 	$: ({ products } = data);
 	$: ({ orders } = data);
