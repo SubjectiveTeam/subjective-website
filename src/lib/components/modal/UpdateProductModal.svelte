@@ -32,7 +32,7 @@
 		};
 	};
 
-	let editing: boolean = false;
+	let updating: boolean = false;
 </script>
 
 {#if $modalStore[0]}
@@ -118,8 +118,8 @@
 				<button class="btn variant-ringed-error" type="reset" on:click={() => modalStore.close()}
 					>Cancel</button
 				>
-				<button disabled={editing} class="btn variant-filled-secondary">
-					{#if editing}
+				<button disabled={updating} class="btn variant-filled-secondary">
+					{#if updating}
 						Working...
 					{:else}
 						Update Product

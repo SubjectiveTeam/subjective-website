@@ -2,7 +2,7 @@
 	import { invalidateAll } from '$app/navigation';
 	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import AddProductModal from '$lib/components/modal/AddProductModal.svelte';
-	import EditProductModal from '$lib/components/modal/EditProductModal.svelte';
+	import EditProductModal from '$lib/components/modal/UpdateProductModal.svelte';
 
 	export let products: Product[];
 
