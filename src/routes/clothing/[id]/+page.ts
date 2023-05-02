@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ parent, params }) => {
+export async function load({ parent, params }) {
 	const id = params.id;
 	const { supabase } = await parent();
 

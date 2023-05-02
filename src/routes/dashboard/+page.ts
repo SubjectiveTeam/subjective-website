@@ -1,6 +1,6 @@
 import { redirect } from '@sveltejs/kit';
 
-export const load = async ({ parent }) => {
+export async function load({ parent }) {
 	const { supabase } = await parent();
 
 	const [productRequest, orderRequest] = await Promise.all([
