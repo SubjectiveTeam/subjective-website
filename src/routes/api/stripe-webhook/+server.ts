@@ -19,16 +19,22 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 	// Handle the event
 	switch (event.type) {
 		case 'checkout.session.completed': {
-			const checkoutSessionCompleted = event.data.object;
+			const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
+
+			if (!checkoutSessionCompleted.metadata) {
+				return new Response('Missing vital parameters: "metadata" to create an order', {
+					status: 400
+				});
+			}
 
 			const { error } = await supabase_service_role.from('orders').insert({
 				id: v4(),
 				products: JSON.parse(checkoutSessionCompleted.metadata.items),
-				postal_code: checkoutSessionCompleted.shipping_details.address.postal_code,
-				address: checkoutSessionCompleted.shipping_details.address.line1,
-				city: checkoutSessionCompleted.shipping_details.address.city,
+				postal_code: checkoutSessionCompleted.shipping_details?.address?.postal_code as string,
+				address: checkoutSessionCompleted.shipping_details?.address?.line1 as string,
+				city: checkoutSessionCompleted.shipping_details?.address?.city as string,
 				status: 'ORDERED',
-				customer_email: checkoutSessionCompleted.customer_email
+				customer_email: checkoutSessionCompleted.customer_email as string
 			});
 			if (error) {
 				return new Response(
