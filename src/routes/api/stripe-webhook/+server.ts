@@ -32,8 +32,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 			const checkoutSessionCompleted = event.data.object;
 			console.log('payment complete');
 			console.log(checkoutSessionCompleted);
-			
-			
+
 			// Then define and call a function to handle the event checkout.session.completed
 			break;
 		}
@@ -84,7 +83,6 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 				})
 				.eq('id', productUpdated.id);
 			if (error) {
-				console.log(error);
 				return new Response(
 					'Something went wrong during updating supabase product. Try again later.',
 					{

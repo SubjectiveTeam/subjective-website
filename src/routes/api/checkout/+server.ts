@@ -4,7 +4,7 @@ import type { RequestHandler } from './$types';
 export const POST: RequestHandler = async ({ request, locals: { getSession } }) => {
 	const data = await request.json();
 	const items: CartItem[] = data.items;
-	
+
 	// Convert products to stripe acceptable objects
 	const line_items: StripeItem[] = [];
 

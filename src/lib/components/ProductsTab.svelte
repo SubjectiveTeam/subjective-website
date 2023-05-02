@@ -1,14 +1,8 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import {
-		modalStore,
-		type ModalSettings,
-		type ModalComponent,
-		toastStore,
-		type ToastSettings
-	} from '@skeletonlabs/skeleton';
+	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import AddProductModal from '$lib/components/AddProductModal.svelte';
-	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
+	import EditProductModal from './EditProductModal.svelte';
 
 	export let products: Product[];
 
@@ -23,24 +17,16 @@
 		modalStore.trigger(modal);
 	};
 
-	const updateProductCallback: SubmitFunction = () => {
-		return async ({ result }) => {
-			await applyAction(result);
-			if (result.type === 'success') {
-				await refreshProducts();
-				const toast: ToastSettings = {
-					message: 'Successfully updated product.',
-					background: 'variant-filled-success'
-				};
-				toastStore.trigger(toast);
-			} else {
-				const toast: ToastSettings = {
-					message: 'Something went wrong. Try again later.',
-					background: 'variant-filled-error'
-				};
-				toastStore.trigger(toast);
-			}
+	const triggerEditProductModal = (product: Product) => {
+		const modalComponent: ModalComponent = {
+			ref: EditProductModal,
+			props: { product }
 		};
+		const modal: ModalSettings = {
+			type: 'component',
+			component: modalComponent
+		};
+		modalStore.trigger(modal);
 	};
 
 	let refreshingProducts: boolean = false;
@@ -96,14 +82,10 @@
 							<td>{product.sizes}</td>
 							<td>{product.tags}</td>
 							<td>
-								<!-- TODO Create modal just like add product modal for editing existing product  -->
-								<form
-									action="?/updateProduct&product={JSON.stringify(product)}"
-									method="post"
-									use:enhance={updateProductCallback}
+								<button
+									class="btn btn-sm variant-filled-primary"
+									on:click={() => triggerEditProductModal(product)}>Edit</button
 								>
-									<button class="btn btn-sm variant-filled-error">Edit</button>
-								</form>
 							</td>
 						</tr>
 					{/each}

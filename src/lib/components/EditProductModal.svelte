@@ -2,7 +2,6 @@
 	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import {
-		FileDropzone,
 		InputChip,
 		SlideToggle,
 		modalStore,
@@ -10,46 +9,65 @@
 		toastStore
 	} from '@skeletonlabs/skeleton';
 
-	const addProductCallback: SubmitFunction = () => {
-		adding = true;
+	export let product: Product;
+
+	const updateProductCallback: SubmitFunction = () => {
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success') {
 				await invalidateAll();
 				modalStore.close();
 				const toast: ToastSettings = {
-					message: 'Successfully added product',
+					message: 'Successfully updated product.',
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(toast);
 			} else {
 				const toast: ToastSettings = {
-					message: 'Something went wrong. Try again later',
+					message: 'Something went wrong. Try again later.',
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(toast);
 			}
-			adding = false;
 		};
 	};
 
-	let adding: boolean = false;
+	let editing: boolean = false;
 </script>
 
 {#if $modalStore[0]}
 	<div class="flex flex-col gap-10 bg-surface-800 p-16">
-		<h1 class="!leading-loose">Add Product</h1>
+		<h1 class="!leading-loose">Update Product</h1>
 		<form
 			class="flex flex-col gap-4"
 			method="post"
-			action="?/addProduct"
-			use:enhance={addProductCallback}
+			action="?/updateProduct"
+			use:enhance={updateProductCallback}
 		>
 			<div class="flex gap-4">
 				<div class="flex flex-col gap-4 justify-between">
 					<label class="label">
+						<span>ID</span>
+						<input
+							class="input"
+							type="text"
+							placeholder="ID"
+							name="id"
+							required
+							readonly
+							bind:value={product.id}
+						/>
+					</label>
+					<label class="label">
 						<span>Name</span>
-						<input class="input" type="text" placeholder="Name" name="name" required />
+						<input
+							class="input"
+							type="text"
+							placeholder="Name"
+							name="name"
+							required
+							bind:value={product.name}
+						/>
 					</label>
 					<label class="label">
 						<span>Description</span>
@@ -59,18 +77,12 @@
 							placeholder="Description"
 							name="description"
 							required
+							bind:value={product.description}
 						/>
-					</label>
-					<label class="label">
-						<span>Price</span>
-						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
-							<div class="input-group-shim hide-number-input-arrows">€</div>
-							<input type="number" step="0.01" placeholder="Price" name="price" required />
-						</div>
 					</label>
 					<span class="flex items-center justify-between">
 						<label for="active">Activate Product</label>
-						<SlideToggle class="mt-1" name="active" />
+						<SlideToggle class="mt-1" name="active" bind:checked={product.active} />
 					</span>
 				</div>
 
@@ -85,16 +97,19 @@
 							allowDuplicates={false}
 							whitelist={['XL', 'L', 'M', 'S']}
 							allowUpperCase
+							bind:value={product.sizes}
 							required
 						/>
 					</span>
 					<span>
 						<label for="tags">Tags</label>
-						<InputChip class="mt-1" name="tags" placeholder="Tags" allowDuplicates={false} />
-					</span>
-					<span>
-						<label for="images">Images</label>
-						<FileDropzone class="mt-1" name="images" multiple required />
+						<InputChip
+							class="mt-1"
+							name="tags"
+							placeholder="Tags"
+							allowDuplicates={false}
+							bind:value={product.tags}
+						/>
 					</span>
 				</div>
 			</div>
@@ -103,11 +118,11 @@
 				<button class="btn variant-ringed-error" type="reset" on:click={() => modalStore.close()}
 					>Cancel</button
 				>
-				<button disabled={adding} class="btn variant-filled-secondary">
-					{#if adding}
+				<button disabled={editing} class="btn variant-filled-secondary">
+					{#if editing}
 						Working...
 					{:else}
-						Add Product
+						Update Product
 					{/if}
 				</button>
 			</div>

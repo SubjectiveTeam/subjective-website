@@ -55,19 +55,29 @@ export const actions: Actions = {
 			success: true
 		};
 	},
-	updateProduct: async ({ url, locals: { getSession } }) => {
+	updateProduct: async ({ request, locals: { getSession } }) => {
 		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin) {
 			return fail(401, { message: 'Unauthorized ' });
 		}
 
-		const stringifiedProduct: string | null = url.searchParams.get('product');
-		if (!stringifiedProduct) return fail(400, { message: 'No product was provided' });
-		const product: Product = JSON.parse(stringifiedProduct) as Product;
+		const formData = (await request.formData()) as FormData;
+		const id: string = formData.get('id') as string;
+		const name: string = formData.get('name') as string;
+		const description: string = formData.get('description') as string;
+		const active: boolean = formData.get('active') === 'on' ? true : false;
+		const sizes: string[] = formData.getAll('sizes') as string[];
+		const tags: string[] = formData.getAll('tags') as string[];
 
-		await stripe.products.update(product.id as string, {
-			active: false
+		await stripe.products.update(id, {
+			name,
+			description,
+			active,
+			metadata: {
+				sizes: JSON.stringify(sizes),
+				tags: JSON.stringify(tags)
+			}
 		});
 
 		return {

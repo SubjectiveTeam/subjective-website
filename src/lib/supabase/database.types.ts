@@ -46,7 +46,7 @@ export interface Database {
 					price: number;
 					sizes: string[];
 					stripe_price: string;
-					tags: string[] | null;
+					tags: string[];
 				};
 				Insert: {
 					active: boolean;
@@ -58,7 +58,7 @@ export interface Database {
 					price: number;
 					sizes: string[];
 					stripe_price: string;
-					tags?: string[] | null;
+					tags: string[];
 				};
 				Update: {
 					active?: boolean;
@@ -70,7 +70,7 @@ export interface Database {
 					price?: number;
 					sizes?: string[];
 					stripe_price?: string;
-					tags?: string[] | null;
+					tags?: string[];
 				};
 			};
 		};
