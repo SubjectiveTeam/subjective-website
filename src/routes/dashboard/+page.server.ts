@@ -22,11 +22,21 @@ export const actions: Actions = {
 		const tags: string[] = formData.getAll('tags') as string[];
 		const files: File[] = formData.getAll('images') as File[];
 
+
+		// const { data } = await supabase.from('products').select('*').eq('name', name);
+		// if (data) {
+		// 	data.forEach(product => {
+		// 		if (product.size === size) {
+		// 			return fail(400, { message: 'Size already exists for product with same name' });
+		// 		}
+		// 	});
+		// }
+		
 		const images: string[] = [];
 		for (let i = 0; i < files.length; i++) {
 			const { data, error } = await supabase.storage
 				.from('product_images')
-				.upload(`${id}/${files[i].name}`, files[i]);
+				.upload(`${name}/${v4()}`, files[i]);
 			if (error)
 				return fail(500, { message: `Something went wrong uploading file: ${files[i].name}` });
 			images.push(supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl);
@@ -50,7 +60,7 @@ export const actions: Actions = {
 				tags: JSON.stringify(tags)
 			}
 		});
-
+		
 		return {
 			success: true
 		};

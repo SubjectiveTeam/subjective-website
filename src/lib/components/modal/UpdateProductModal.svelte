@@ -80,27 +80,9 @@
 							bind:value={product.description}
 						/>
 					</label>
-					<span class="flex items-center justify-between">
-						<label for="active">Activate Product</label>
-						<SlideToggle class="mt-1" name="active" bind:checked={product.active} />
-					</span>
 				</div>
 
 				<div class="flex flex-col gap-4 justify-between">
-					<span>
-						<label for="sizes">Sizes {'(XL, L, M, S)'}</label>
-						<InputChip
-							class="mt-1"
-							name="sizes"
-							label="Sizes"
-							placeholder="Sizes"
-							allowDuplicates={false}
-							whitelist={['XL', 'L', 'M', 'S']}
-							allowUpperCase
-							bind:value={product.sizes}
-							required
-						/>
-					</span>
 					<span>
 						<label for="tags">Tags</label>
 						<InputChip
@@ -110,6 +92,10 @@
 							allowDuplicates={false}
 							bind:value={product.tags}
 						/>
+					</span>
+					<span class="flex items-center justify-between">
+						<label for="active">Activate Product</label>
+						<SlideToggle class="mt-1" name="active" bind:checked={product.active} />
 					</span>
 				</div>
 			</div>
