@@ -2,6 +2,7 @@ import { stripe } from '$lib/stripe/stripe';
 import type Stripe from 'stripe';
 import type { RequestHandler } from './$types';
 import { SECRET_WEBHOOK_KEY } from '$env/static/private';
+import { v4 } from 'uuid';
 
 export const POST: RequestHandler = async ({ request, locals: { supabase_service_role } }) => {
 	const sig = request.headers.get('stripe-signature') as string;
@@ -17,28 +18,31 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 
 	// Handle the event
 	switch (event.type) {
-		case 'checkout.session.async_payment_failed': {
-			const checkoutSessionAsyncPaymentFailed = event.data.object;
-			// Then define and call a function to handle the event checkout.session.async_payment_failed
-			break;
-		}
-
-		case 'checkout.session.async_payment_succeeded': {
-			const checkoutSessionAsyncPaymentSucceeded = event.data.object;
-			// Then define and call a function to handle the event checkout.session.async_payment_succeeded
-			break;
-		}
 		case 'checkout.session.completed': {
 			const checkoutSessionCompleted = event.data.object;
-			console.log('payment complete');
-			console.log(checkoutSessionCompleted);
 
-			// Then define and call a function to handle the event checkout.session.completed
+			const { error } = await supabase_service_role
+			.from('orders')
+			.insert({
+				id: v4(),
+				products: JSON.parse(checkoutSessionCompleted.metadata.items),
+				postal_code: checkoutSessionCompleted.shipping_details.address.postal_code,
+				address: checkoutSessionCompleted.shipping_details.address.line1,
+				city: checkoutSessionCompleted.shipping_details.address.city,
+				status: 'ORDERED',
+				customer_email: checkoutSessionCompleted.customer_email
+			});
+			if (error) {
+				return new Response(
+					'Something went wrong during creating supabase order. Try again later.',
+					{
+						status: 400
+					}
+				);
+			}
 			break;
 		}
-		case 'checkout.session.expired': {
-			const checkoutSessionExpired = event.data.object;
-			// Then define and call a function to handle the event checkout.session.expired
+		case 'payment_intent.created': {
 			break;
 		}
 		case 'product.created': {

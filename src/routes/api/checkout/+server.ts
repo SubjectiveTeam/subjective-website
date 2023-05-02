@@ -20,7 +20,13 @@ export const POST: RequestHandler = async ({ request, locals: { getSession } }) 
 		line_items: line_items,
 		mode: 'payment',
 		success_url: 'http://localhost:5173/success',
-		cancel_url: 'http://localhost:5173/cancel'
+		cancel_url: 'http://localhost:5173/cancel',
+		shipping_address_collection: {
+			allowed_countries: ['NL'],
+		},
+		metadata: {
+			items: JSON.stringify(items)
+		}
 	});
 
 	return new Response(JSON.stringify({ url: session.url }), {
