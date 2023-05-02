@@ -1,7 +1,13 @@
 <script lang="ts">
 	import { enhance } from '$app/forms';
-	import { ListBox, ListBoxItem, modalStore, popup, type PopupSettings } from '@skeletonlabs/skeleton';
-    
+	import {
+		ListBox,
+		ListBoxItem,
+		modalStore,
+		popup,
+		type PopupSettings
+	} from '@skeletonlabs/skeleton';
+
 	export let order: Order;
 
 	let popupCombobox: PopupSettings = {
@@ -63,30 +69,30 @@
 					required
 					bind:value={order.city}
 				/>
-			</label>    
+			</label>
 
 			<label class="label flex flex-col relative">
 				<span>Status</span>
-                <button type="button" class="btn input" use:popup={popupCombobox}>
-                    {order.status}
-                </button>
-                <div class="card w-full shadow-xl py-2" data-popup="combobox">
-                    <ListBox rounded="rounded-none">
-                        <ListBoxItem bind:group={order.status} name="status" value="ORDERED">
-                            ORDERED
-                        </ListBoxItem>
-                        <ListBoxItem bind:group={order.status} name="status" value="PROCESSED">
-                            PROCESSED
-                        </ListBoxItem>
-                        <ListBoxItem bind:group={order.status} name="status" value="SHIPPED">
-                            SHIPPED
-                        </ListBoxItem>
-                        <ListBoxItem bind:group={order.status} name="status" value="CANCELED">
-                            CANCELED
-                        </ListBoxItem>
-                    </ListBox>
-                    <div class="arrow bg-surface-100-800-token" />
-                </div>
+				<button type="button" class="btn input" use:popup={popupCombobox}>
+					{order.status}
+				</button>
+				<div class="card w-full shadow-xl py-2" data-popup="combobox">
+					<ListBox rounded="rounded-none">
+						<ListBoxItem bind:group={order.status} name="status" value="ORDERED">
+							ORDERED
+						</ListBoxItem>
+						<ListBoxItem bind:group={order.status} name="status" value="PROCESSED">
+							PROCESSED
+						</ListBoxItem>
+						<ListBoxItem bind:group={order.status} name="status" value="SHIPPED">
+							SHIPPED
+						</ListBoxItem>
+						<ListBoxItem bind:group={order.status} name="status" value="CANCELED">
+							CANCELED
+						</ListBoxItem>
+					</ListBox>
+					<div class="arrow bg-surface-100-800-token" />
+				</div>
 			</label>
 
 			<div class="flex gap-4 mt-8 justify-between">

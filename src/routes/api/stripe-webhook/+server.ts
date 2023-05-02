@@ -16,7 +16,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 		});
 	}
 
-	// Handle the event		
+	// Handle the event
 	switch (event.type) {
 		case 'checkout.session.completed': {
 			const checkoutSessionCompleted = event.data.object as Stripe.Checkout.Session;
@@ -48,19 +48,19 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 
 			const cartItems = JSON.parse(checkoutSessionCompleted.metadata.cartItems) as CartItem[];
 			cartItems.forEach(async (cartItem: CartItem) => {
-				const { error } = await supabase_service_role
-				.from('order_products')
-				.insert({
+				const { error } = await supabase_service_role.from('order_products').insert({
 					order_id: order_id,
 					product_id: cartItem.product.id,
 					quantity: cartItem.quantity
 				});
 				if (error) {
-					return new Response('Something went wrong during inserting supabase order products. Try again later.', {
-						status: 400
-					});
+					return new Response(
+						'Something went wrong during inserting supabase order products. Try again later.',
+						{
+							status: 400
+						}
+					);
 				}
-
 			});
 			break;
 		}

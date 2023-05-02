@@ -99,14 +99,14 @@ export const actions: Actions = {
 		const status: string = formData.get('status') as string;
 
 		const { error } = await supabase
-		.from('orders')
-		.update({
-			address,
-			postal_code,
-			city,
-			status
-		})
-		.eq('id', id);
+			.from('orders')
+			.update({
+				address,
+				postal_code,
+				city,
+				status
+			})
+			.eq('id', id);
 
 		if (error) {
 			return fail(500, { message: 'Something went wrong when updating order' });

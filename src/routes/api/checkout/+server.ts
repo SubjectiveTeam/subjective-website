@@ -1,18 +1,21 @@
 import { stripe } from '$lib/stripe/stripe';
 import type { RequestHandler } from './$types';
 
-export const POST: RequestHandler = async ({ request, locals: { supabase_service_role, getSession } }) => {
+export const POST: RequestHandler = async ({
+	request,
+	locals: { supabase_service_role, getSession }
+}) => {
 	const data = await request.json();
 	const cartItems: CartItem[] = data.items;
 
 	cartItems.forEach(async (cartItem: CartItem) => {
 		const { data } = await supabase_service_role
-		.from('products')
-		.select('*')
-		.eq('id', cartItem.product.id)
-		.eq('active', true)
-		.limit(1)
-		.single();
+			.from('products')
+			.select('*')
+			.eq('id', cartItem.product.id)
+			.eq('active', true)
+			.limit(1)
+			.single();
 
 		if (!data) {
 			return new Response('One of the products is unavailable', {

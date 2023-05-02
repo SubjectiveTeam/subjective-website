@@ -1,34 +1,34 @@
 <script lang="ts">
-	import { invalidateAll } from "$app/navigation";
-	import { modalStore, type ModalSettings, type ModalComponent } from "@skeletonlabs/skeleton";
-	import ViewOrderProductsModal from "$lib/components/modal/ViewProductsModal.svelte";
-	import EditOrderModal from "$lib/components/modal/UpdateOrderModal.svelte";
+	import { invalidateAll } from '$app/navigation';
+	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
+	import ViewOrderProductsModal from '$lib/components/modal/ViewProductsModal.svelte';
+	import EditOrderModal from '$lib/components/modal/UpdateOrderModal.svelte';
 
-    export let orders: Order[];
+	export let orders: Order[];
 
-    const triggerViewOrderProductsModal = (order: Order) => {
-        const modalComponent: ModalComponent = {
-            ref: ViewOrderProductsModal,
-            props: { order }
-        }
-        const modal: ModalSettings = {
-            type: 'component',
-            component: modalComponent
-        }
-        modalStore.trigger(modal);
-    }
+	const triggerViewOrderProductsModal = (order: Order) => {
+		const modalComponent: ModalComponent = {
+			ref: ViewOrderProductsModal,
+			props: { order }
+		};
+		const modal: ModalSettings = {
+			type: 'component',
+			component: modalComponent
+		};
+		modalStore.trigger(modal);
+	};
 
-    const triggerEditOrderModal = (order: Order) => {
-        const modalComponent: ModalComponent = {
-            ref: EditOrderModal,
-            props: { order }
-        }
-        const modal: ModalSettings = {
-            type: 'component',
-            component: modalComponent
-        }
-        modalStore.trigger(modal);
-    }
+	const triggerEditOrderModal = (order: Order) => {
+		const modalComponent: ModalComponent = {
+			ref: EditOrderModal,
+			props: { order }
+		};
+		const modal: ModalSettings = {
+			type: 'component',
+			component: modalComponent
+		};
+		modalStore.trigger(modal);
+	};
 
 	let refreshingOrders: boolean = false;
 	const refreshProducts = async () => {
@@ -77,10 +77,10 @@
 							<td>{order.customer_email}</td>
 							<td>{order.status}</td>
 							<td class="flex gap-4">
-                                <button
-                                class="btn btn-sm variant-filled-primary"
-                                on:click={() => triggerViewOrderProductsModal(order)}>View Products</button
-                                >   
+								<button
+									class="btn btn-sm variant-filled-primary"
+									on:click={() => triggerViewOrderProductsModal(order)}>View Products</button
+								>
 								<button
 									class="btn btn-sm variant-filled-primary"
 									on:click={() => triggerEditOrderModal(order)}>Edit</button
