@@ -1,4 +1,4 @@
-<section class="mx-auto flex flex-col items-center gap-8 mt-[12.5vh]">
+<section class="mx-auto flex flex-col items-center gap-8 mt-[12.5vh] relative">
 	<h1 class="font-bold">Welcome to Subjective</h1>
 	<blockquote>
 		At Subjective, we believe that fashion should be personal. Shop with us and discover your unique
