@@ -15,7 +15,11 @@
 	};
 </script>
 
-<AppBar padding="py-4 px-[5vw] md:px-[15vw]" class="h-[var(--header-height)]">
+<AppBar
+	class="h-[var(--header-height)]"
+	padding="py-4 px-[5vw] md:px-[15vw]"
+	background="bg-surface-300-600-token"
+>
 	<svelte:fragment slot="lead">
 		<span class="hidden lg:block"><Navigation orientation="horizontal" /></span>
 		<button class="lg:hidden btn" on:click={toggleSideBar}>

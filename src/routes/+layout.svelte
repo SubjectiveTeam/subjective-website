@@ -35,6 +35,10 @@
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 </script>
 
+<svelte:head>
+	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+</svelte:head>
+
 <!-- Overlays -->
 <Toast />
 <Modal />
