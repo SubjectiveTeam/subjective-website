@@ -3,7 +3,7 @@
 </script>
 
 {#if $modalStore[0]}
-	<div class="flex flex-col gap-10 bg-surface-800 p-16">
+	<div class="flex flex-col gap-10 bg-surface-100-800-token p-16">
 		<h1 class="!leading-loose">Change Password</h1>
 		<form class="flex flex-col gap-4" method="post" action="">
 			<label class="label">
