@@ -26,7 +26,7 @@
 	<div class="flex flex-col gap-10 bg-surface-100-800-token p-16">
 		<h1 class="!leading-loose">View Order Products</h1>
 		{#await promise}
-			<p>Loading...</p>
+			<p class="text-center">Loading...</p>
 		{:then orderProductsList}
 			<div class="table-container">
 				<table class="table table-hover">
