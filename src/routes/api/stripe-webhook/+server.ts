@@ -2,7 +2,6 @@ import { stripe } from '$lib/stripe/stripe';
 import type Stripe from 'stripe';
 import type { RequestHandler } from './$types';
 import { SECRET_WEBHOOK_KEY } from '$env/static/private';
-import type { Json } from '$lib/supabase/database.types';
 
 export const POST: RequestHandler = async ({ request, locals: { supabase_service_role } }) => {
 	const sig = request.headers.get('stripe-signature') as string;
