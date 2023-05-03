@@ -25,7 +25,7 @@
 </script>
 
 <section class="flex flex-col-reverse xl:flex-row justify-evenly items-center gap-12 xl:mt-[12.5vh] w-full">
-	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4 !max-w-[22.5rem]">
+	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4 max-w-[25rem]">
 		<form class="flex flex-col gap-2">
 			<button class="btn variant-filled-secondary flex gap-2">
 				<svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">

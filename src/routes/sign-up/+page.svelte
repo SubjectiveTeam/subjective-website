@@ -29,7 +29,7 @@
 		<h1 class="text-center !leading-loose">Sign Up</h1>
 		<img class="hidden xl:block w-96 aspect-square" src="SBJCTV-Logo.png" alt="logo" />
 	</div>
-	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4">
+	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4 max-w-[25rem]">
 		<form class="flex flex-col gap-2">
 			<button class="btn variant-filled-secondary flex gap-2">
 				<svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
