@@ -24,8 +24,8 @@
 	});
 </script>
 
-<section class="flex mt-[12.5vh] justify-evenly w-full">
-	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4">
+<section class="flex flex-col-reverse xl:flex-row justify-evenly items-center gap-12 xl:mt-[12.5vh] w-full">
+	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4 !max-w-[22.5rem]">
 		<form class="flex flex-col gap-2">
 			<button class="btn variant-filled-secondary flex gap-2">
 				<svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -111,8 +111,8 @@
 			</p>
 		</form>
 	</div>
-	<div>
+	<div class="flex flex-col items-center">
 		<h1 class="text-center !leading-loose">Sign In</h1>
-		<img class="w-96 h-96" src="SBJCTV-Logo.png" alt="logo" />
+		<img class="hidden xl:block w-96 aspect-square" src="SBJCTV-Logo.png" alt="logo" />
 	</div>
 </section>
