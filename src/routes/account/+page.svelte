@@ -34,15 +34,17 @@
 		<Tab bind:group={tabSet} name="my-orders" value={1}>My Orders</Tab>
 		<svelte:fragment slot="panel">
 			{#if tabSet === 0}
-				<form class="flex flex-col gap-4" method="post">
+				<form class="flex flex-col gap-4" method="post" action="?/signOut">
 					<label class="label max-w-lg">
 						<span>Email:</span>
 						<input type="text" class="input" disabled value={$page.data.session?.user.email} />
 					</label>
-					<button class="btn variant-ringed-error w-fit" on:click={triggerNewPasswordModal}
-						>Change Password</button
+					<button
+						type="button"
+						class="btn variant-ringed-error w-fit"
+						on:click={triggerNewPasswordModal}>Change Password</button
 					>
-					<button class="btn variant-filled-error w-fit" formaction="?/signOut">Sign Out</button>
+					<button class="btn variant-filled-error w-fit">Sign Out</button>
 				</form>
 			{:else if tabSet === 1}
 				{#each orders as order}
