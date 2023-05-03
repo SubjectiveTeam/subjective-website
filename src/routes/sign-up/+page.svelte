@@ -117,7 +117,8 @@
 				bind:value={$form.confirmPassword}
 				{...$constraints.confirmPassword}
 			/>
-			{#if $errors.passconfirmPasswordword}<span class="!text-error-500">{$errors.confirmPassword}</span>{/if}
+			{#if $errors.confirmPassword}<span class="!text-error-500">{$errors.confirmPassword}</span
+				>{/if}
 
 			<button class="btn variant-filled-primary">Sign Up</button>
 			<p class="text-center">

@@ -3,17 +3,18 @@ import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
-const signUpSchema = z.object({
-	email: z.string().email(),
-	password: z.string().min(8),
-	confirmPassword: z.string().min(8)
-})
+const signUpSchema = z
+	.object({
+		email: z.string().email(),
+		password: z.string().min(8),
+		confirmPassword: z.string().min(8)
+	})
 	.superRefine(({ confirmPassword, password }, ctx) => {
 		if (confirmPassword !== password) {
 			ctx.addIssue({
-				code: "custom",
-				message: "The passwords did not match"
-			})
+				code: 'custom',
+				message: 'The passwords did not match'
+			});
 		}
 	});
 
@@ -21,8 +22,8 @@ export async function load() {
 	const form = await superValidate(signUpSchema);
 	return {
 		form
-	}
-};
+	};
+}
 
 export const actions: Actions = {
 	default: async ({ request, locals: { supabase } }) => {

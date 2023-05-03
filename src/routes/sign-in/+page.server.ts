@@ -1,8 +1,7 @@
 import { AuthApiError } from '@supabase/supabase-js';
-import { fail, type Actions, redirect} from '@sveltejs/kit';
+import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
-
 
 const signInSchema = z.object({
 	email: z.string().email(),
@@ -13,8 +12,8 @@ export async function load() {
 	const form = await superValidate(signInSchema);
 	return {
 		form
-	}
-};
+	};
+}
 
 export const actions: Actions = {
 	default: async ({ request, url, locals: { supabase } }) => {
@@ -26,7 +25,6 @@ export const actions: Actions = {
 			email: form.data.email,
 			password: form.data.password
 		});
-
 
 		if (error) {
 			if (error instanceof AuthApiError && error.status === 400) {
