@@ -18,7 +18,7 @@ export const actions: Actions = {
 		if (!session || !session.user.app_metadata.claims_admin) {
 			return fail(401, { message: 'Unauthorized' });
 		}
-		
+
 		return updateProduct(await request.formData(), supabase, stripe);
 	},
 	updateOrder: async ({ request, locals: { supabase, getSession } }) => {

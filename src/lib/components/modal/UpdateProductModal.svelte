@@ -46,7 +46,6 @@
 		closeQuery: '.listbox-item'
 	};
 
-
 	let updating: boolean = false;
 </script>
 
@@ -97,12 +96,20 @@
 					</label>
 					<label class="label">
 						<span>Amount in stock:</span>
-						<input class="input" type="number" min=0 step=1 placeholder="Amount in stock" name="stock" required />
+						<input
+							class="input"
+							type="number"
+							min="0"
+							step="1"
+							placeholder="Amount in stock"
+							name="stock"
+							required
+						/>
 					</label>
 				</div>
 
 				<div class="flex flex-col gap-4 justify-between">
-					<span>	
+					<span>
 						<label for="size">Size</label>
 						<button type="button" class="btn input mt-1" use:popup={popupCombobox}>
 							{product.size}

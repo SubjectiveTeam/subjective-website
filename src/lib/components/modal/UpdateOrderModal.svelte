@@ -8,15 +8,13 @@
 		popup,
 		toastStore,
 		type PopupSettings,
-
 		type ToastSettings
-
 	} from '@skeletonlabs/skeleton';
 
 	export let order: Order;
 
-    const updateOrderCallback: SubmitFunction = () => {
-        updating = true;
+	const updateOrderCallback: SubmitFunction = () => {
+		updating = true;
 		return async ({ result }) => {
 			await applyAction(result);
 			if (result.type === 'success') {
@@ -34,7 +32,7 @@
 				};
 				toastStore.trigger(toast);
 			}
-            updating = false;
+			updating = false;
 		};
 	};
 
@@ -52,7 +50,12 @@
 {#if $modalStore[0]}
 	<div class="flex flex-col gap-10 bg-surface-100-800-token p-16">
 		<h1 class="!leading-loose">Edit Order</h1>
-		<form class="flex flex-col gap-4" action="?/updateOrder" method="post" use:enhance={updateOrderCallback}>
+		<form
+			class="flex flex-col gap-4"
+			action="?/updateOrder"
+			method="post"
+			use:enhance={updateOrderCallback}
+		>
 			<label class="label">
 				<span>ID</span>
 				<input

@@ -42,7 +42,7 @@ export const POST: RequestHandler = async ({
 
 	const session = await stripe.checkout.sessions.create({
 		customer_email: (await getSession())?.user.email || undefined,
-		line_items: line_items,
+		line_items,
 		mode: 'payment',
 		success_url: 'http://localhost:5173/success',
 		cancel_url: 'http://localhost:5173/cancel',
