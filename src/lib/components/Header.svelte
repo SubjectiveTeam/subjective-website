@@ -20,7 +20,7 @@
 	padding="py-4 px-[5vw] md:px-[15vw]"
 	background="bg-surface-300-600-token"
 	shadow="!shadow-lg"
->	
+>
 	<svelte:fragment slot="lead">
 		<span class="hidden lg:block"><Navigation orientation="horizontal" /></span>
 		<button class="lg:hidden btn" on:click={toggleSideBar}>

@@ -3,7 +3,7 @@
 		<h1 class="font-bold leading-loose">
 			Subjective, Where great minds think <strike>alike</strike> differently.
 		</h1>
-		<p class="mt-8 leading-loose">
+		<p class="mt-8 !leading-loose">
 			Subjective is an up and coming brand to change the fashion industry, are you tired of
 			'following the trend'? Well we are! With Subjective you can be yourself and express yourself.
 		</p>
