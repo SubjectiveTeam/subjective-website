@@ -36,6 +36,10 @@
 </script>
 
 <svelte:head>
+	<link
+		rel="stylesheet"
+		href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
+	/>
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 </svelte:head>
 
