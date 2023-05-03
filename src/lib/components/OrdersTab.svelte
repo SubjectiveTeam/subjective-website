@@ -91,6 +91,6 @@
 			</table>
 		</div>
 	{:else}
-		<p class="text-center">No Products</p>
+		<p class="text-center">No Orders</p>
 	{/if}
 </section>

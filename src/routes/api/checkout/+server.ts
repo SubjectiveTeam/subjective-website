@@ -27,14 +27,14 @@ export const POST: RequestHandler = async ({
 	// Convert products to stripe acceptable objects
 	const line_items: StripeItem[] = [];
 
-	const cartItemsImplified: CartItemSimplified[] = [];
+	const cartItemsSimplified: CartItemSimplified[] = [];
 
 	for (const cartItem of cartItems) {
 		line_items.push({
 			price: cartItem.product.stripe_price,
 			quantity: cartItem.quantity
 		});
-		cartItemsImplified.push({
+		cartItemsSimplified.push({
 			product_id: cartItem.product.id,
 			quantity: cartItem.quantity
 		});
@@ -50,7 +50,7 @@ export const POST: RequestHandler = async ({
 			allowed_countries: ['NL']
 		},
 		metadata: {
-			stripeItemsWithSizes: JSON.stringify(cartItemsImplified)
+			cartItemsSimplified: JSON.stringify(cartItemsSimplified)
 		}
 	});
 
