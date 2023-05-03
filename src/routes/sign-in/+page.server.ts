@@ -1,34 +1,40 @@
 import { AuthApiError } from '@supabase/supabase-js';
-import { fail, type Actions, redirect } from '@sveltejs/kit';
+import { fail, type Actions, redirect} from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms/server';
+import { z } from 'zod';
+
+
+const signInSchema = z.object({
+	email: z.string().email(),
+	password: z.string().min(8)
+});
+
+export async function load() {
+	const form = await superValidate(signInSchema);
+	return {
+		form
+	}
+};
 
 export const actions: Actions = {
 	default: async ({ request, url, locals: { supabase } }) => {
-		const formData = await request.formData();
+		const form = await superValidate(request, signInSchema);
 
-		const email = formData.get('email') as string;
-		const password = formData.get('password') as string;
+		if (!form.valid) return fail(400, { form });
 
 		const { error } = await supabase.auth.signInWithPassword({
-			email,
-			password
+			email: form.data.email,
+			password: form.data.password
 		});
+
 
 		if (error) {
 			if (error instanceof AuthApiError && error.status === 400) {
-				return fail(400, {
-					message: 'Invalid credentials.',
-					values: {
-						email
-					}
-				});
+				return fail(400, { form, message: 'Invalid Credentials.' });
 			}
-			return fail(500, {
-				message: error.message,
-				values: {
-					email
-				}
-			});
+			return fail(400, { form, message: 'Server Error. Try again later.' });
 		}
+
 		const redirectTo = url.searchParams.get('redirectTo');
 		if (redirectTo && redirectTo.startsWith('/')) throw redirect(303, redirectTo);
 		else throw redirect(303, '/');

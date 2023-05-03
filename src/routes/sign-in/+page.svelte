@@ -1,26 +1,27 @@
 <script lang="ts">
-	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
+	import { goto } from '$app/navigation';
+	import { toastStore } from '@skeletonlabs/skeleton';
+	import { superForm } from 'sveltekit-superforms/client';
 
-	import { toastStore, type ToastSettings } from '@skeletonlabs/skeleton';
+	export let data;
 
-	const signInCallBack: SubmitFunction = async () => {
-		return async ({ result }) => {
-			await applyAction(result);
+	const { form, constraints, errors, enhance } = superForm(data.form, {
+		applyAction: true,
+		invalidateAll: false,
+		taintedMessage: false,
+		onResult({ result }) {
 			if (result.type === 'redirect') {
-				const toast: ToastSettings = {
-					message: 'Successfully signed in.',
-					background: 'variant-filled-sucess'
-				};
-				toastStore.trigger(toast);
-			} else if (result.type === 'failure') {
-				const toast: ToastSettings = {
-					message: result.data?.message,
+				goto(result.location);
+				toastStore.trigger({
+					message: 'Succesfully signed in.',
 					background: 'variant-filled-error'
-				};
-				toastStore.trigger(toast);
+				});
 			}
-		};
-	};
+			if (result.type === 'failure') {
+				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+			}
+		}
+	});
 </script>
 
 <section class="flex mt-[12.5vh] justify-evenly w-full">
@@ -85,10 +86,25 @@
 			<p class="px-2">or</p>
 			<span class="h-0.5 w-full bg-surface-300-600-token" />
 		</span>
-		<form class="flex flex-col gap-4 max-w-lg" method="post" use:enhance={signInCallBack}>
-			<input class="input" placeholder="Email" type="text" name="email" />
-			<input class="input" placeholder="Password" type="password" name="password" />
-
+		<form class="flex flex-col gap-4 max-w-lg" method="post" use:enhance>
+			<input
+				class="input"
+				placeholder="Email"
+				type="email"
+				name="email"
+				bind:value={$form.email}
+				{...$constraints.email}
+			/>
+			{#if $errors.email}<span class="!text-error-500">{$errors.email}</span>{/if}
+			<input
+				class="input"
+				placeholder="Password"
+				type="password"
+				name="password"
+				bind:value={$form.password}
+				{...$constraints.password}
+			/>
+			{#if $errors.password}<span class="!text-error-500">{$errors.password}</span>{/if}
 			<button class="btn variant-filled-primary">Sign In</button>
 			<p class="text-center">
 				Don't have an account? Click <a href="/sign-up">here</a> to sign up.
