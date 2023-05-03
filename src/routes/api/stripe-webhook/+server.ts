@@ -69,60 +69,6 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 		case 'payment_intent.created': {
 			break;
 		}
-		case 'product.created': {
-			const productCreated: StripeProduct = event.data.object as StripeProduct;
-
-			const { error } = await supabase_service_role.from('products').insert({
-				id: productCreated.id,
-				stripe_price: productCreated.default_price,
-				tags: JSON.parse(productCreated.metadata.tags),
-				size: productCreated.metadata.size,
-				price: productCreated.metadata.price,
-				active: productCreated.active,
-				name: productCreated.name,
-				description: productCreated.description,
-				images: productCreated.images
-			});
-			if (error) {
-				return new Response(
-					'Something went wrong during creating supabase product. Try again later.',
-					{
-						status: 400
-					}
-				);
-			}
-			break;
-		}
-		case 'product.updated': {
-			const productUpdated: StripeProduct = event.data.object as StripeProduct;
-
-			const { error } = await supabase_service_role
-				.from('products')
-				.update({
-					id: productUpdated.id,
-					stripe_price: productUpdated.default_price,
-					tags: JSON.parse(productUpdated.metadata.tags),
-					size: productUpdated.metadata.size,
-					price: productUpdated.metadata.price,
-					active: productUpdated.active,
-					name: productUpdated.name,
-					description: productUpdated.description,
-					images: productUpdated.images
-				})
-				.eq('id', productUpdated.id);
-			if (error) {
-				return new Response(
-					'Something went wrong during updating supabase product. Try again later.',
-					{
-						status: 400
-					}
-				);
-			}
-			break;
-		}
-		default: {
-			console.log(`Unhandled event type ${event.type}`);
-		}
 	}
 
 	return new Response(`Successfully received event: ${event.type}`, {

@@ -35,16 +35,14 @@
 							<th>Order ID</th>
 							<th>Product ID</th>
 							<th>Quantity</th>
-							<th>Size</th>
 						</tr>
 					</thead>
 					<tbody>
-						{#each orderProductsList as orderProducts}
+						{#each orderProductsList as orderProduct}
 							<tr>
-								<td>{orderProducts.order_id}</td>
-								<td>{orderProducts.product_id}</td>
-								<td>{orderProducts.quantity}</td>
-								<td>{orderProducts.size}</td>
+								<td>{orderProduct.order_id}</td>
+								<td>{orderProduct.product_id}</td>
+								<td>{orderProduct.quantity}</td>
 							</tr>
 						{/each}
 					</tbody>

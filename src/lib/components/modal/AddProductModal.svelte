@@ -26,9 +26,9 @@
 					background: 'variant-filled-success'
 				};
 				toastStore.trigger(toast);
-			} else {
+			} else if (result.type === 'failure') {
 				const toast: ToastSettings = {
-					message: 'Something went wrong. Try again later',
+					message: result.data?.message,
 					background: 'variant-filled-error'
 				};
 				toastStore.trigger(toast);
@@ -79,13 +79,13 @@
 						<span>Price</span>
 						<div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
 							<div class="input-group-shim hide-number-input-arrows">€</div>
-							<input type="number" step="0.01" placeholder="Price" name="price" required />
+							<input type="number" min=0 step="0.01" placeholder="Price" name="price" required />
 						</div>
 					</label>
-					<span class="flex items-center justify-between">
-						<label for="active">Activate Product</label>
-						<SlideToggle class="mt-1" name="active" />
-					</span>
+					<label class="label">
+						<span>Amount in stock:</span>
+						<input class="input" type="number" min=0 step=1 placeholder="Amount in stock" name="stock" required />
+					</label>
 				</div>
 
 				<div class="flex flex-col gap-4 justify-between">
@@ -111,6 +111,10 @@
 					<span>
 						<label for="images">Images</label>
 						<FileDropzone class="mt-1" name="images" multiple required />
+					</span>
+					<span class="flex items-center justify-between">
+						<label for="active">Activate Product</label>
+						<SlideToggle class="mt-1" name="active" />
 					</span>
 				</div>
 			</div>

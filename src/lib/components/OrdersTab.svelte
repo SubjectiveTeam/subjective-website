@@ -63,7 +63,6 @@
 						<th>City</th>
 						<th>Customer Email</th>
 						<th>Status</th>
-
 						<th />
 					</tr>
 				</thead>

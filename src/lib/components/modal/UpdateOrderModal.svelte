@@ -1,16 +1,44 @@
 <script lang="ts">
-	import { enhance } from '$app/forms';
+	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
+	import { invalidateAll } from '$app/navigation';
 	import {
 		ListBox,
 		ListBoxItem,
 		modalStore,
 		popup,
-		type PopupSettings
+		toastStore,
+		type PopupSettings,
+
+		type ToastSettings
+
 	} from '@skeletonlabs/skeleton';
 
 	export let order: Order;
 
-	let popupCombobox: PopupSettings = {
+    const updateOrderCallback: SubmitFunction = () => {
+        updating = true;
+		return async ({ result }) => {
+			await applyAction(result);
+			if (result.type === 'success') {
+				await invalidateAll();
+				modalStore.close();
+				const toast: ToastSettings = {
+					message: 'Successfully updated order.',
+					background: 'variant-filled-success'
+				};
+				toastStore.trigger(toast);
+			} else if (result.type === 'failure') {
+				const toast: ToastSettings = {
+					message: result.data?.message,
+					background: 'variant-filled-error'
+				};
+				toastStore.trigger(toast);
+			}
+            updating = false;
+		};
+	};
+
+	const popupCombobox: PopupSettings = {
 		event: 'click',
 		target: 'combobox',
 		placement: 'bottom',
@@ -24,7 +52,7 @@
 {#if $modalStore[0]}
 	<div class="flex flex-col gap-10 bg-surface-100-800-token p-16">
 		<h1 class="!leading-loose">Edit Order</h1>
-		<form class="flex flex-col gap-4" action="?/updateOrder" method="post" use:enhance>
+		<form class="flex flex-col gap-4" action="?/updateOrder" method="post" use:enhance={updateOrderCallback}>
 			<label class="label">
 				<span>ID</span>
 				<input

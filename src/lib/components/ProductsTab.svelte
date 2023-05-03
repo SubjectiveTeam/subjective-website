@@ -64,6 +64,7 @@
 						<th>Name</th>
 						<th>Description</th>
 						<th>Price</th>
+						<th>Stock</th>
 						<th>Active</th>
 						<th>Size</th>
 						<th>Tags</th>
@@ -78,6 +79,7 @@
 							<td>{product.name}</td>
 							<td>{product.description}</td>
 							<td>€{product.price}</td>
+							<td>{product.stock}</td>
 							<td>{product.active}</td>
 							<td>{product.size}</td>
 							<td>{product.tags}</td>
