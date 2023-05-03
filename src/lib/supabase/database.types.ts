@@ -98,19 +98,12 @@ export interface Database {
 			[_ in never]: never;
 		};
 		Functions: {
-			create_order:
-				| {
-						Args: {
-							checkoutsessionjson: Json;
-						};
-						Returns: undefined;
-				  }
-				| {
-						Args: {
-							checkout_session: Json;
-						};
-						Returns: undefined;
-				  };
+			create_order: {
+				Args: {
+					order_info: Json;
+				};
+				Returns: undefined;
+			};
 			delete_claim: {
 				Args: {
 					uid: string;

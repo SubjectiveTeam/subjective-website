@@ -14,7 +14,7 @@
 				goto(result.location);
 				toastStore.trigger({
 					message: 'Succesfully signed up.',
-					background: 'variant-filled-error'
+					background: 'variant-filled-success'
 				});
 			}
 			if (result.type === 'failure') {
