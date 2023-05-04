@@ -51,11 +51,6 @@ declare global {
 		description: string;
 		images: string[];
 		livemode: boolean;
-		metadata: {
-			tags: string;
-			size: string;
-			price: number;
-		};
 		name: string;
 		package_dimensions: {
 			height: number;
@@ -68,28 +63,4 @@ declare global {
 		updated: number;
 		url: string;
 	};
-
-	// {
-	// 	id: 'e291fe2f-a9d2-4682-b1ac-3b0e7f2e1f45',
-	// 	object: 'product',
-	// 	active: false,
-	// 	attributes: [],
-	// 	created: 1682978680,
-	// 	default_price: 'price_1N34poFaTBuMKrTxB92y5ZKd',
-	// 	description: '12',
-	// 	images: [
-	// 	  'https://jkcymtlnxiygulxfzgbf.supabase.co/storage/v1/object/public/product_images/e291fe2f-a9d2-4682-b1ac-3b0e7f2e1f45/test.png'
-	// 	],
-	// 	livemode: false,
-	// 	metadata: { tags: '["test"]', sizes: '["XL"]' },
-	// 	name: '12',
-	// 	package_dimensions: null,
-	// 	shippable: null,
-	// 	statement_descriptor: null,
-	// 	tax_code: null,
-	// 	type: 'service',
-	// 	unit_label: null,
-	// 	updated: 1682978680,
-	// 	url: null
-	//   }
 }

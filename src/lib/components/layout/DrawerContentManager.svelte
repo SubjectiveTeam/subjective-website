@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { drawerStore } from '@skeletonlabs/skeleton';
-	import Navigation from '$lib/components/Navigation.svelte';
+	import Navigation from '$lib/components/layout/Navigation.svelte';
 </script>
 
 {#if $drawerStore.id === 'sidebar'}

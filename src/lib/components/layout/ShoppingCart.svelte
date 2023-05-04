@@ -6,7 +6,7 @@
 		type PopupSettings,
 		type ToastSettings
 	} from '@skeletonlabs/skeleton';
-	import PreviewCartItem from './PreviewCartItem.svelte';
+	import PreviewCartItem from '$lib/components/PreviewCartItem.svelte';
 	import { goto } from '$app/navigation';
 
 	const cartMenuPopupSettings: PopupSettings = {

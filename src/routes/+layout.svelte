@@ -6,10 +6,10 @@
 	import { Toast, Modal, Drawer, AppShell } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
-	import Header from '$lib/components/Header.svelte';
-	import Footer from '$lib/components/Footer.svelte';
-	import CookieConsentBanner from '$lib/components/CookieConsentBanner.svelte';
-	import DrawerContentManager from '$lib/components/DrawerContentManager.svelte';
+	import Header from '$lib/components/layout/Header.svelte';
+	import Footer from '$lib/components/layout/Footer.svelte';
+	import CookieConsentBanner from '$lib/components/layout/CookieConsentBanner.svelte';
+	import DrawerContentManager from '$lib/components/layout/DrawerContentManager.svelte';
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';

@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { AppBar } from '@skeletonlabs/skeleton';
 	import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton';
-	import Navigation from './Navigation.svelte';
-	import ShoppingCart from './ShoppingCart.svelte';
+	import Navigation from '$lib/components/layout/Navigation.svelte';
+	import ShoppingCart from '$lib/components/layout/ShoppingCart.svelte';
 
 	const toggleSideBar = () => {
 		const drawerSettings: DrawerSettings = {

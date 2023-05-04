@@ -1,38 +1,7 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
-	import AddProductModal from '$lib/components/modal/AddProductModal.svelte';
-	import EditProductModal from '$lib/components/modal/UpdateProductModal.svelte';
 
 	export let products: Product[];
-
-	export let addProductForm;
-
-	export let updateProductForm;
-
-	const triggerAddProductModal = () => {
-		const modalComponent: ModalComponent = {
-			ref: AddProductModal,
-			props: { addProductForm }
-		};
-		const modal: ModalSettings = {
-			type: 'component',
-			component: modalComponent
-		};
-		modalStore.trigger(modal);
-	};
-
-	const triggerEditProductModal = (product: Product) => {
-		const modalComponent: ModalComponent = {
-			ref: EditProductModal,
-			props: { product, updateProductForm }
-		};
-		const modal: ModalSettings = {
-			type: 'component',
-			component: modalComponent
-		};
-		modalStore.trigger(modal);
-	};
 
 	let refreshingProducts: boolean = false;
 	const refreshProducts = async () => {
@@ -55,9 +24,7 @@
 				Refresh
 			{/if}
 		</button>
-		<button class="btn btn-sm variant-filled-secondary" on:click={triggerAddProductModal}
-			>Add Product</button
-		>
+		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/add-product">Add Product</a>
 	</div>
 	{#if products.length > 0}
 		<div class="table-container">
@@ -72,7 +39,6 @@
 						<th>Stock</th>
 						<th>Active</th>
 						<th>Size</th>
-						<th>Tags</th>
 						<th />
 					</tr>
 				</thead>
@@ -87,12 +53,8 @@
 							<td>{product.stock}</td>
 							<td>{product.active}</td>
 							<td>{product.size}</td>
-							<td>{product.tags}</td>
 							<td>
-								<button
-									class="btn btn-sm variant-filled-primary"
-									on:click={() => triggerEditProductModal(product)}>Edit</button
-								>
+								<a class="btn btn-sm variant-filled-primary" href="/dashboard/edit-product?product={JSON.stringify(product)}">Edit</a>
 							</td>
 						</tr>
 					{/each}

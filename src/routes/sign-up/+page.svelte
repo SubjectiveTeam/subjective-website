@@ -96,6 +96,7 @@
 				placeholder="Email"
 				type="text"
 				name="email"
+				data-invalid={$errors.email}
 				bind:value={$form.email}
 				{...$constraints.email}
 			/>
@@ -105,6 +106,7 @@
 				placeholder="Password"
 				type="password"
 				name="password"
+				data-invalid={$errors.password}
 				bind:value={$form.password}
 				{...$constraints.password}
 			/>
@@ -114,6 +116,7 @@
 				placeholder="Confirm Password"
 				type="password"
 				name="confirmPassword"
+				data-invalid={$errors.confirmPassword}
 				bind:value={$form.confirmPassword}
 				{...$constraints.confirmPassword}
 			/>
