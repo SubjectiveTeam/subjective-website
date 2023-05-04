@@ -40,8 +40,12 @@
 	messageTypeBackgroundsMap.set('error', 'variant-filled-error');
 	afterNavigate(() => {
 		const message = $page.url.searchParams.get('message');
-		const background = messageTypeBackgroundsMap.get($page.url.searchParams.get('messageType') || '');
-		if (message && background ) toastStore.trigger({message, background})
+		const background = messageTypeBackgroundsMap.get(
+			$page.url.searchParams.get('message_type') || ''
+		);
+		console.log(message, background);
+
+		if (message && background) toastStore.trigger({ message, background });
 	});
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });

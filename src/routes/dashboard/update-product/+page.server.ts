@@ -21,13 +21,22 @@ const updateProductSchema = z
 		}
 	});
 
-export async function load({ url, locals: { supabase }}) {
-	const { data } = await supabase.from('products').select('*').eq('id', url.searchParams.get('productID')).limit(1).single();
+export async function load({ url, locals: { supabase } }) {
+	const { data } = await supabase
+		.from('products')
+		.select('*')
+		.eq('id', url.searchParams.get('product_id'))
+		.limit(1)
+		.single();
 
-	if (!data) throw redirect(303, '/dashboard?message=Cannot edit product because product does not exist?messageType=warning');
+	if (!data)
+		throw redirect(
+			303,
+			'/dashboard?message=Cannot edit product because product does not exist&message_type=warning'
+		);
 
 	const form = await superValidate(data, updateProductSchema);
-	
+
 	return {
 		form
 	};
@@ -35,10 +44,10 @@ export async function load({ url, locals: { supabase }}) {
 
 export const actions: Actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
-
 		const session = await getSession();
 
-		if (!session || !session.user.app_metadata.claims_admin) return redirect(303, '/?message=Unauthorized to access this resource&messageType=error');
+		if (!session || !session.user.app_metadata.claims_admin)
+			return redirect(303, '/?message=Unauthorized to access this resource.&message_type=error');
 
 		const form = await superValidate(request, updateProductSchema);
 
@@ -47,7 +56,7 @@ export const actions: Actions = {
 			description: form.data.description,
 			active: form.data.active
 		});
-	
+
 		const { error } = await supabase
 			.from('products')
 			.update({
@@ -58,10 +67,11 @@ export const actions: Actions = {
 				stock: form.data.stock
 			})
 			.eq('id', form.data.id);
-	
+
 		if (error) {
 			return fail(400, { form, message: 'Something went wrong updating the product in supabase' });
 		}
-		return { form };
+
+		throw redirect(303, '/dashboard?message=Succesfully updated product&message_type=success');
 	}
 };

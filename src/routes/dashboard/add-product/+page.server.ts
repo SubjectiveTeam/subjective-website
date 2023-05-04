@@ -35,7 +35,8 @@ export const actions: Actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
 		const session = await getSession();
 
-		if (!session || !session.user.app_metadata.claims_admin) return redirect(303, '/?message=Unauthorized to access this resource&messageType=error');
+		if (!session || !session.user.app_metadata.claims_admin)
+			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
 
 		const formData = await request.formData();
 
@@ -45,8 +46,9 @@ export const actions: Actions = {
 
 		if (!form.valid || files.length <= 0) return fail(400, { form });
 
-		files.forEach(file => {
-			if (['PNG', 'JPEG', 'JPG', 'GIF'].includes(file.type)) return fail(400, { form, message: 'Files must be of type: PNG, JPEG, JPG or GIF' });
+		files.forEach((file) => {
+			if (['PNG', 'JPEG', 'JPG', 'GIF'].includes(file.type))
+				return fail(400, { form, message: 'Files must be of type: PNG, JPEG, JPG or GIF' });
 		});
 
 		const id = v4();
@@ -57,7 +59,8 @@ export const actions: Actions = {
 				.from('product_images')
 				.upload(`${id}/${files[i].name}`, files[i]);
 			if (error) console.error(error.message);
-			if (data) images.push(supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl);
+			if (data)
+				images.push(supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl);
 		}
 
 		const stripeProduct: Stripe.Product = await stripe.products.create({
@@ -90,6 +93,6 @@ export const actions: Actions = {
 			await stripe.products.update(id, { active: false });
 			return fail(400, { form, message: 'Something went wrong inserting the product in supabase' });
 		}
-		return { form, message: 'Succesfully added product'};
+		throw redirect(303, '/dashboard?message=Succesfully added product&message_type=success');
 	}
 };

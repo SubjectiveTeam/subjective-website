@@ -7,9 +7,7 @@
 		ListBox,
 		ListBoxItem,
 		popup,
-
 		FileDropzone
-
 	} from '@skeletonlabs/skeleton';
 
 	export let data;
@@ -60,6 +58,7 @@
 					type="text"
 					name="name"
 					placeholder="Name"
+					data-invalid={$errors.name}
 					bind:value={$form.name}
 					{...$constraints.name}
 				/>
@@ -68,6 +67,7 @@
 					class="input resize-none"
 					name="description"
 					placeholder="Description"
+					data-invalid={$errors.description}
 					bind:value={$form.description}
 					{...$constraints.description}
 				/>
@@ -77,6 +77,7 @@
 					type="number"
 					name="price"
 					placeholder="Price"
+					data-invalid={$errors.price}
 					bind:value={$form.price}
 					{...$constraints.price}
 				/>
@@ -86,6 +87,7 @@
 					type="number"
 					name="stock"
 					placeholder="Amount in stock"
+					data-invalid={$errors.stock}
 					bind:value={$form.stock}
 					{...$constraints.stock}
 				/>
@@ -96,7 +98,7 @@
 					{$form.size}
 				</button>
 				<div class="card w-48 shadow-xl py-2 z-50" data-popup="combobox">
-					<ListBox rounded="rounded-none" {...$constraints.size}>
+					<ListBox rounded="rounded-none" {...$constraints.size} data-invalid={$errors.size}>
 						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="M">M</ListBoxItem>
@@ -108,10 +110,14 @@
 				<FileDropzone name="files" required multiple />
 				<label for="active" class="label flex items-center justify-evenly">
 					<span>Activate Product</span>
-					<SlideToggle name="active" bind:checked={$form.active} {...$constraints.active} />
+					<SlideToggle
+						name="active"
+						bind:checked={$form.active}
+						{...$constraints.active}
+						data-invalid={$errors.active}
+					/>
 					{#if $errors.active}<span class="!text-error-500">{$errors.active}</span>{/if}
 				</label>
-
 			</div>
 		</div>
 
