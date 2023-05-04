@@ -42,62 +42,77 @@
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col md:flex-row gap-4">
 			<div class="flex-1 flex flex-col gap-4">
-				<input
-					class="input"
-					type="text"
-					name="id"
-					placeholder="ID"
-					readonly
-					data-invalid={$errors.id}
-					bind:value={$form.id}
-					{...$constraints.id}
-				/>
+				<label for="id" class="label">
+					<span>ID</span>
+					<input
+						class="input"
+						type="text"
+						name="id"
+						placeholder="ID"
+						readonly
+						data-invalid={$errors.id}
+						bind:value={$form.id}
+						{...$constraints.id}
+					/>
+				</label>
 				{#if $errors.id}<span class="!text-error-500">{$errors.id}</span>{/if}
-				<input
-					class="input"
-					type="text"
-					name="name"
-					placeholder="Name"
-					data-invalid={$errors.name}
-					bind:value={$form.name}
-					{...$constraints.name}
-				/>
+				<label for="name" class="label">
+					<span>Name</span>
+					<input
+						class="input"
+						type="text"
+						name="name"
+						placeholder="Name"
+						data-invalid={$errors.name}
+						bind:value={$form.name}
+						{...$constraints.name}
+					/>
+				</label>
 				{#if $errors.name}<span class="!text-error-500">{$errors.name}</span>{/if}
-				<textarea
-					class="input resize-none"
-					name="description"
-					placeholder="Description"
-					data-invalid={$errors.description}
-					bind:value={$form.description}
-					{...$constraints.description}
-				/>
+				<label for="description" class="label">
+					<span>Description</span>
+					<textarea
+						class="input resize-none"
+						name="description"
+						placeholder="Description"
+						data-invalid={$errors.description}
+						bind:value={$form.description}
+						{...$constraints.description}
+					/>
+				</label>
 				{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
 			</div>
 			<div class="flex-1 flex flex-col gap-4">
-				<input
-					class="input"
-					type="number"
-					name="stock"
-					placeholder="Amount in stock"
-					data-invalid={$errors.stock}
-					bind:value={$form.stock}
-					{...$constraints.stock}
-				/>
+				<label for="stock" class="label">
+					<span>Stock</span>
+					<input
+						class="input"
+						type="number"
+						name="stock"
+						placeholder="Amount in stock"
+						data-invalid={$errors.stock}
+						bind:value={$form.stock}
+						{...$constraints.stock}
+					/>
+				</label>
 				{#if $errors.stock}<span class="!text-error-500">{$errors.stock}</span>{/if}
-				<button type="button" class="btn input mt-1" use:popup={popupCombobox}>
-					{$form.size}
-				</button>
-				<div class="card w-48 shadow-xl py-2 z-50" data-popup="combobox">
-					<ListBox rounded="rounded-none" {...$constraints.size} data-invalid={$errors.size}>
-						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
-						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
-						<ListBoxItem bind:group={$form.size} name="size" value="M">M</ListBoxItem>
-						<ListBoxItem bind:group={$form.size} name="size" value="S">S</ListBoxItem>
-					</ListBox>
-					<div class="arrow bg-surface-100-800-token" />
-				</div>
+				<label for="size" class="label">
+					<span>Size</span>
+					<button type="button" class="btn input mt-1" use:popup={popupCombobox}>
+						{$form.size}
+					</button>
+					<div class="card w-48 shadow-xl py-2 z-50" data-popup="combobox">
+						<ListBox rounded="rounded-none" {...$constraints.size} data-invalid={$errors.size}>
+							<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
+							<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
+							<ListBoxItem bind:group={$form.size} name="size" value="M">M</ListBoxItem>
+							<ListBoxItem bind:group={$form.size} name="size" value="S">S</ListBoxItem>
+						</ListBox>
+						<div class="arrow bg-surface-100-800-token" />
+					</div>
+				</label>
 				{#if $errors.size}<span class="!text-error-500">{$errors.size}</span>{/if}
-				<label for="active" class="label flex items-center justify-evenly">
+				<label for="active" class="label flex flex-col">
 					<span>Activate Product</span>
 					<SlideToggle
 						name="active"
@@ -105,8 +120,8 @@
 						{...$constraints.active}
 						data-invalid={$errors.active}
 					/>
-					{#if $errors.active}<span class="!text-error-500">{$errors.active}</span>{/if}
 				</label>
+				{#if $errors.active}<span class="!text-error-500">{$errors.active}</span>{/if}
 			</div>
 		</div>
 

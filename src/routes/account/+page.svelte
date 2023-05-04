@@ -33,12 +33,18 @@
 		<svelte:fragment slot="panel">
 			{#if tabSet === 0}
 				<div class="flex flex-col gap-8 max-w-lg">
-					<label class="label max-w-lg">
+					<label for="email" class="label">
 						<span>Email:</span>
-						<input type="text" class="input" readonly value={$page.data.session?.user.email} />
+						<input
+							class="input"
+							type="email"
+							name="email"
+							readonly
+							value={$page.data.session?.user.email}
+						/>
 					</label>
 					<form class="flex flex-col gap-2" method="post" action="?/changePassword" use:enhance>
-						<label class="label max-w-lg">
+						<label for="password" class="label">
 							<span>New Password:</span>
 							<input
 								class="input"
@@ -51,7 +57,7 @@
 							/>
 						</label>
 						{#if $errors.password}<span class="!text-error-500">{$errors.password}</span>{/if}
-						<label class="label max-w-lg">
+						<label for="confirmPassword" class="label">
 							<span>Confirm New Password:</span>
 							<input
 								class="input"
