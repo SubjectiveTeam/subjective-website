@@ -33,7 +33,7 @@ export async function load({ url, locals: { supabase } }) {
 
 export const actions: Actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
-        const session = await getSession();
+		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin)
 			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');

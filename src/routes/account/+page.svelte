@@ -40,11 +40,11 @@
 					<form class="flex flex-col gap-2" method="post" action="?/changePassword" use:enhance>
 						<label class="label max-w-lg">
 							<span>New Password:</span>
-							<input 
-								class="input" 
-								type="password" 
-								placeholder="New Password" 
-								name="password" 
+							<input
+								class="input"
+								type="password"
+								placeholder="New Password"
+								name="password"
 								data-invalid={$errors.password}
 								bind:value={$form.password}
 								{...$constraints.password}
@@ -63,10 +63,10 @@
 								{...$constraints.confirmPassword}
 							/>
 						</label>
-						{#if $errors.confirmPassword}<span class="!text-error-500">{$errors.confirmPassword}</span>{/if}
-						<button class="btn variant-ringed-error max-w-lg"
-							>Change Password</button
-						>
+						{#if $errors.confirmPassword}<span class="!text-error-500"
+								>{$errors.confirmPassword}</span
+							>{/if}
+						<button class="btn variant-ringed-error max-w-lg">Change Password</button>
 					</form>
 					<form method="post" action="?/signOut">
 						<button class="btn variant-filled-error w-fit">Sign Out</button>

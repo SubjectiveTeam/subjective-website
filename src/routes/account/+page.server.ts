@@ -2,10 +2,11 @@ import { redirect, type Actions, fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
-const changePasswordSchema = z.object({
-	password: z.string().min(8).nonempty(),
-	confirmPassword: z.string().min(8).nonempty()
-})
+const changePasswordSchema = z
+	.object({
+		password: z.string().min(8).nonempty(),
+		confirmPassword: z.string().min(8).nonempty()
+	})
 	.superRefine(({ confirmPassword, password }, ctx) => {
 		if (confirmPassword !== password) {
 			ctx.addIssue({
@@ -15,7 +16,7 @@ const changePasswordSchema = z.object({
 		}
 	});
 
-export async function load({ locals: { supabase, getSession }}) {
+export async function load({ locals: { supabase, getSession } }) {
 	const session = await getSession();
 
 	const form = await superValidate(changePasswordSchema);
@@ -25,12 +26,16 @@ export async function load({ locals: { supabase, getSession }}) {
 		.select('*')
 		.eq('customer_email', session?.user.email);
 
-	if (error) throw redirect(303, '/account?mesage=Something went wrong while retrieving your orders.&message_type=error');
+	if (error)
+		throw redirect(
+			303,
+			'/account?mesage=Something went wrong while retrieving your orders.&message_type=error'
+		);
 
 	return {
 		form,
 		orders: data as Order[]
-	}
+	};
 }
 
 export const actions: Actions = {
@@ -41,7 +46,8 @@ export const actions: Actions = {
 	changePassword: async ({ request, locals: { supabase, getSession } }) => {
 		const session = await getSession();
 
-		if (!session) return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+		if (!session)
+			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
 
 		const form = await superValidate(request, changePasswordSchema);
 
@@ -51,7 +57,8 @@ export const actions: Actions = {
 			password: form.data.password
 		});
 
-		if (error) return fail(400, { form, message: 'Something went wrong while updating your password' });
+		if (error)
+			return fail(400, { form, message: 'Something went wrong while updating your password' });
 
 		return { form, message: 'Successfully updated password' };
 	}
