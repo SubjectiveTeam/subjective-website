@@ -1,3 +1,4 @@
+import { PUBLIC_BASE_URL } from '$env/static/public';
 import { stripe } from '$lib/stripe/stripe';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type Stripe from 'stripe';
@@ -65,7 +66,7 @@ export const actions: Actions = {
 				// We do times 100 because Stripe uses cents so 1 euro would be 100 cents
 				unit_amount: form.data.price * 100
 			},
-			url: `http://localhost:5173/products/${id}`
+			url: `${PUBLIC_BASE_URL}}/products/${id}`
 		});
 
 		const { error } = await supabase.from('products').insert({
