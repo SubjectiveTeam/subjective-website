@@ -1,19 +1,6 @@
 import { fail, type Actions } from '@sveltejs/kit';
-import { stripe } from '$lib/stripe/stripe';
-import { updateProduct } from '$lib/modules/dashboard';
-import { superValidate } from 'sveltekit-superforms/server';
-import { v4 } from 'uuid';
 
 export const actions: Actions = {
-	updateProduct: async ({ request, locals: { getSession, supabase } }) => {
-		const session = await getSession();
-
-		if (!session || !session.user.app_metadata.claims_admin) {
-			return fail(401, { message: 'Unauthorized' });
-		}
-
-		return await updateProduct(await request.formData(), supabase, stripe);
-	},
 	updateOrder: async ({ request, locals: { supabase, getSession } }) => {
 		const session = await getSession();
 

@@ -6,10 +6,7 @@
 		type PopupSettings,
 		ListBox,
 		ListBoxItem,
-		popup,
-
-		FileDropzone
-
+		popup
 	} from '@skeletonlabs/skeleton';
 
 	export let data;
@@ -18,7 +15,7 @@
 		invalidateAll: true,
 		applyAction: true,
 		onSubmit() {
-			adding = true;
+			working = true;
 		},
 		onResult({ result }) {
 			if (result.type === 'success') {
@@ -26,18 +23,10 @@
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
 			}
-			adding = false;
+			working = false;
 		}
 	});
 
-	// Populate size value with M
-	form.update(
-		($form) => {
-			$form.size = 'M';
-			return $form;
-		},
-		{ taint: false }
-	);
 
 	const popupCombobox: PopupSettings = {
 		event: 'click',
@@ -47,14 +36,24 @@
 		closeQuery: '.listbox-item'
 	};
 
-	let adding: boolean = false;
+	let working: boolean = false;
 </script>
 
 <section class="flex flex-col gap-10 card p-16">
-	<h1 class="!leading-loose">Add Product</h1>
+	<h1 class="!leading-loose">Update Product</h1>
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col md:flex-row gap-4">
 			<div class="flex-1 flex flex-col gap-4">
+				<input
+					class="input"
+					type="text"
+					name="name"
+					placeholder="Name"
+					readonly
+					bind:value={$form.id}
+					{...$constraints.id}
+				/>
+				{#if $errors.id}<span class="!text-error-500">{$errors.id}</span>{/if}
 				<input
 					class="input"
 					type="text"
@@ -72,15 +71,8 @@
 					{...$constraints.description}
 				/>
 				{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
-				<input
-					class="input"
-					type="number"
-					name="price"
-					placeholder="Price"
-					bind:value={$form.price}
-					{...$constraints.price}
-				/>
-				{#if $errors.price}<span class="!text-error-500">{$errors.price}</span>{/if}
+			</div>
+			<div class="flex-1 flex flex-col gap-4">
 				<input
 					class="input"
 					type="number"
@@ -90,8 +82,6 @@
 					{...$constraints.stock}
 				/>
 				{#if $errors.stock}<span class="!text-error-500">{$errors.stock}</span>{/if}
-			</div>
-			<div class="flex-1 flex flex-col gap-4">
 				<button type="button" class="btn input mt-1" use:popup={popupCombobox}>
 					{$form.size}
 				</button>
@@ -105,7 +95,6 @@
 					<div class="arrow bg-surface-100-800-token" />
 				</div>
 				{#if $errors.size}<span class="!text-error-500">{$errors.size}</span>{/if}
-				<FileDropzone name="files" required multiple />
 				<label for="active" class="label flex items-center justify-evenly">
 					<span>Activate Product</span>
 					<SlideToggle name="active" bind:checked={$form.active} {...$constraints.active} />
@@ -116,11 +105,11 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={adding} class="btn variant-filled-secondary">
-				{#if adding}
+			<button disabled={working} class="btn variant-filled-secondary">
+				{#if working}
 					Working...
 				{:else}
-					Add Product
+					Update Product
 				{/if}
 			</button>
 		</div>

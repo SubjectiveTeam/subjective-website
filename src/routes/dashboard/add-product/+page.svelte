@@ -18,7 +18,7 @@
 		invalidateAll: true,
 		applyAction: true,
 		onSubmit() {
-			adding = true;
+			working = true;
 		},
 		onResult({ result }) {
 			if (result.type === 'success') {
@@ -26,7 +26,7 @@
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
 			}
-			adding = false;
+			working = false;
 		}
 	});
 
@@ -47,7 +47,7 @@
 		closeQuery: '.listbox-item'
 	};
 
-	let adding: boolean = false;
+	let working: boolean = false;
 </script>
 
 <section class="flex flex-col gap-10 card p-16">
@@ -116,8 +116,8 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={adding} class="btn variant-filled-secondary">
-				{#if adding}
+			<button disabled={working} class="btn variant-filled-secondary">
+				{#if working}
 					Working...
 				{:else}
 					Add Product
