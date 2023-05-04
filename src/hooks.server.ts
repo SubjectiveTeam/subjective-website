@@ -40,10 +40,10 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const isAdmin: boolean = session?.user.app_metadata.claims_admin;
 	const destination: string = event.route.id as string;
 	if (!loggedIn && authRoutes.includes(destination))
-		throw redirect(303, `/sign-in?redirectTo=${destination}`);
+		throw redirect(303, `/sign-in?redirectTo=${destination}&message=You need to be logged in to access that resource.&messageType=error`);
 	else if (loggedIn && !isAdmin && adminRoutes.includes(destination))
-		throw redirect(303, '/account');
-	else if (loggedIn && antiAuthRoutes.includes(destination)) throw redirect(303, '/account');
+		throw redirect(303, '/account?message=You need to be an administrator to access that resource.&messageType=error');
+	else if (loggedIn && antiAuthRoutes.includes(destination)) throw redirect(303, '/account?message=You are already a logged in user.&messageType=info');
 
 	return resolve(event, {
 		/**

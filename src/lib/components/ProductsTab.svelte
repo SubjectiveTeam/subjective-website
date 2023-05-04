@@ -56,7 +56,7 @@
 							<td>
 								<a
 									class="btn btn-sm variant-filled-primary"
-									href="/dashboard/edit-product?product={JSON.stringify(product)}">Edit</a
+									href="/dashboard/edit-product?productID={product.id}">Edit</a
 								>
 							</td>
 						</tr>

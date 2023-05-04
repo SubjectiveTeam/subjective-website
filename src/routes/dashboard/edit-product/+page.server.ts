@@ -1,3 +1,4 @@
+import { redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
@@ -18,10 +19,15 @@ const updateProductSchema = z
 		}
 	});
 
-export async function load() {
+export async function load({ url, locals: { supabase }}) {
 	const form = await superValidate(updateProductSchema);
 
+	const product = await supabase.from('products').select('*').eq('id', url.searchParams.get('productID'));
+
+	if (product) throw redirect(303, '/dashboard');
+
 	return {
-		form
+		form,
+
 	};
 }
