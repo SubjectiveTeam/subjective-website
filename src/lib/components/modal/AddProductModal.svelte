@@ -1,6 +1,5 @@
 <script lang="ts">
-	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
-	import { invalidateAll } from '$app/navigation';
+	import { superForm } from 'sveltekit-superforms/client';
 	import {
 		FileDropzone,
 		InputChip,
@@ -14,12 +13,21 @@
 		popup
 	} from '@skeletonlabs/skeleton';
 
+	export let addProductForm;
+
+	const { form, errors, enhance, message } = superForm(addProductForm, {
+		invalidateAll: true,
+		applyAction: true,
+		onResult(({ result }) => {
+			
+		});
+	});
+
+
 	const addProductCallback: SubmitFunction = () => {
 		adding = true;
 		return async ({ result }) => {
-			await applyAction(result);
 			if (result.type === 'success') {
-				await invalidateAll();
 				modalStore.close();
 				const toast: ToastSettings = {
 					message: 'Successfully added product',
@@ -48,6 +56,11 @@
 	};
 
 	let adding: boolean = false;
+
+
+	function superForm(loginForm: any, arg1: { invalidateAll: boolean; }): { form: any; errors: any; enhance: any; message: any; } {
+		throw new Error('Function not implemented.');
+	}
 </script>
 
 {#if $modalStore[0]}

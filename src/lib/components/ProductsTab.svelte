@@ -6,9 +6,14 @@
 
 	export let products: Product[];
 
+	export let addProductForm;
+
+	export let updateProductForm;
+
 	const triggerAddProductModal = () => {
 		const modalComponent: ModalComponent = {
-			ref: AddProductModal
+			ref: AddProductModal,
+			props: { addProductForm }
 		};
 		const modal: ModalSettings = {
 			type: 'component',
@@ -20,7 +25,7 @@
 	const triggerEditProductModal = (product: Product) => {
 		const modalComponent: ModalComponent = {
 			ref: EditProductModal,
-			props: { product }
+			props: { product, updateProductForm }
 		};
 		const modal: ModalSettings = {
 			type: 'component',

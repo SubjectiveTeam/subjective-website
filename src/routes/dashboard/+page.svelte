@@ -23,7 +23,11 @@
 
 		<svelte:fragment slot="panel">
 			{#if tabSet === 0}
-				<ProductsTab {products} />
+				<ProductsTab
+					{products}
+					addProductForm={data.addProductForm}
+					updateProductForm={data.updateProductForm}
+				/>
 			{:else if tabSet === 1}
 				<OrdersTab {orders} />
 			{:else if tabSet === 2}
