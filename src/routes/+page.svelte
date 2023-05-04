@@ -1,11 +1,21 @@
-<section class="mx-auto flex flex-col items-center gap-8 mt-[12.5vh]">
-	<h1 class="font-bold">Welcome to Subjective</h1>
-	<blockquote>
-		At Subjective, we believe that fashion should be personal. Shop with us and discover your unique
-		style.
-	</blockquote>
-	<div class="flex gap-12 mt-8">
-		<a class="unstyled btn variant-filled-primary" href="/clothing">Start Shopping</a>
-		<a class="unstyled btn variant-ghost-primary" href="/about">Learn more</a>
+<section class="flex flex-col xl:flex-row justify-between mt-[12.5vh]">
+	<div class="flex-[50%] flex flex-col justify-between h-fit">
+		<h1 class="font-bold leading-loose">
+			Subjective, Where great minds think <strike>alike</strike> differently.
+		</h1>
+		<p class="mt-8 !leading-loose">
+			Subjective is an up and coming brand to change the fashion industry, are you tired of
+			'following the trend'? Well we are! With Subjective you can be yourself and express yourself.
+		</p>
+		<a class="unstyled btn variant-filled-secondary mt-8 w-fit" href="/clothing">Start Shopping</a>
+	</div>
+	<div class="flex-[50%]">
+		<lottie-player
+			class="mt-[-20%]"
+			src="https://assets6.lottiefiles.com/private_files/lf30_esg1l8r1.json"
+			speed="0.25"
+			loop
+			autoplay
+		/>
 	</div>
 </section>

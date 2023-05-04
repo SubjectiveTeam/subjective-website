@@ -1,8 +1,8 @@
 <script lang="ts">
 	import { AppBar } from '@skeletonlabs/skeleton';
 	import { drawerStore, type DrawerSettings } from '@skeletonlabs/skeleton';
-	import Navigation from './Navigation.svelte';
-	import ShoppingCart from './ShoppingCart.svelte';
+	import Navigation from '$lib/components/layout/Navigation.svelte';
+	import ShoppingCart from '$lib/components/layout/ShoppingCart.svelte';
 
 	const toggleSideBar = () => {
 		const drawerSettings: DrawerSettings = {
@@ -15,7 +15,7 @@
 	};
 </script>
 
-<AppBar padding="py-4 px-8" class="h-[var(--header-height)]">
+<AppBar class="h-[var(--header-height)]" padding="py-4 px-[5vw] md:px-[15vw]" shadow="!shadow-lg">
 	<svelte:fragment slot="lead">
 		<span class="hidden lg:block"><Navigation orientation="horizontal" /></span>
 		<button class="lg:hidden btn" on:click={toggleSideBar}>

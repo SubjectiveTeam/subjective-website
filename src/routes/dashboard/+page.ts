@@ -1,14 +1,17 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ parent }) => {
+export async function load({ parent }) {
 	const { supabase } = await parent();
 
-	const { data, error } = await supabase.from('products').select('*');
+	const [productRequest, orderRequest] = await Promise.all([
+		supabase.from('products').select('*'),
+		supabase.from('orders').select('*')
+	]);
 
-	if (error) throw redirect(303, '/');
+	if (productRequest.error || orderRequest.error) throw redirect(303, '/');
 
 	return {
-		products: data as Product[]
+		products: productRequest.data as Product[],
+		orders: orderRequest.data as Order[]
 	};
-};
+}

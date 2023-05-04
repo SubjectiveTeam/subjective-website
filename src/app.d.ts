@@ -6,6 +6,7 @@ declare global {
 		interface Locals {
 			consentCookiePresent: boolean;
 			supabase: SupabaseClient<Database>;
+			supabase_service_role: SupabaseClient<Database>;
 			getSession(): Promise<Session | null>;
 		}
 		interface PageData {
@@ -18,6 +19,8 @@ declare global {
 
 	type Product = Database['public']['Tables']['products']['Row'];
 
+	type Order = Database['public']['Tables']['orders']['Row'];
+
 	type CartItem = {
 		product: Product;
 		quantity: number;
@@ -28,8 +31,36 @@ declare global {
 		quantity: number;
 	};
 
+	type CartItemSimplified = {
+		product_id: string;
+		quantity: number;
+	};
+
 	type CheckoutResponse = {
 		type: 'success' | 'failure';
 		url?: string;
+	};
+
+	type StripeProduct = {
+		id: string;
+		object: string;
+		active: boolean;
+		attributes: string[];
+		created: number;
+		default_price: string;
+		description: string;
+		images: string[];
+		livemode: boolean;
+		name: string;
+		package_dimensions: {
+			height: number;
+			width: number;
+			length: number;
+		};
+		tax_code: string;
+		type: string;
+		unit_label: string;
+		updated: number;
+		url: string;
 	};
 }

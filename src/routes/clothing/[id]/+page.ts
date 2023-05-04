@@ -1,7 +1,6 @@
 import { redirect } from '@sveltejs/kit';
-import type { PageLoad } from './$types';
 
-export const load: PageLoad = async ({ parent, params }) => {
+export async function load({ parent, params }) {
 	const id = params.id;
 	const { supabase } = await parent();
 
@@ -17,4 +16,4 @@ export const load: PageLoad = async ({ parent, params }) => {
 	return {
 		product: data as Product
 	};
-};
+}

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { cartStore } from '$lib/stores/cart';
+
 	export let product: Product;
 </script>
 
@@ -7,11 +8,11 @@
 	<p>{product.name}</p>
 
 	<img src={product.images[0]} alt={product.name} />
-
 	<div class="flex justify-between">
 		<p class="chip variant-filled py-1">€{product.price}</p>
-		<button class="btn btn-sm variant-ghost-success" on:click={() => cartStore.add(product)}
-			>Add To Cart</button
+		<button
+			class="btn btn-sm variant-ghost-success"
+			on:click={() => cartStore.add({ product, quantity: 1 })}>Add To Cart</button
 		>
 	</div>
 </div>
