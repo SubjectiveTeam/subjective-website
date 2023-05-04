@@ -54,7 +54,10 @@
 							<td>{product.active}</td>
 							<td>{product.size}</td>
 							<td>
-								<a class="btn btn-sm variant-filled-primary" href="/dashboard/edit-product?product={JSON.stringify(product)}">Edit</a>
+								<a
+									class="btn btn-sm variant-filled-primary"
+									href="/dashboard/edit-product?product={JSON.stringify(product)}">Edit</a
+								>
 							</td>
 						</tr>
 					{/each}

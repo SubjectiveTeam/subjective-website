@@ -4,7 +4,6 @@ import { updateProduct } from '$lib/modules/dashboard';
 import { superValidate } from 'sveltekit-superforms/server';
 import { v4 } from 'uuid';
 
-
 export const actions: Actions = {
 	updateProduct: async ({ request, locals: { getSession, supabase } }) => {
 		const session = await getSession();
