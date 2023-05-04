@@ -14,11 +14,12 @@ export const POST: RequestHandler = async ({
 			.select('*')
 			.eq('id', cartItem.product.id)
 			.eq('active', true)
+			.gte('stock', cartItem.quantity)
 			.limit(1)
 			.single();
 
 		if (!data) {
-			return new Response('One of the products is unavailable', {
+			return new Response('One of the products is unavailable.', {
 				status: 400
 			});
 		}

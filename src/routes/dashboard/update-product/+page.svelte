@@ -12,7 +12,6 @@
 	export let data;
 
 	const { form, errors, constraints, enhance } = superForm(data.form, {
-		invalidateAll: true,
 		applyAction: true,
 		onSubmit() {
 			working = true;
@@ -22,8 +21,8 @@
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+				working = false;
 			}
-			working = false;
 		}
 	});
 

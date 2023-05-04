@@ -3,23 +3,14 @@ import { redirect, type Actions, fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
-const updateProductSchema = z
-	.object({
-		id: z.string().nonempty(),
-		name: z.string().min(1),
-		description: z.string().min(1),
-		stock: z.number().gte(0).multipleOf(1).min(1),
-		size: z.string().length(1),
-		active: z.boolean()
-	})
-	.superRefine(({ size }, ctx) => {
-		if (!['XL', 'L', 'M', 'S'].includes(size)) {
-			ctx.addIssue({
-				code: 'custom',
-				message: 'Size must be XL, L, M or S'
-			});
-		}
-	});
+const updateProductSchema = z.object({
+	id: z.string().nonempty(),
+	name: z.string().min(1),
+	description: z.string().min(1),
+	stock: z.number().gte(0).multipleOf(1).min(1),
+	size: z.enum(['XL', 'L', 'M', 'S']),
+	active: z.boolean()
+});
 
 export async function load({ url, locals: { supabase } }) {
 	const { data } = await supabase
@@ -50,6 +41,8 @@ export const actions: Actions = {
 			return redirect(303, '/?message=Unauthorized to access this resource.&message_type=error');
 
 		const form = await superValidate(request, updateProductSchema);
+
+		if (!form.valid) return fail(400, { form });
 
 		await stripe.products.update(form.data.id, {
 			name: form.data.name,

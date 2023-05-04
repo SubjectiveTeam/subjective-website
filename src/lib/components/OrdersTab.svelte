@@ -2,25 +2,12 @@
 	import { invalidateAll } from '$app/navigation';
 	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import ViewOrderProductsModal from '$lib/components/modal/ViewProductsModal.svelte';
-	import EditOrderModal from '$lib/components/modal/UpdateOrderModal.svelte';
 
 	export let orders: Order[];
 
 	const triggerViewOrderProductsModal = (order: Order) => {
 		const modalComponent: ModalComponent = {
 			ref: ViewOrderProductsModal,
-			props: { order }
-		};
-		const modal: ModalSettings = {
-			type: 'component',
-			component: modalComponent
-		};
-		modalStore.trigger(modal);
-	};
-
-	const triggerEditOrderModal = (order: Order) => {
-		const modalComponent: ModalComponent = {
-			ref: EditOrderModal,
 			props: { order }
 		};
 		const modal: ModalSettings = {
@@ -80,9 +67,9 @@
 									class="btn btn-sm variant-filled-primary"
 									on:click={() => triggerViewOrderProductsModal(order)}>View Products</button
 								>
-								<button
-									class="btn btn-sm variant-filled-primary"
-									on:click={() => triggerEditOrderModal(order)}>Edit</button
+								<a
+									href="dashboard/update-order?order_id={order.id}"
+									class="btn btn-sm variant-filled-primary">Edit</a
 								>
 							</td>
 						</tr>

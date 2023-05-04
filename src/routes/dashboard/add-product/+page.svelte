@@ -23,8 +23,8 @@
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+				working = false;
 			}
-			working = false;
 		}
 	});
 

@@ -33,6 +33,7 @@
 		return () => subscription.unsubscribe();
 	});
 
+	// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 	const messageTypeBackgroundsMap = new Map<string, string>();
 	messageTypeBackgroundsMap.set('info', 'variant-filled-secondary');
 	messageTypeBackgroundsMap.set('success', 'variant-filled-success');
@@ -43,8 +44,6 @@
 		const background = messageTypeBackgroundsMap.get(
 			$page.url.searchParams.get('message_type') || ''
 		);
-		console.log(message, background);
-
 		if (message && background) toastStore.trigger({ message, background });
 	});
 
