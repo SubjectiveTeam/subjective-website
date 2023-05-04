@@ -74,7 +74,7 @@
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
 	<div
 		class={$page.route.id === '/'
-			? 'h-[100vh] xl:bg-[url("homepage-bg.svg")] bg-cover bg-center'
+			? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center'
 			: ''}
 	>
 		<div class="py-4 px-[5vw] md:px-[15vw]">
