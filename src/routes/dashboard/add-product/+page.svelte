@@ -13,8 +13,8 @@
 	export let data;
 
 	const { form, errors, constraints, enhance } = superForm(data.form, {
-		invalidateAll: true,
 		applyAction: true,
+		resetForm: true,
 		onSubmit() {
 			working = true;
 		},
