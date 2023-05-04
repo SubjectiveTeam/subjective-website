@@ -13,6 +13,7 @@
 	import { invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';
+	import { page } from '$app/stores';
 
 	export let data;
 
@@ -56,8 +57,15 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<div class="py-4 px-[5vw] md:px-[15vw]">
-		<slot />
+	<div
+		class={$page.route.id === '/'
+			? 'h-[100vh] xl:bg-[url("homepage-bg.svg")] bg-cover bg-center'
+			: ''}
+	>
+		<div class="py-4 px-[5vw] md:px-[15vw]">
+			<slot />
+		</div>
 	</div>
+
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
