@@ -85,14 +85,20 @@
 </script>
 
 <svelte:head>
-	<link
-		rel="stylesheet"
-		href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
-	/>
+
+	<!-- SEO -->
+	<meta name="title" content="Subjective">
+	<meta name="description" content="Subjective is an up and coming brand to change the fashion industry. With Subjective you can be and express yourself.">
+	<meta name="keywords" content="Subjective, Clothing, Branding">
+	<meta name="robots" content="index, follow">
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="language" content="English">
+
+	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-	{#key $page.route.id}
-		<title>{getTitle($page.route.id || '')}</title>
-	{/key}
+
+	<!-- TITLE -->
+	{#key $page.route.id}<title>{getTitle($page.route.id || '')}</title>{/key}
 </svelte:head>
 
 <!-- Overlays -->
