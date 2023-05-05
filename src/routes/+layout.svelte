@@ -48,6 +48,24 @@
 	});
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	function getTitle(location: string) {
+		let title: string = 'Subjective';
+		
+		if (location === '/') location = 'Home';
+		else {
+			const locationSplit = location.split('/');
+
+			const lastLocation = locationSplit[locationSplit.length - 1];
+
+			const lastLocationSpaced = lastLocation.replace('-', ' ');
+
+			location = lastLocationSpaced.replace(/\w\S*/g, function (txt) {
+				return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+			});
+		}
+		return title + ' - ' + location;
+	}
 </script>
 
 <svelte:head>
@@ -56,7 +74,9 @@
 		href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
 	/>
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-	<title>Subjective</title>
+	{#key $page.route.id}
+		<title>{getTitle($page.route.id || '')}</title>
+	{/key}
 </svelte:head>
 
 <!-- Overlays -->
