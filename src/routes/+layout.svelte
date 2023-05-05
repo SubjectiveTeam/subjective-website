@@ -14,6 +14,7 @@
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';
 	import { page } from '$app/stores';
+	import { browser } from '$app/environment';
 
 	export let data;
 
@@ -44,7 +45,14 @@
 		const background = messageTypeBackgroundsMap.get(
 			$page.url.searchParams.get('message_type') || ''
 		);
-		if (message && background) toastStore.trigger({ message, background });
+		if (!message || !background) return;
+		toastStore.trigger({ message, background });
+		const url = new URL($page.url);
+		const searchParams = new URLSearchParams(url.search);
+		searchParams.delete('message');
+		searchParams.delete('message_type');
+		url.search = searchParams.toString();
+		window.history.replaceState(null, '', url.href);
 	});
 
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
