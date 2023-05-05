@@ -2,7 +2,7 @@
 	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { fly } from 'svelte/transition';
-	import { elasticIn } from 'svelte/easing';
+	import { cubicInOut, elasticIn, elasticOut } from 'svelte/easing';
 
 	const acceptConsentCookie = {
 		essential: true,
@@ -29,7 +29,7 @@
 
 <div
 	class="card p-4 fixed bottom-12 left-16 flex flex-col w-96 gap-12"
-	transition:fly={{ x: -500, easing: elasticIn }}
+	transition:fly={{ x: -500, easing: cubicInOut }}
 >
 	<p>
 		We care about your data, and we'd love to use cookies in accordance with our <a
@@ -39,11 +39,11 @@
 	<form class="flex justify-end gap-4" method="post" use:enhance={submitCookiePreferenceCallback}>
 		<button
 			class="btn variant-ghost-primary"
-			formaction="?/setCookieConsent&cookie={JSON.stringify(rejectConsentCookie)}">Reject</button
+			formaction="/?/setCookieConsent&cookie={JSON.stringify(rejectConsentCookie)}">Reject</button
 		>
 		<button
 			class="btn variant-filled-tertiary"
-			formaction="?/setCookieConsent&cookie={JSON.stringify(acceptConsentCookie)}">Accept</button
+			formaction="/?/setCookieConsent&cookie={JSON.stringify(acceptConsentCookie)}">Accept</button
 		>
 	</form>
 </div>
