@@ -1,9 +1,10 @@
 <script lang="ts">
 	import { cartStore } from '$lib/stores/cart';
+	import { scale } from 'svelte/transition';
 	export let cartItem: CartItem;
 </script>
 
-<li class="flex justify-between items-center px-">
+<li class="flex justify-between items-center" transition:scale={{ duration: 400 }}>
 	<div class="flex flex-col">
 		<p class="overflow-ellipsis">{cartItem.product.name}</p>
 		<div class="flex justify-between w-32">

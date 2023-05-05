@@ -8,6 +8,7 @@
 	} from '@skeletonlabs/skeleton';
 	import PreviewCartItem from '$lib/components/PreviewCartItem.svelte';
 	import { goto } from '$app/navigation';
+	import { flip } from 'svelte/animate';
 
 	const cartMenuPopupSettings: PopupSettings = {
 		event: 'click',
@@ -52,8 +53,10 @@
 </button>
 <div class="card p-4 w-64" data-popup="cart-menu">
 	<ul class="flex flex-col gap-2 h-48 overflow-scroll">
-		{#each [...$cartStore.values()] as cartItem}
-			<PreviewCartItem {cartItem} />
+		{#each [...$cartStore.values()] as cartItem (cartItem.product.id)}
+			<span animate:flip={{ duration: 400 }}>
+				<PreviewCartItem {cartItem} />
+			</span>
 		{:else}
 			<p>Your shopping cart is empty. <a class="underline" href="/clothing">Start shopping.</a></p>
 		{/each}
