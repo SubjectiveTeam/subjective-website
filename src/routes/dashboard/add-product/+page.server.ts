@@ -66,7 +66,7 @@ export const actions: Actions = {
 				// We do times 100 because Stripe uses cents so 1 euro would be 100 cents
 				unit_amount: form.data.price * 100
 			},
-			url: `${PUBLIC_BASE_URL}}/products/${id}`
+			url: `${PUBLIC_BASE_URL}/products/${id}`
 		});
 
 		const { error } = await supabase.from('products').insert({

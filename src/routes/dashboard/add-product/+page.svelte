@@ -14,7 +14,6 @@
 
 	const { form, errors, constraints, enhance } = superForm(data.form, {
 		applyAction: true,
-		resetForm: true,
 		onSubmit() {
 			working = true;
 		},
