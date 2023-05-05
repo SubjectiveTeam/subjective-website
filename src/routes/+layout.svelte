@@ -14,7 +14,6 @@
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';
 	import { page } from '$app/stores';
-	import { browser } from '$app/environment';
 
 	export let data;
 
@@ -59,7 +58,7 @@
 
 	function getTitle(location: string) {
 		let title: string = 'Subjective';
-		
+
 		if (location === '/') location = 'Home';
 		else {
 			const locationSplit = location.split('/');
