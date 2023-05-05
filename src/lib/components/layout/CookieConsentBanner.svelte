@@ -29,6 +29,8 @@
 
 <div
 	class="card p-4 flex flex-col gap-12 absolute bottom-0 m-[2.5vw] left-0 right-0 max-w-[25rem]"
+	role="dialog"
+	aria-label="cookie-banner"
 	transition:fly={{ x: -500, easing: cubicInOut }}
 >
 	<p>

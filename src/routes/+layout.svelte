@@ -117,6 +117,5 @@
 			<slot />
 		</div>
 	</div>
-
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
