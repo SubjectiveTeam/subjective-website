@@ -1,7 +1,9 @@
-import { AuthApiError } from '@supabase/supabase-js';
+import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
+
+const OAUTH_PROVIDERS: string[] = ['google', 'facebook', 'discord'];
 
 const signInSchema = z.object({
 	email: z.string().email(),
@@ -16,8 +18,21 @@ export async function load() {
 }
 
 export const actions: Actions = {
-	default: async ({ request, url, locals: { supabase } }) => {
+	signIn: async ({ request, url, locals: { supabase } }) => {
 		const form = await superValidate(request, signInSchema);
+
+		const provider = url.searchParams.get('provider') as Provider;
+
+		if (provider) {
+			if (!OAUTH_PROVIDERS.includes(provider)) {
+				return fail(400, { form, message: 'Provider does not exist.' });
+			}
+			const { data, error } = await supabase.auth.signInWithOAuth({ provider });
+
+			if (error) return fail(400, { form, message: 'Something went wrong while singing you in. Try again later.' });
+
+			throw redirect(303, data.url);
+		}
 
 		if (!form.valid) return fail(400, { form });
 

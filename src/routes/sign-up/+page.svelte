@@ -30,8 +30,8 @@
 		<img class="hidden xl:block w-96 aspect-square" src="/SBJCTV-Logo.png" alt="logo" />
 	</div>
 	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4 max-w-[25rem]">
-		<form class="flex flex-col gap-2">
-			<button class="btn variant-filled-secondary flex gap-2">
+		<form class="flex flex-col gap-2" method="post">
+			<button class="btn variant-filled-secondary flex gap-2" formaction="/sign-in?/signIn&provider=google">
 				<svg class="w-7 h-7" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path
 						d="M30.0014 16.3109C30.0014 15.1598 29.9061 14.3198 29.6998 13.4487H16.2871V18.6442H24.1601C24.0014 19.9354 23.1442 21.8798 21.2394 23.1864L21.2127 23.3604L25.4536 26.58L25.7474 26.6087C28.4458 24.1665 30.0014 20.5731 30.0014 16.3109Z"
@@ -51,8 +51,8 @@
 					/>
 				</svg>
 				Sign up with Google
-			</button>
-			<button class="btn variant-filled-secondary flex gap-2">
+			</button> 
+			<button class="btn variant-filled-secondary flex gap-2" formaction="/sign-in?/signIn&provider=facebook">
 				<svg
 					class="w-7 h-8"
 					viewBox="0 0 48 48"
@@ -74,7 +74,7 @@
 				</svg>
 				Sign up with Facebook
 			</button>
-			<button class="btn variant-filled-secondary flex gap-2">
+			<button class="btn variant-filled-secondary flex gap-2" formaction="/sign-in?/signIn&provider=discord">
 				<svg class="w-7 h-7" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg">
 					<circle cx="512" cy="512" r="512" style="fill:#5865f2" />
 					<path
