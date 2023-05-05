@@ -28,7 +28,7 @@
 </script>
 
 <div
-	class="card p-4 flex flex-col gap-12 absolute bottom-0 m-[5vw] left-0 right-0 max-w-[25rem]"
+	class="card p-4 flex flex-col gap-12 absolute bottom-0 m-[2.5vw] left-0 right-0 max-w-[25rem]"
 	transition:fly={{ x: -500, easing: cubicInOut }}
 >
 	<p>
