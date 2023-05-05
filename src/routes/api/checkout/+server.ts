@@ -3,6 +3,7 @@ import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({
 	request,
+	url,
 	locals: { supabase_service_role, getSession }
 }) => {
 	const data = await request.json();
@@ -14,11 +15,12 @@ export const POST: RequestHandler = async ({
 			.select('*')
 			.eq('id', cartItem.product.id)
 			.eq('active', true)
+			.gte('stock', cartItem.quantity)
 			.limit(1)
 			.single();
 
 		if (!data) {
-			return new Response('One of the products is unavailable', {
+			return new Response('One of the products is unavailable.', {
 				status: 400
 			});
 		}
@@ -44,8 +46,8 @@ export const POST: RequestHandler = async ({
 		customer_email: (await getSession())?.user.email || undefined,
 		line_items,
 		mode: 'payment',
-		success_url: 'http://localhost:5173/success',
-		cancel_url: 'http://localhost:5173/cancel',
+		success_url: `${url.origin}/success`,
+		cancel_url: `${url.origin}/cancel`,
 		shipping_address_collection: {
 			allowed_countries: ['NL']
 		},

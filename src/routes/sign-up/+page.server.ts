@@ -13,7 +13,7 @@ const signUpSchema = z
 		if (confirmPassword !== password) {
 			ctx.addIssue({
 				code: 'custom',
-				message: 'The passwords did not match'
+				message: 'The passwords do not match'
 			});
 		}
 	});

@@ -31,7 +31,7 @@ export interface Database {
 					customer_email: string;
 					id: string;
 					postal_code: string;
-					status: string;
+					status: Database['public']['Enums']['order_status'];
 				};
 				Insert: {
 					address: string;
@@ -40,7 +40,7 @@ export interface Database {
 					customer_email: string;
 					id: string;
 					postal_code: string;
-					status: string;
+					status: Database['public']['Enums']['order_status'];
 				};
 				Update: {
 					address?: string;
@@ -49,7 +49,7 @@ export interface Database {
 					customer_email?: string;
 					id?: string;
 					postal_code?: string;
-					status?: string;
+					status?: Database['public']['Enums']['order_status'];
 				};
 			};
 			products: {
@@ -61,7 +61,7 @@ export interface Database {
 					images: string[];
 					name: string;
 					price: number;
-					size: string;
+					size: Database['public']['Enums']['clothing_size'];
 					stock: number;
 					stripe_price: string;
 				};
@@ -73,7 +73,7 @@ export interface Database {
 					images: string[];
 					name: string;
 					price: number;
-					size: string;
+					size: Database['public']['Enums']['clothing_size'];
 					stock: number;
 					stripe_price: string;
 				};
@@ -85,7 +85,7 @@ export interface Database {
 					images?: string[];
 					name?: string;
 					price?: number;
-					size?: string;
+					size?: Database['public']['Enums']['clothing_size'];
 					stock?: number;
 					stripe_price?: string;
 				};
@@ -145,7 +145,8 @@ export interface Database {
 			};
 		};
 		Enums: {
-			[_ in never]: never;
+			clothing_size: 'XL' | 'L' | 'M' | 'S';
+			order_status: 'ORDERED' | 'PROCESSED' | 'SHIPPED' | 'DELIVERED' | 'CANCELED';
 		};
 		CompositeTypes: {
 			[_ in never]: never;

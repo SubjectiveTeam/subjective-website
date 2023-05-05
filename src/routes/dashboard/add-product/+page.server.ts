@@ -5,23 +5,14 @@ import { superValidate } from 'sveltekit-superforms/server';
 import { v4 } from 'uuid';
 import { z } from 'zod';
 
-const addProductSchema = z
-	.object({
-		name: z.string().nonempty(),
-		description: z.string().nonempty(),
-		price: z.number().gt(0).positive().multipleOf(0.01),
-		stock: z.number().gte(0).positive().multipleOf(1),
-		active: z.boolean(),
-		size: z.string().nonempty()
-	})
-	.superRefine(({ size }, ctx) => {
-		if (!['XL', 'L', 'M', 'S'].includes(size)) {
-			ctx.addIssue({
-				code: 'custom',
-				message: 'Size must be XL, L, M or S'
-			});
-		}
-	});
+const addProductSchema = z.object({
+	name: z.string().nonempty(),
+	description: z.string().nonempty(),
+	price: z.number().gt(0).positive().multipleOf(0.01),
+	stock: z.number().gte(0).positive().multipleOf(1),
+	active: z.boolean(),
+	size: z.enum(['XL', 'L', 'M', 'S'])
+});
 
 export async function load() {
 	const form = await superValidate(addProductSchema);
@@ -32,7 +23,7 @@ export async function load() {
 }
 
 export const actions: Actions = {
-	default: async ({ request, locals: { supabase, getSession } }) => {
+	default: async ({ request, url, locals: { supabase, getSession } }) => {
 		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin)
@@ -74,7 +65,7 @@ export const actions: Actions = {
 				// We do times 100 because Stripe uses cents so 1 euro would be 100 cents
 				unit_amount: form.data.price * 100
 			},
-			url: `http://localhost:5173/products/${id}`
+			url: `${url.origin}/products/${id}`
 		});
 
 		const { error } = await supabase.from('products').insert({

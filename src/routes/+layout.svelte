@@ -14,14 +14,18 @@
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';
 	import { page } from '$app/stores';
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
 
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
-
+	
 	onMount(() => {
+		// Initialize cartStore
 		cartStore.init();
 
+		// Setup invalidator when the auth state of a user changes
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {
@@ -33,6 +37,13 @@
 		return () => subscription.unsubscribe();
 	});
 
+	// Inject Vercel Analytics
+	inject({ mode: dev ? 'development' : 'production' });
+
+	// Initialize popup
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+
+	// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 	const messageTypeBackgroundsMap = new Map<string, string>();
 	messageTypeBackgroundsMap.set('info', 'variant-filled-secondary');
 	messageTypeBackgroundsMap.set('success', 'variant-filled-success');
@@ -43,12 +54,34 @@
 		const background = messageTypeBackgroundsMap.get(
 			$page.url.searchParams.get('message_type') || ''
 		);
-		console.log(message, background);
-
-		if (message && background) toastStore.trigger({ message, background });
+		if (!message || !background) return;
+		toastStore.trigger({ message, background });
+		const url = new URL($page.url);
+		const searchParams = new URLSearchParams(url.search);
+		searchParams.delete('message');
+		searchParams.delete('message_type');
+		url.search = searchParams.toString();
+		window.history.replaceState(null, '', url.href);
 	});
 
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
+	// Function that can retrieve the tile from a route for eg '/my-location/specific-action' converts to 'Subjective - Specific Location'
+	function getTitle(location: string) {
+		let title: string = 'Subjective';
+
+		if (location === '/') location = 'Home';
+		else {
+			const locationSplit = location.split('/');
+
+			const lastLocation = locationSplit[locationSplit.length - 1];
+
+			const lastLocationSpaced = lastLocation.replace('-', ' ');
+
+			location = lastLocationSpaced.replace(/\w\S*/g, function (txt) {
+				return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+			});
+		}
+		return title + ' - ' + location;
+	}
 </script>
 
 <svelte:head>
@@ -57,6 +90,9 @@
 		href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css"
 	/>
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+	{#key $page.route.id}
+		<title>{getTitle($page.route.id || '')}</title>
+	{/key}
 </svelte:head>
 
 <!-- Overlays -->
@@ -74,7 +110,7 @@
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
 	<div
 		class={$page.route.id === '/'
-			? 'h-[100vh] xl:bg-[url("homepage-bg.svg")] bg-cover bg-center'
+			? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center'
 			: ''}
 	>
 		<div class="py-4 px-[5vw] md:px-[15vw]">
