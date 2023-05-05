@@ -1,9 +1,9 @@
-import { PUBLIC_BASE_URL } from '$env/static/public';
 import { stripe } from '$lib/stripe/stripe';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({
 	request,
+	url,
 	locals: { supabase_service_role, getSession }
 }) => {
 	const data = await request.json();
@@ -46,8 +46,8 @@ export const POST: RequestHandler = async ({
 		customer_email: (await getSession())?.user.email || undefined,
 		line_items,
 		mode: 'payment',
-		success_url: `${PUBLIC_BASE_URL}/success`,
-		cancel_url: `${PUBLIC_BASE_URL}/cancel`,
+		success_url: `${url.origin}/success`,
+		cancel_url: `${url.origin}/cancel`,
 		shipping_address_collection: {
 			allowed_countries: ['NL']
 		},
