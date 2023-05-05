@@ -5,7 +5,7 @@
 		</h1>
 		<p class="mt-8 !leading-loose">
 			Subjective is an up and coming brand to change the fashion industry, are you tired of
-			'following the trend'? Well we are! With Subjective you can be yourself and express yourself.
+			'following the trend'? Well we are! With Subjective you can be and express yourself.
 		</p>
 		<a class="unstyled btn variant-filled-secondary mt-8 w-fit" href="/clothing">Start Shopping</a>
 	</div>

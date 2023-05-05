@@ -123,7 +123,7 @@
 			{#if $errors.password}<span class="!text-error-500">{$errors.password}</span>{/if}
 			<button class="btn variant-filled-primary">Sign In</button>
 			<p class="text-center">
-				Don't have an account? Click <a href="/sign-up">here</a> to sign up.
+				Don't have an account? <a href="/sign-up">Sign Up</a> here.
 			</p>
 		</form>
 	</div>

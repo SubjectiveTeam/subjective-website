@@ -17,7 +17,15 @@ declare global {
 		// interface Platform {}
 	}
 
+	interface SearchStoreValue<T extends Record<PropertyKey, any>> {
+		data: T[],
+		filtered: T[],
+		search: string
+	}
+
 	type Product = Database['public']['Tables']['products']['Row'];
+
+	type SearchableProduct = Product & { searchTerms: string; }
 
 	type Order = Database['public']['Tables']['orders']['Row'];
 

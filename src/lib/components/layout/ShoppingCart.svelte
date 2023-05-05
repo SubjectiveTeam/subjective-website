@@ -8,6 +8,7 @@
 	} from '@skeletonlabs/skeleton';
 	import PreviewCartItem from '$lib/components/PreviewCartItem.svelte';
 	import { goto } from '$app/navigation';
+	import { flip } from 'svelte/animate';
 
 	const cartMenuPopupSettings: PopupSettings = {
 		event: 'click',
@@ -43,7 +44,7 @@
 	};
 </script>
 
-<button class="btn" use:popup={cartMenuPopupSettings} aria-label="Shopping Cart">
+<button class="btn" use:popup={cartMenuPopupSettings} aria-label="shopping-cart">
 	<svg class="w-8 fill-token" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
 		><path
 			d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z"
@@ -52,8 +53,10 @@
 </button>
 <div class="card p-4 w-64" data-popup="cart-menu">
 	<ul class="flex flex-col gap-2 h-48 overflow-scroll">
-		{#each [...$cartStore.values()] as cartItem}
-			<PreviewCartItem {cartItem} />
+		{#each [...$cartStore.values()] as cartItem (cartItem.product.id)}
+			<span animate:flip={{ duration: 400 }}>
+				<PreviewCartItem {cartItem} />
+			</span>
 		{:else}
 			<p>Your shopping cart is empty. <a class="underline" href="/clothing">Start shopping.</a></p>
 		{/each}
