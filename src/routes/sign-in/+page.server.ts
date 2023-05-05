@@ -29,7 +29,11 @@ export const actions: Actions = {
 			}
 			const { data, error } = await supabase.auth.signInWithOAuth({ provider });
 
-			if (error) return fail(400, { form, message: 'Something went wrong while singing you in. Try again later.' });
+			if (error)
+				return fail(400, {
+					form,
+					message: 'Something went wrong while singing you in. Try again later.'
+				});
 
 			throw redirect(303, data.url);
 		}

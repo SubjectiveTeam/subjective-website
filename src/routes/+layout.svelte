@@ -20,7 +20,7 @@
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
-	
+
 	onMount(() => {
 		// Initialize cartStore
 		cartStore.init();
