@@ -23,7 +23,7 @@
 
 <nav class="list-nav flex {orientation === 'horizontal' ? 'flex-row' : 'flex-col'}">
 	<a on:click={() => drawerStore.close()} href="/"
-		><img class="w-8 aspect-square" src="SBJCTV-Logo.png" alt="SBJCTV-logo.png" /></a
+		><img class="w-8 aspect-square" src="/SBJCTV-Logo.png" alt="SBJCTV-logo.png" /></a
 	>
 	{#each navItems as { name, href }}
 		<a on:click={() => drawerStore.close()} {href}>{name}</a>
