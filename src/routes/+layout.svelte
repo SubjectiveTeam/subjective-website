@@ -85,15 +85,17 @@
 </script>
 
 <svelte:head>
-
 	<!-- SEO -->
-	<meta name="title" content="Subjective">
-	<meta name="description" content="Subjective is an up and coming brand to change the fashion industry. With Subjective you can be and express yourself.">
-	<meta name="keywords" content="Subjective, Clothing, Branding">
-	<meta name="robots" content="index, follow">
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="language" content="English">
+	<meta name="title" content="Subjective" />
+	<meta
+		name="description"
+		content="Subjective is an up and coming brand to change the fashion industry. With Subjective you can be and express yourself."
+	/>
+	<meta name="keywords" content="Subjective, Clothing, Branding" />
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="language" content="English" />
 
+	<!-- LIBS -->
 	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 

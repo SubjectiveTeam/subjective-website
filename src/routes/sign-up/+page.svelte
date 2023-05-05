@@ -145,7 +145,7 @@
 
 			<button class="btn variant-filled-primary">Sign Up</button>
 			<p class="text-center">
-				Already have an account? Click <a href="/sign-in">here</a> to sign in.
+				Already have an account? <a href="/sign-up">Sign In</a> here.
 			</p>
 		</form>
 	</div>
