@@ -47,6 +47,7 @@
 		"@floating-ui/dom": "^1.2.7",
 		"@supabase/auth-helpers-sveltekit": "^0.9.4",
 		"@supabase/supabase-js": "^2.21.0",
+		"@vercel/analytics": "^1.0.1",
 		"stripe": "^12.3.0",
 		"uuid": "^9.0.0"
 	}

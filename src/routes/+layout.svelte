@@ -14,14 +14,18 @@
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';
 	import { page } from '$app/stores';
+	import { dev } from '$app/environment';
+	import { inject } from '@vercel/analytics';
 
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
-
+	
 	onMount(() => {
+		// Initialize cartStore
 		cartStore.init();
 
+		// Setup invalidator when the auth state of a user changes
 		const {
 			data: { subscription }
 		} = supabase.auth.onAuthStateChange((event, _session) => {
@@ -32,6 +36,12 @@
 
 		return () => subscription.unsubscribe();
 	});
+
+	// Inject Vercel Analytics
+	inject({ mode: dev ? 'development' : 'production' });
+
+	// Initialize popup
+	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
 	// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 	const messageTypeBackgroundsMap = new Map<string, string>();
@@ -54,8 +64,7 @@
 		window.history.replaceState(null, '', url.href);
 	});
 
-	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
-
+	// Function that can retrieve the tile from a route for eg '/my-location/specific-action' converts to 'Subjective - Specific Location'
 	function getTitle(location: string) {
 		let title: string = 'Subjective';
 
