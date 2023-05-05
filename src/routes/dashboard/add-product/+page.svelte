@@ -48,8 +48,8 @@
 	let working: boolean = false;
 </script>
 
+<h1 class="!leading-loose">Add Product</h1>
 <section class="flex flex-col gap-10 card p-16">
-	<h1 class="!leading-loose">Add Product</h1>
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col md:flex-row gap-4">
 			<div class="flex-1 flex flex-col justify-between gap-4">
