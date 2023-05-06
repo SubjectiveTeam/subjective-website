@@ -3,8 +3,9 @@ import { redirect } from '@sveltejs/kit';
 export async function load({ parent }) {
 	const { supabase } = await parent();
 
-	const [productRequest, orderRequest] = await Promise.all([
+	const [productRequest, productGroupsRequest, orderRequest] = await Promise.all([
 		supabase.from('products').select('*'),
+		supabase.from('product_groups').select('*'),
 		supabase.from('orders').select(`
 			*, 
 			order_products ( * )
@@ -15,6 +16,7 @@ export async function load({ parent }) {
 
 	return {
 		products: productRequest.data as Product[],
-		order_products: orderRequest.data as OrderWithProducts[]
+		orderProducts: orderRequest.data as OrderWithProducts[],
+		productGroups: productGroupsRequest.data as ProductGroup[]
 	};
 }

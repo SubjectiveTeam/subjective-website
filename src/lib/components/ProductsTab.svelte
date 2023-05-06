@@ -3,22 +3,22 @@
 
 	export let products: Product[];
 
-	let refreshingProducts: boolean = false;
-	const refreshProducts = async () => {
-		refreshingProducts = true;
+	let refreshing: boolean = false;
+	const refresh = async () => {
+		refreshing = true;
 		await invalidateAll();
-		refreshingProducts = false;
+		refreshing = false;
 	};
 </script>
 
 <section class="flex flex-col gap-4">
 	<div class="ml-auto">
 		<button
-			disabled={refreshingProducts}
+			disabled={refreshing}
 			class="btn btn-sm variant-filled-tertiary"
-			on:click={refreshProducts}
+			on:click={refresh}
 		>
-			{#if refreshingProducts}
+			{#if refreshing}
 				Working...
 			{:else}
 				Refresh
@@ -26,15 +26,12 @@
 		</button>
 		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/add-product">Add Product</a>
 	</div>
-	{#if products.length > 0}
 		<div class="table-container">
 			<table class="table table-hover">
 				<thead>
 					<tr>
 						<th>ID</th>
 						<th>Stripe_Price</th>
-						<th>Name</th>
-						<th>Description</th>
 						<th>Price</th>
 						<th>Stock</th>
 						<th>Active</th>
@@ -47,8 +44,6 @@
 						<tr>
 							<td>{product.id}</td>
 							<td>{product.stripe_price}</td>
-							<td>{product.name}</td>
-							<td>{product.description}</td>
 							<td>€{product.price}</td>
 							<td>{product.stock}</td>
 							<td>{product.active}</td>
@@ -60,11 +55,10 @@
 								>
 							</td>
 						</tr>
-					{/each}
+				{:else}
+					<p class="text-center p-4">No Products</p>
+				{/each}
 				</tbody>
 			</table>
 		</div>
-	{:else}
-		<p class="text-center">No Products</p>
-	{/if}
 </section>

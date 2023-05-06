@@ -9,6 +9,17 @@ export const POST: RequestHandler = async ({
 	const data = await request.json();
 	const cartItems: CartItem[] = data.items;
 
+	if (cartItems.length <= 0) {
+		return new Response('You must have atleast 1 item inside cart items.', {
+			status: 400
+		});
+	}
+
+	// Convert products to stripe acceptable objects
+	const line_items: StripeItem[] = [];
+
+	const cartItemsSimplified: CartItemSimplified[] = [];
+
 	cartItems.forEach(async (cartItem: CartItem) => {
 		const { data } = await supabase_service_role
 			.from('products')
@@ -24,23 +35,20 @@ export const POST: RequestHandler = async ({
 				status: 400
 			});
 		}
-	});
 
-	// Convert products to stripe acceptable objects
-	const line_items: StripeItem[] = [];
-
-	const cartItemsSimplified: CartItemSimplified[] = [];
-
-	for (const cartItem of cartItems) {
+		// Add line item (for Stripe)
 		line_items.push({
 			price: cartItem.product.stripe_price,
 			quantity: cartItem.quantity
 		});
+
+		// Add cart item simplified (for Supabase)
 		cartItemsSimplified.push({
 			product_id: cartItem.product.id,
 			quantity: cartItem.quantity
 		});
-	}
+	});
+
 
 	const session = await stripe.checkout.sessions.create({
 		customer_email: (await getSession())?.user.email || undefined,

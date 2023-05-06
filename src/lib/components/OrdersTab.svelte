@@ -17,68 +17,66 @@
 		modalStore.trigger(modal);
 	};
 
-	let refreshingOrders: boolean = false;
-	const refreshProducts = async () => {
-		refreshingOrders = true;
+	let refreshing: boolean = false;
+	const refresh = async () => {
+		refreshing = true;
 		await invalidateAll();
-		refreshingOrders = false;
+		refreshing = false;
 	};
 </script>
 
 <section class="flex flex-col gap-4">
 	<div class="ml-auto">
 		<button
-			disabled={refreshingOrders}
+			disabled={refreshing}
 			class="btn btn-sm variant-filled-tertiary"
-			on:click={refreshProducts}
+			on:click={refresh}
 		>
-			{#if refreshingOrders}
+			{#if refreshing}
 				Working...
 			{:else}
 				Refresh
 			{/if}
 		</button>
 	</div>
-	{#if ordersWithProducts.length > 0}
-		<div class="table-container">
-			<table class="table table-hover">
-				<thead>
+	<div class="table-container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Address</th>
+					<th>Postal Code</th>
+					<th>City</th>
+					<th>Customer Email</th>
+					<th>Status</th>
+					<th />
+				</tr>
+			</thead>
+			<tbody>
+				{#each ordersWithProducts as orderWithProducts}
 					<tr>
-						<th>ID</th>
-						<th>Address</th>
-						<th>Postal Code</th>
-						<th>City</th>
-						<th>Customer Email</th>
-						<th>Status</th>
-						<th />
+						<td>{orderWithProducts.id}</td>
+						<td>{orderWithProducts.address}</td>
+						<td>{orderWithProducts.postal_code}</td>
+						<td>{orderWithProducts.city}</td>
+						<td>{orderWithProducts.customer_email}</td>
+						<td>{orderWithProducts.status}</td>
+						<td class="flex gap-4">
+							<button
+								class="btn btn-sm variant-filled-primary"
+								on:click={() => triggerViewOrderProductsModal(orderWithProducts)}
+								>View Products</button
+							>
+							<a
+								href="dashboard/update-order?order_id={orderWithProducts.id}"
+								class="btn btn-sm variant-filled-primary">Edit</a
+							>
+						</td>
 					</tr>
-				</thead>
-				<tbody>
-					{#each ordersWithProducts as orderWithProducts}
-						<tr>
-							<td>{orderWithProducts.id}</td>
-							<td>{orderWithProducts.address}</td>
-							<td>{orderWithProducts.postal_code}</td>
-							<td>{orderWithProducts.city}</td>
-							<td>{orderWithProducts.customer_email}</td>
-							<td>{orderWithProducts.status}</td>
-							<td class="flex gap-4">
-								<button
-									class="btn btn-sm variant-filled-primary"
-									on:click={() => triggerViewOrderProductsModal(orderWithProducts)}
-									>View Products</button
-								>
-								<a
-									href="dashboard/update-order?order_id={orderWithProducts.id}"
-									class="btn btn-sm variant-filled-primary">Edit</a
-								>
-							</td>
-						</tr>
-					{/each}
-				</tbody>
-			</table>
-		</div>
-	{:else}
-		<p class="text-center">No Orders</p>
-	{/if}
+				{:else}
+					<p class="text-center p-4">No Orders</p>
+				{/each}
+			</tbody>
+		</table>
+	</div>
 </section>
