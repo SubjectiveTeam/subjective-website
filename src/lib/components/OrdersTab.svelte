@@ -3,12 +3,12 @@
 	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import ViewOrderProductsModal from '$lib/components/modal/ViewProductsModal.svelte';
 
-	export let orders: Order[];
+	export let ordersWithProducts: OrderWithProducts[];
 
-	const triggerViewOrderProductsModal = (order: Order) => {
+	const triggerViewOrderProductsModal = (orderWithProducts: OrderWithProducts) => {
 		const modalComponent: ModalComponent = {
 			ref: ViewOrderProductsModal,
-			props: { order }
+			props: { products: orderWithProducts.order_products }
 		};
 		const modal: ModalSettings = {
 			type: 'component',
@@ -39,7 +39,7 @@
 			{/if}
 		</button>
 	</div>
-	{#if orders.length > 0}
+	{#if ordersWithProducts.length > 0}
 		<div class="table-container">
 			<table class="table table-hover">
 				<thead>
@@ -54,21 +54,21 @@
 					</tr>
 				</thead>
 				<tbody>
-					{#each orders as order, i}
+					{#each ordersWithProducts as orderWithProducts}
 						<tr>
-							<td>{order.id}</td>
-							<td>{order.address}</td>
-							<td>{order.postal_code}</td>
-							<td>{order.city}</td>
-							<td>{order.customer_email}</td>
-							<td>{order.status}</td>
+							<td>{orderWithProducts.id}</td>
+							<td>{orderWithProducts.address}</td>
+							<td>{orderWithProducts.postal_code}</td>
+							<td>{orderWithProducts.city}</td>
+							<td>{orderWithProducts.customer_email}</td>
+							<td>{orderWithProducts.status}</td>
 							<td class="flex gap-4">
 								<button
 									class="btn btn-sm variant-filled-primary"
-									on:click={() => triggerViewOrderProductsModal(order)}>View Products</button
+									on:click={() => triggerViewOrderProductsModal(orderWithProducts)}>View Products</button
 								>
 								<a
-									href="dashboard/update-order?order_id={order.id}"
+									href="dashboard/update-order?order_id={orderWithProducts.id}"
 									class="btn btn-sm variant-filled-primary">Edit</a
 								>
 							</td>

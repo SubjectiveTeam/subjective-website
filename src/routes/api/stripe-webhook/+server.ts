@@ -19,7 +19,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 	switch (event.type) {
 		case 'checkout.session.completed': {
 			const checkoutSession = event.data.object as Stripe.Checkout.Session;
-
+			
 			if (
 				!checkoutSession.metadata ||
 				!checkoutSession.shipping_details ||
@@ -36,7 +36,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 					postal_code: checkoutSession.shipping_details.address.postal_code as string,
 					city: checkoutSession.shipping_details.address.city as string,
 					customer_email: checkoutSession.customer_email as string,
-					cart_items: JSON.parse(
+					cart_items: JSON.parse(	
 						checkoutSession.metadata.cartItemsSimplified
 					) as CartItemSimplified[]
 				}

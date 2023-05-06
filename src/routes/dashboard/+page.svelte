@@ -7,9 +7,6 @@
 
 	export let data;
 
-	$: ({ products } = data);
-	$: ({ orders } = data);
-
 	let tabSet: number = 0;
 </script>
 
@@ -23,9 +20,9 @@
 
 		<svelte:fragment slot="panel">
 			{#if tabSet === 0}
-				<ProductsTab {products} />
+				<ProductsTab products={data.products} />
 			{:else if tabSet === 1}
-				<OrdersTab {orders} />
+				<OrdersTab ordersWithProducts={data.order_products} />
 			{:else if tabSet === 2}
 				<AnalyticsTab />
 			{:else if tabSet === 3}
