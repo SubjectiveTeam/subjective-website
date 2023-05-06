@@ -5,8 +5,6 @@ import { z } from 'zod';
 
 const updateProductSchema = z.object({
 	id: z.string().nonempty(),
-	name: z.string().min(1),
-	description: z.string().min(1),
 	stock: z.number().gte(0).multipleOf(1).min(1),
 	size: z.enum(['XL', 'L', 'M', 'S']),
 	active: z.boolean()
@@ -42,19 +40,17 @@ export const actions: Actions = {
 
 		const form = await superValidate(request, updateProductSchema);
 
+		console.log(form);
+
 		if (!form.valid) return fail(400, { form });
 
 		await stripe.products.update(form.data.id, {
-			name: form.data.name,
-			description: form.data.description,
 			active: form.data.active
 		});
 
 		const { error } = await supabase
 			.from('products')
 			.update({
-				name: form.data.name,
-				description: form.data.description,
 				active: form.data.active,
 				size: form.data.size,
 				stock: form.data.stock

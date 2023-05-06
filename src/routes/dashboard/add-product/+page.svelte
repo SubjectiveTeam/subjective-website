@@ -6,7 +6,7 @@
 		type PopupSettings,
 		ListBox,
 		ListBoxItem,
-		popup,
+		popup
 	} from '@skeletonlabs/skeleton';
 
 	export let data;

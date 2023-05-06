@@ -12,18 +12,16 @@
 
 <section class="flex flex-col gap-4">
 	<div class="ml-auto">
-		<button
-			disabled={refreshing}
-			class="btn btn-sm variant-filled-tertiary"
-			on:click={refresh}
-		>
+		<button disabled={refreshing} class="btn btn-sm variant-filled-tertiary" on:click={refresh}>
 			{#if refreshing}
 				Working...
 			{:else}
 				Refresh
 			{/if}
 		</button>
-		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/add-product-group">Add Product Group</a>
+		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/add-product-group"
+			>Add Product Group</a
+		>
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">
@@ -51,7 +49,7 @@
 						</td>
 					</tr>
 				{:else}
-					<p class="text-center  p-4">No Product Groups</p>
+					<p class="text-center p-4">No Product Groups</p>
 				{/each}
 			</tbody>
 		</table>

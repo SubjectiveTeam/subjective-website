@@ -3,7 +3,7 @@ import { superValidate } from 'sveltekit-superforms/server';
 import { v4 } from 'uuid';
 import { z } from 'zod';
 
-const ALLOWED_FILE_TYPES = ["image/png", "image/jpeg", "image/gif", "image/bmp"];
+const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
 
 const addProductgroupSchema = z.object({
 	name: z.string().nonempty(),
@@ -35,7 +35,7 @@ export const actions: Actions = {
 
 		files.forEach((file) => {
 			if (!ALLOWED_FILE_TYPES.includes(file.type))
-				return fail(400, { form, message: 'Files must be of type: '+ALLOWED_FILE_TYPES });
+				return fail(400, { form, message: 'Files must be of type: ' + ALLOWED_FILE_TYPES });
 		});
 
 		const id = v4();
@@ -56,7 +56,11 @@ export const actions: Actions = {
 			images
 		});
 
-		if (error) return fail(400, { form, message: 'Something went wrong during inserting product group into supabase.' });
+		if (error)
+			return fail(400, {
+				form,
+				message: 'Something went wrong during inserting product group into supabase.'
+			});
 
 		throw redirect(303, '/dashboard?message=Succesfully added product group&message_type=success');
 	}

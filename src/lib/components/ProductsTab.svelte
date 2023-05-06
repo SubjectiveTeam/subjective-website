@@ -13,11 +13,7 @@
 
 <section class="flex flex-col gap-4">
 	<div class="ml-auto">
-		<button
-			disabled={refreshing}
-			class="btn btn-sm variant-filled-tertiary"
-			on:click={refresh}
-		>
+		<button disabled={refreshing} class="btn btn-sm variant-filled-tertiary" on:click={refresh}>
 			{#if refreshing}
 				Working...
 			{:else}
@@ -26,39 +22,41 @@
 		</button>
 		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/add-product">Add Product</a>
 	</div>
-		<div class="table-container">
-			<table class="table table-hover">
-				<thead>
+	<div class="table-container">
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>Product Group ID</th>
+					<th>Stripe_Price</th>
+					<th>Price</th>
+					<th>Stock</th>
+					<th>Active</th>
+					<th>Size</th>
+					<th />
+				</tr>
+			</thead>
+			<tbody>
+				{#each products as product, i}
 					<tr>
-						<th>ID</th>
-						<th>Stripe_Price</th>
-						<th>Price</th>
-						<th>Stock</th>
-						<th>Active</th>
-						<th>Size</th>
-						<th />
+						<td>{product.id}</td>
+						<td>{product.product_group_id}</td>
+						<td>{product.stripe_price}</td>
+						<td>€{product.price}</td>
+						<td>{product.stock}</td>
+						<td>{product.active}</td>
+						<td>{product.size}</td>
+						<td>
+							<a
+								class="btn btn-sm variant-filled-primary"
+								href="/dashboard/update-product?product_id={product.id}">Edit</a
+							>
+						</td>
 					</tr>
-				</thead>
-				<tbody>
-					{#each products as product, i}
-						<tr>
-							<td>{product.id}</td>
-							<td>{product.stripe_price}</td>
-							<td>€{product.price}</td>
-							<td>{product.stock}</td>
-							<td>{product.active}</td>
-							<td>{product.size}</td>
-							<td>
-								<a
-									class="btn btn-sm variant-filled-primary"
-									href="/dashboard/update-product?product_id={product.id}">Edit</a
-								>
-							</td>
-						</tr>
 				{:else}
 					<p class="text-center p-4">No Products</p>
 				{/each}
-				</tbody>
-			</table>
-		</div>
+			</tbody>
+		</table>
+	</div>
 </section>

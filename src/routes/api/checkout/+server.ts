@@ -49,7 +49,6 @@ export const POST: RequestHandler = async ({
 		});
 	});
 
-
 	const session = await stripe.checkout.sessions.create({
 		customer_email: (await getSession())?.user.email || undefined,
 		line_items,

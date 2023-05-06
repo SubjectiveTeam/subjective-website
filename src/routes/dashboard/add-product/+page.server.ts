@@ -32,9 +32,15 @@ export const actions: Actions = {
 
 		if (!form.valid) return fail(400, { form });
 
-		const selectProductGroupResponse = await supabase.from('product_groups').select('*').eq('id', form.data.productGroupId).limit(1).single();
+		const selectProductGroupResponse = await supabase
+			.from('product_groups')
+			.select('*')
+			.eq('id', form.data.productGroupId)
+			.limit(1)
+			.single();
 
-		if (!selectProductGroupResponse.data) return fail(400, { form, message: 'Product group does not exist' });
+		if (!selectProductGroupResponse.data)
+			return fail(400, { form, message: 'Product group does not exist' });
 
 		const productGroup = selectProductGroupResponse.data as ProductGroup;
 
@@ -61,7 +67,7 @@ export const actions: Actions = {
 			size: form.data.size,
 			stock: form.data.stock,
 			active: form.data.active
-		})
+		});
 
 		if (error) {
 			await stripe.products.update(productId, { active: false });

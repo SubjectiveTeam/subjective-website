@@ -27,11 +27,7 @@
 
 <section class="flex flex-col gap-4">
 	<div class="ml-auto">
-		<button
-			disabled={refreshing}
-			class="btn btn-sm variant-filled-tertiary"
-			on:click={refresh}
-		>
+		<button disabled={refreshing} class="btn btn-sm variant-filled-tertiary" on:click={refresh}>
 			{#if refreshing}
 				Working...
 			{:else}

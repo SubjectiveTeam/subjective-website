@@ -6,12 +6,14 @@
 
 	export let data;
 
-	const searchProducts: SearchableProduct[] = data.products.map((productGroupDetailed: ProductGroupDetailed) => {
-		return {	
-			...productGroupDetailed,
-			searchTerms: `${productGroupDetailed.name} ${productGroupDetailed.description}`
+	const searchProducts: SearchableProduct[] = data.products.map(
+		(productGroupDetailed: ProductGroupDetailed) => {
+			return {
+				...productGroupDetailed,
+				searchTerms: `${productGroupDetailed.name} ${productGroupDetailed.description}`
+			};
 		}
-	});
+	);
 
 	const searchStore = createSearchStore(searchProducts);
 
@@ -32,7 +34,7 @@
 	<hr class="mb-6 my-12" />
 	<ul class="flex flex-wrap gap-2">
 		{#each $searchStore.filtered as productGroupDetailed (productGroupDetailed.id)}
-			<li class="flex-1" animate:flip={{ duration: 250 }}>
+			<li class="flex-[1rem]" animate:flip={{ duration: 250 }}>
 				<ProductCard {productGroupDetailed} />
 			</li>
 		{/each}

@@ -4,7 +4,7 @@
 	function getProductGroup(productGroupDetailed: ProductGroupDetailed): ProductGroup {
 		return {
 			name: productGroupDetailed.name,
-			description: productGroupDetailed. description,
+			description: productGroupDetailed.description,
 			images: productGroupDetailed.images
 		} as ProductGroup;
 	}
@@ -16,17 +16,22 @@
 	<p class="font-bold !text-xl">{productGroupDetailed.name}</p>
 	<p class="!text-sm">{productGroupDetailed.description}</p>
 	{#if productGroupDetailed.images}
-		<img class="rounded-token" src={productGroupDetailed?.images[0]} alt={productGroupDetailed.name} loading="lazy" />
+		<img
+			class="rounded-token"
+			src={productGroupDetailed?.images[0]}
+			alt={productGroupDetailed.name}
+			loading="lazy"
+		/>
 	{/if}
 	<div class="flex justify-between gap-2">
 		<p class="chip variant-filled py-1">€{productGroupDetailed.products[0].price}</p>
-		<p class="chip variant-filled-primary py-1">{productGroupDetailed.products[0].price}</p>
 		<button
 			class="btn btn-sm variant-ghost-success"
-			on:click={() => cartStore.add({ 
-					product: productGroupDetailed.products[0], 
-					productGroup: getProductGroup(productGroupDetailed), 
-					quantity: 1 
+			on:click={() =>
+				cartStore.add({
+					product: productGroupDetailed.products[0],
+					productGroup: getProductGroup(productGroupDetailed),
+					quantity: 1
 				})}>Add To Cart</button
 		>
 	</div>

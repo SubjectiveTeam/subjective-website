@@ -27,7 +27,10 @@ declare global {
 
 	type ProductGroup = Database['public']['Tables']['product_groups']['Row'];
 
-	type ProductGroupDetailed = Omit<Database['public']['Views']['product_groups_detailed']['Row'], 'products'> & { products: Product[]};
+	type ProductGroupDetailed = Omit<
+		Database['public']['Views']['product_groups_detailed']['Row'],
+		'products'
+	> & { products: Product[] };
 
 	type SearchableProduct = ProductGroupDetailed & { searchTerms: string };
 
