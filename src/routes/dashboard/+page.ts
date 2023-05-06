@@ -5,14 +5,12 @@ export async function load({ parent }) {
 
 	const [productRequest, orderRequest] = await Promise.all([
 		supabase.from('products').select('*'),
-		supabase
-		.from('orders')
-		.select(`
+		supabase.from('orders').select(`
 			*, 
 			order_products ( * )
 	  	`)
 	]);
-	
+
 	if (productRequest.error || orderRequest.error) throw redirect(303, '/');
 
 	return {

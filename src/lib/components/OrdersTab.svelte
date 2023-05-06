@@ -65,7 +65,8 @@
 							<td class="flex gap-4">
 								<button
 									class="btn btn-sm variant-filled-primary"
-									on:click={() => triggerViewOrderProductsModal(orderWithProducts)}>View Products</button
+									on:click={() => triggerViewOrderProductsModal(orderWithProducts)}
+									>View Products</button
 								>
 								<a
 									href="dashboard/update-order?order_id={orderWithProducts.id}"

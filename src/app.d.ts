@@ -31,9 +31,7 @@ declare global {
 
 	type OrderProduct = Database['public']['Tables']['order_products']['Row'];
 
-	type OrderWithProducts = Order & {
-		order_products: OrderProduct[]
-	}
+	type OrderWithProducts = Order & { order_products: OrderProduct[] };
 
 	type CartItem = {
 		product: Product;
