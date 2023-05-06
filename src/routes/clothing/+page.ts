@@ -6,7 +6,6 @@ export async function load({ parent }) {
 	const { data, error } = await supabase.from('product_groups').select('*');
 
 	console.log(data);
-	
 
 	if (error) throw redirect(303, '/');
 

@@ -66,15 +66,15 @@ export const actions: Actions = {
 			description: form.data.description,
 			active: form.data.active,
 			stock: form.data.stock
-		});	
+		});
 
 		if (error) {
 			await stripe.products.update(product_id, { active: false });
 			return fail(400, { form, message: 'Something went wrong inserting the product in supabase' });
 		}
-		
+
 		const productGroup = data as ProductsGroup;
-		
+
 		const images: string[] = productGroup.images;
 
 		if (images.length <= 0) {
@@ -84,7 +84,9 @@ export const actions: Actions = {
 					.upload(`${productGroup.id}/${files[i].name}`, files[i]);
 				if (error) console.error(error.message);
 				if (data)
-					images.push(supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl);
+					images.push(
+						supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl
+					);
 			}
 		}
 

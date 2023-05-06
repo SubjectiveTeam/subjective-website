@@ -35,8 +35,6 @@ declare global {
 
 	type OrderWithProducts = Order & { order_products: OrderProduct[] };
 
-
-
 	type CartItem = {
 		product: Product;
 		quantity: number;
