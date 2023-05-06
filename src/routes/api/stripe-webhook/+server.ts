@@ -1,4 +1,4 @@
-import { stripe } from '$lib/stripe/stripe';
+import { stripe } from '$lib/server/stripe/stripe';
 import type Stripe from 'stripe';
 import type { RequestHandler } from './$types';
 import { SECRET_WEBHOOK_KEY } from '$env/static/private';

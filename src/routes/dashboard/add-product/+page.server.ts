@@ -1,4 +1,4 @@
-import { stripe } from '$lib/stripe/stripe';
+import { stripe } from '$lib/server/stripe/stripe';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type Stripe from 'stripe';
 import { superValidate } from 'sveltekit-superforms/server';

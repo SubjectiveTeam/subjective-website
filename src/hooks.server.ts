@@ -1,5 +1,6 @@
 import { SECRET_SUPABASE_SERVICE_ROLE } from '$env/static/private';
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
+import type { Database } from '$lib/supabase/database.types';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 
@@ -9,14 +10,14 @@ const antiAuthRoutes: string[] = ['/sign-in', '/sign-up'];
 
 export const handle: Handle = async ({ event, resolve }) => {
 	// Setup supabase client (for user usage)
-	event.locals.supabase = createSupabaseServerClient({
+	event.locals.supabase = createSupabaseServerClient<Database>({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
 		supabaseKey: PUBLIC_SUPABASE_ANON_KEY,
 		event
 	});
 
 	// Setup supabase service role client (for strictly server usage, this client may in no circumstances be exposed on the client)
-	event.locals.supabase_service_role = createSupabaseServerClient({
+	event.locals.supabase_service_role = createSupabaseServerClient<Database>({
 		supabaseUrl: PUBLIC_SUPABASE_URL,
 		supabaseKey: SECRET_SUPABASE_SERVICE_ROLE,
 		event
@@ -34,7 +35,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 		return session;
 	};
 
-	// Auth guarding
+	// Route protection
 	const session = await event.locals.getSession();
 	const loggedIn: boolean = session !== null;
 	const isAdmin: boolean = session?.user.app_metadata.claims_admin;
