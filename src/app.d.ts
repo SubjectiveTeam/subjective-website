@@ -25,6 +25,8 @@ declare global {
 
 	type Product = Database['public']['Tables']['products']['Row'];
 
+	type ProductsGroup = Database['public']['Tables']['products_group']['Row'];
+
 	type SearchableProduct = Product & { searchTerms: string };
 
 	type Order = Database['public']['Tables']['orders']['Row'];
@@ -32,6 +34,8 @@ declare global {
 	type OrderProduct = Database['public']['Tables']['order_products']['Row'];
 
 	type OrderWithProducts = Order & { order_products: OrderProduct[] };
+
+
 
 	type CartItem = {
 		product: Product;
