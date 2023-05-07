@@ -4,7 +4,7 @@
 	export let cartItem: CartItem;
 </script>
 
-<li class="flex justify-between items-center" transition:scale={{ duration: 400 }}>
+<div class="flex justify-between items-center" transition:scale={{ duration: 400 }}>
 	<div class="flex flex-col">
 		<p class="overflow-ellipsis">{cartItem.productGroup.name}</p>
 		<div class="flex justify-between w-32">
@@ -22,4 +22,4 @@
 			>+</button
 		>
 	</div>
-</li>
+</div>
