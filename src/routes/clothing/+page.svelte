@@ -6,10 +6,14 @@
 
 	export let data;
 
-	const searchProducts: SearchableProduct[] = data.products.map((product: Product) => ({
-		...product,
-		searchTerms: `${product.name} ${product.description} ${product.size}`
-	}));
+	const searchProducts: SearchableProduct[] = data.products.map(
+		(productGroupDetailed: ProductGroupDetailed) => {
+			return {
+				...productGroupDetailed,
+				searchTerms: `${productGroupDetailed.name} ${productGroupDetailed.description}`
+			};
+		}
+	);
 
 	const searchStore = createSearchStore(searchProducts);
 
@@ -20,12 +24,18 @@
 
 <section>
 	<h1 class="!leading-loose">Clothing</h1>
-	<input class="input max-w-lg mx-auto" type="search" name="search" placeholder="Search anything here..." bind:value={$searchStore.search}>
-	<hr class="mb-6 my-12"/>
+	<input
+		class="input max-w-lg mx-auto"
+		type="search"
+		name="search"
+		placeholder="Search anything here..."
+		bind:value={$searchStore.search}
+	/>
+	<hr class="mb-6 my-12" />
 	<ul class="flex flex-wrap gap-2">
-		{#each $searchStore.filtered as product (product.id)}
-			<li class="flex-1" animate:flip={{duration: 250}}>
-				<ProductCard {product} />
+		{#each $searchStore.filtered as productGroupDetailed (productGroupDetailed.id)}
+			<li class="flex-[1rem]" animate:flip={{ duration: 250 }}>
+				<ProductCard {productGroupDetailed} />
 			</li>
 		{/each}
 	</ul>

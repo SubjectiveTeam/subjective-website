@@ -6,7 +6,6 @@ declare global {
 		interface Locals {
 			consentCookiePresent: boolean;
 			supabase: SupabaseClient<Database>;
-			supabase_service_role: SupabaseClient<Database>;
 			getSession(): Promise<Session | null>;
 		}
 		interface PageData {
@@ -18,19 +17,31 @@ declare global {
 	}
 
 	interface SearchStoreValue<T extends Record<PropertyKey, any>> {
-		data: T[],
-		filtered: T[],
-		search: string
+		data: T[];
+		filtered: T[];
+		search: string;
 	}
 
 	type Product = Database['public']['Tables']['products']['Row'];
 
-	type SearchableProduct = Product & { searchTerms: string; }
+	type ProductGroup = Database['public']['Tables']['product_groups']['Row'];
+
+	type ProductGroupDetailed = Omit<
+		Database['public']['Views']['product_groups_detailed']['Row'],
+		'products'
+	> & { products: Product[] };
+
+	type SearchableProduct = ProductGroupDetailed & { searchTerms: string };
 
 	type Order = Database['public']['Tables']['orders']['Row'];
 
+	type OrderProduct = Database['public']['Tables']['order_products']['Row'];
+
+	type OrderWithProducts = Order & { order_products: OrderProduct[] };
+
 	type CartItem = {
 		product: Product;
+		productGroup: ProductGroup;
 		quantity: number;
 	};
 

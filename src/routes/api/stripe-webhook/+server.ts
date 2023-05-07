@@ -1,9 +1,10 @@
-import { stripe } from '$lib/stripe/stripe';
+import { stripe } from '$lib/server/stripe/stripe';
 import type Stripe from 'stripe';
 import type { RequestHandler } from './$types';
 import { SECRET_WEBHOOK_KEY } from '$env/static/private';
+import { supabaseServiceRole } from '$lib/server/supabase/supabase';
 
-export const POST: RequestHandler = async ({ request, locals: { supabase_service_role } }) => {
+export const POST: RequestHandler = async ({ request }) => {
 	const sig = request.headers.get('stripe-signature') as string;
 
 	let event: Stripe.Event;
@@ -30,7 +31,7 @@ export const POST: RequestHandler = async ({ request, locals: { supabase_service
 				});
 			}
 
-			const { error } = await supabase_service_role.rpc('create_order', {
+			const { error } = await supabaseServiceRole.rpc('create_order', {
 				order_info: {
 					address: checkoutSession.shipping_details.address.line1 as string,
 					postal_code: checkoutSession.shipping_details.address.postal_code as string,

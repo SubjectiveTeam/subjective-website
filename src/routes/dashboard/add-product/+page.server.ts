@@ -1,4 +1,4 @@
-import { stripe } from '$lib/stripe/stripe';
+import { stripe } from '$lib/server/stripe/stripe';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import type Stripe from 'stripe';
 import { superValidate } from 'sveltekit-superforms/server';
@@ -6,11 +6,10 @@ import { v4 } from 'uuid';
 import { z } from 'zod';
 
 const addProductSchema = z.object({
-	name: z.string().nonempty(),
-	description: z.string().nonempty(),
+	productGroupId: z.string().uuid().nonempty(),
 	price: z.number().gt(0).positive().multipleOf(0.01),
 	stock: z.number().gte(0).positive().multipleOf(1),
-	active: z.boolean(),
+	active: z.boolean().optional(),
 	size: z.enum(['XL', 'L', 'M', 'S'])
 });
 
@@ -29,61 +28,52 @@ export const actions: Actions = {
 		if (!session || !session.user.app_metadata.claims_admin)
 			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
 
-		const formData = await request.formData();
+		const form = await superValidate(request, addProductSchema);
 
-		const form = await superValidate(formData, addProductSchema);
+		if (!form.valid) return fail(400, { form });
 
-		const files = formData.getAll('files') as File[];
+		const selectProductGroupResponse = await supabase
+			.from('product_groups')
+			.select('*')
+			.eq('id', form.data.productGroupId)
+			.limit(1)
+			.single();
 
-		if (!form.valid || files.length <= 0) return fail(400, { form });
+		if (!selectProductGroupResponse.data)
+			return fail(400, { form, message: 'Product group does not exist' });
 
-		files.forEach((file) => {
-			if (['PNG', 'JPEG', 'JPG', 'GIF'].includes(file.type))
-				return fail(400, { form, message: 'Files must be of type: PNG, JPEG, JPG or GIF' });
-		});
+		const productGroup = selectProductGroupResponse.data as ProductGroup;
 
-		const id = v4();
-
-		const images: string[] = [];
-		for (let i = 0; i < files.length; i++) {
-			const { data, error } = await supabase.storage
-				.from('product_images')
-				.upload(`${id}/${files[i].name}`, files[i]);
-			if (error) console.error(error.message);
-			if (data)
-				images.push(supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl);
-		}
-
-		const stripeProduct: Stripe.Product = await stripe.products.create({
-			id,
-			name: form.data.name,
-			description: form.data.description,
+		const productId = v4();
+		const { default_price }: Stripe.Product = await stripe.products.create({
+			id: productId,
+			name: productGroup.name,
+			description: productGroup.name,
 			active: form.data.active,
-			images,
+			images: productGroup.images,
 			default_price_data: {
 				currency: 'EUR',
 				// We do times 100 because Stripe uses cents so 1 euro would be 100 cents
 				unit_amount: form.data.price * 100
 			},
-			url: `${url.origin}/products/${id}`
+			url: `${url.origin}/products/${productId}`
 		});
 
 		const { error } = await supabase.from('products').insert({
-			id,
-			stripe_price: stripeProduct.default_price as string,
-			name: form.data.name,
-			description: form.data.description,
+			id: productId,
 			price: form.data.price,
+			stripe_price: default_price as string,
+			product_group_id: form.data.productGroupId,
 			size: form.data.size,
-			active: form.data.active,
 			stock: form.data.stock,
-			images
+			active: form.data.active || false
 		});
 
 		if (error) {
-			await stripe.products.update(id, { active: false });
+			await stripe.products.update(productId, { active: false });
 			return fail(400, { form, message: 'Something went wrong inserting the product in supabase' });
 		}
+
 		throw redirect(303, '/dashboard?message=Succesfully added product&message_type=success');
 	}
 };

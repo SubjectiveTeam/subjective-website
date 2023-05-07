@@ -7,19 +7,22 @@ export interface Database {
 				Row: {
 					id: string;
 					order_id: string;
-					product_id: string | null;
+					price: number;
+					product_id: string;
 					quantity: number;
 				};
 				Insert: {
 					id?: string;
 					order_id: string;
-					product_id?: string | null;
+					price: number;
+					product_id: string;
 					quantity: number;
 				};
 				Update: {
 					id?: string;
 					order_id?: string;
-					product_id?: string | null;
+					price?: number;
+					product_id?: string;
 					quantity?: number;
 				};
 			};
@@ -52,15 +55,33 @@ export interface Database {
 					status?: Database['public']['Enums']['order_status'];
 				};
 			};
-			products: {
+			product_groups: {
 				Row: {
-					active: boolean;
-					created_at: string | null;
 					description: string;
 					id: string;
 					images: string[];
 					name: string;
+				};
+				Insert: {
+					description: string;
+					id?: string;
+					images?: string[];
+					name: string;
+				};
+				Update: {
+					description?: string;
+					id?: string;
+					images?: string[];
+					name?: string;
+				};
+			};
+			products: {
+				Row: {
+					active: boolean;
+					created_at: string | null;
+					id: string;
 					price: number;
+					product_group_id: string;
 					size: Database['public']['Enums']['clothing_size'];
 					stock: number;
 					stripe_price: string;
@@ -68,11 +89,9 @@ export interface Database {
 				Insert: {
 					active: boolean;
 					created_at?: string | null;
-					description: string;
 					id: string;
-					images: string[];
-					name: string;
 					price: number;
+					product_group_id: string;
 					size: Database['public']['Enums']['clothing_size'];
 					stock: number;
 					stripe_price: string;
@@ -80,11 +99,9 @@ export interface Database {
 				Update: {
 					active?: boolean;
 					created_at?: string | null;
-					description?: string;
 					id?: string;
-					images?: string[];
-					name?: string;
 					price?: number;
+					product_group_id?: string;
 					size?: Database['public']['Enums']['clothing_size'];
 					stock?: number;
 					stripe_price?: string;
@@ -92,7 +109,15 @@ export interface Database {
 			};
 		};
 		Views: {
-			[_ in never]: never;
+			product_groups_detailed: {
+				Row: {
+					description: string | null;
+					id: string | null;
+					images: string[] | null;
+					name: string | null;
+					products: unknown[] | null;
+				};
+			};
 		};
 		Functions: {
 			create_order: {
