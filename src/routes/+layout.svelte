@@ -96,14 +96,6 @@
 	<meta name="language" content="English" />
 
 	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 	<!-- TITLE -->
@@ -128,7 +120,7 @@
 			? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center'
 			: ''}
 	>
-		<div class="py-4 px-[5vw] md:px-[15vw]">
+		<div class="py-[5vh] px-[5vw] md:px-[15vw]  min-h-[calc(100vh-var(--header-height))] container mx-auto">
 			<slot />
 		</div>
 	</div>
