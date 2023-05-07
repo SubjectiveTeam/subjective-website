@@ -98,7 +98,7 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working || !tainted} class="btn variant-filled-secondary">
+			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
 				{#if working}
 					Working...
 				{:else}

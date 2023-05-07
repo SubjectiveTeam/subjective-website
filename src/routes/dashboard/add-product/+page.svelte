@@ -26,6 +26,8 @@
 		}
 	});
 
+	console.log( $constraints.active);
+
 	// Populate size value with M
 	form.update(
 		($form) => {

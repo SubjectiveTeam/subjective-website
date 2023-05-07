@@ -18,7 +18,7 @@
 			}
 		}
 	});
-
+	
 	let working: boolean = false;
 </script>
 

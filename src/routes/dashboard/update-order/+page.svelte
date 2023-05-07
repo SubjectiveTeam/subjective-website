@@ -10,7 +10,7 @@
 
 	export let data;
 
-	const { form, constraints, errors, enhance } = superForm(data.form, {
+	const { form, constraints, errors, enhance, tainted } = superForm(data.form, {
 		applyAction: true,
 		onSubmit() {
 			working = true;
@@ -126,7 +126,7 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working} class="btn variant-filled-secondary">
+			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
 				{#if working}
 					Working...
 				{:else}

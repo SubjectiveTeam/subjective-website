@@ -9,7 +9,7 @@ const addProductSchema = z.object({
 	productGroupId: z.string().uuid().nonempty(),
 	price: z.number().gt(0).positive().multipleOf(0.01),
 	stock: z.number().gte(0).positive().multipleOf(1),
-	active: z.boolean(),
+	active: z.boolean().optional(),
 	size: z.enum(['XL', 'L', 'M', 'S'])
 });
 
@@ -66,7 +66,7 @@ export const actions: Actions = {
 			product_group_id: form.data.productGroupId,
 			size: form.data.size,
 			stock: form.data.stock,
-			active: form.data.active
+			active: form.data.active || false
 		});
 
 		if (error) {
