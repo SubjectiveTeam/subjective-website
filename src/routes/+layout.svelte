@@ -43,13 +43,16 @@
 	// Initialize popup
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
+	// Message Types
 	const messageTypeBackgroundsMap = new Map<string, string>();
 	messageTypeBackgroundsMap.set('info', 'variant-filled-secondary');
 	messageTypeBackgroundsMap.set('success', 'variant-filled-success');
 	messageTypeBackgroundsMap.set('warning', 'variant-filled-warning');
 	messageTypeBackgroundsMap.set('error', 'variant-filled-error');
+
 	afterNavigate(() => {
+
+		// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 		const message = $page.url.searchParams.get('message');
 		const background = messageTypeBackgroundsMap.get(
 			$page.url.searchParams.get('message_type') || ''
@@ -96,7 +99,6 @@
 	<meta name="language" content="English" />
 
 	<!-- LIBS -->
-	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 	<!-- TITLE -->
@@ -116,16 +118,13 @@
 <!-- App Shell -->
 <AppShell>
 	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<div
-		class={$page.route.id === '/'
-			? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center'
-			: ''}
-	>
 		<div
-			class="py-[5vh] px-[5vw] md:px-[15vw] min-h-[calc(100vh-var(--header-height))] container mx-auto"
-		>
+			class="
+				py-[5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh-var(--header-height))]  mx-auto
+				{$page.route.id === '/' ? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center' : ''}
+				"
+			>
 			<slot />
 		</div>
-	</div>
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
