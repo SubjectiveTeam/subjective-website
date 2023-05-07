@@ -15,7 +15,7 @@
 		}
 	);
 
-	const searchStore = createSearchStore(searchProducts);
+	const searchStore = createSearchStore(searchProducts, data.search);
 
 	const unsubscribe = searchStore.subscribe((value) => searchHandler(value));
 

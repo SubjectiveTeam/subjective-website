@@ -1,10 +1,13 @@
 import { writable } from 'svelte/store';
 
-export const createSearchStore = <T extends Record<PropertyKey, any>>(data: T[]) => {
+export const createSearchStore = <T extends Record<PropertyKey, any>>(
+	data: T[],
+	search?: string
+) => {
 	const { subscribe, set, update } = writable<SearchStoreValue<T>>({
 		data,
 		filtered: data,
-		search: ''
+		search: search || ''
 	});
 
 	return {

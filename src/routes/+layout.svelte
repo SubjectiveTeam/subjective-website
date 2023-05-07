@@ -52,7 +52,6 @@
 	messageTypeBackgroundsMap.set('error', 'variant-filled-error');
 
 	afterNavigate(() => {
-
 		// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 		const message = $page.url.searchParams.get('message');
 		const background = messageTypeBackgroundsMap.get(
@@ -100,6 +99,7 @@
 	<meta name="language" content="English" />
 
 	<!-- LIBS -->
+	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 	<!-- TITLE -->
@@ -120,4 +120,3 @@
 <Header />
 <Main><slot /></Main>
 <Footer />
-
