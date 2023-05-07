@@ -2,6 +2,10 @@
 	import { modalStore } from '@skeletonlabs/skeleton';
 
 	export let products: OrderProduct[];
+
+	const totalPrice = products.reduce((accumulator, product) => {
+		return accumulator + product.price;
+	}, 0);
 </script>
 
 {#if $modalStore[0]}
@@ -21,10 +25,16 @@
 						<tr>
 							<td>{product.product_id}</td>
 							<td>{product.quantity}</td>
-							<td>{product.price}</td>
+							<td>€{product.price}</td>
 						</tr>
 					{/each}
 				</tbody>
+				<tfoot>
+					<tr>
+						<th colspan="2">Total Price</th>
+						<td>€{totalPrice}</td>
+					</tr>
+				</tfoot>
 			</table>
 		</div>
 	</div>
