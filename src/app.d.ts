@@ -6,7 +6,6 @@ declare global {
 		interface Locals {
 			consentCookiePresent: boolean;
 			supabase: SupabaseClient<Database>;
-			supabase_service_role: SupabaseClient<Database>;
 			getSession(): Promise<Session | null>;
 		}
 		interface PageData {

@@ -1,10 +1,11 @@
 import { stripe } from '$lib/server/stripe/stripe';
+import { supabaseServiceRole } from '$lib/server/supabase/supabase';
 import type { RequestHandler } from './$types';
 
 export const POST: RequestHandler = async ({
 	request,
 	url,
-	locals: { supabase_service_role, getSession }
+	locals: { getSession }
 }) => {
 	const data = await request.json();
 	const cartItems: CartItem[] = data.items;
@@ -21,7 +22,7 @@ export const POST: RequestHandler = async ({
 	const cartItemsSimplified: CartItemSimplified[] = [];
 
 	for (const cartItem of cartItems) {
-		const { data } = await supabase_service_role
+		const { data } = await supabaseServiceRole
 			.from('products')
 			.select('*')
 			.eq('id', cartItem.product.id)
