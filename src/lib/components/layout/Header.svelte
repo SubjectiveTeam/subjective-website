@@ -18,7 +18,7 @@
 <AppBar class="h-[var(--header-height)]" padding="py-4 px-[5vw] md:px-[15vw]" shadow="!shadow-lg">
 	<svelte:fragment slot="lead">
 		<span class="hidden lg:block"><Navigation orientation="horizontal" /></span>
-		<button class="lg:hidden btn" on:click={toggleSideBar}>
+		<button class="lg:hidden btn" aria-label="hamburger-menu" on:click={toggleSideBar}>
 			<svg viewBox="0 0 100 100" class="fill-token w-8">
 				<rect x="10" y="20" width="80" height="10" rx="2" />
 				<rect x="10" y="45" width="80" height="10" rx="2" />
