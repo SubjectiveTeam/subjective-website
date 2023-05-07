@@ -54,9 +54,9 @@
 <div class="card p-4 w-64" data-popup="cart-menu">
 	<ul class="flex flex-col gap-2 h-48 overflow-scroll">
 		{#each [...$cartStore.values()] as cartItem (cartItem.product.id)}
-			<span animate:flip={{ duration: 400 }}>
+			<li animate:flip={{ duration: 400 }}>
 				<PreviewCartItem {cartItem} />
-			</span>
+			</li>
 		{:else}
 			<p>Your shopping cart is empty. <a class="underline" href="/clothing">Start shopping.</a></p>
 		{/each}
@@ -77,6 +77,7 @@
 				{/if}
 			</button>
 			<button
+				aria-label="clear-shopping-cart"
 				disabled={$cartStore.length === 0}
 				class="btn p-2 variant-filled-error"
 				on:click={() => cartStore.clear()}

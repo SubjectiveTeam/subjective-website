@@ -15,7 +15,7 @@
 		}
 	);
 
-	const searchStore = createSearchStore(searchProducts);
+	const searchStore = createSearchStore(searchProducts, data.search);
 
 	const unsubscribe = searchStore.subscribe((value) => searchHandler(value));
 
@@ -32,9 +32,9 @@
 		bind:value={$searchStore.search}
 	/>
 	<hr class="mb-6 my-12" />
-	<ul class="flex flex-wrap gap-2">
+	<ul class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
 		{#each $searchStore.filtered as productGroupDetailed (productGroupDetailed.id)}
-			<li class="flex-[1rem]" animate:flip={{ duration: 250 }}>
+			<li class="" animate:flip={{ duration: 250 }}>
 				<ProductCard {productGroupDetailed} />
 			</li>
 		{/each}

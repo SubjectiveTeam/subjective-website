@@ -3,7 +3,7 @@
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { Toast, Modal, Drawer, AppShell, toastStore } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, Drawer, toastStore } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from '$lib/components/layout/Header.svelte';
@@ -16,6 +16,7 @@
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
+	import Main from '$lib/components/layout/Main.svelte';
 
 	export let data;
 
@@ -43,13 +44,15 @@
 	// Initialize popup
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
+	// Message Types
 	const messageTypeBackgroundsMap = new Map<string, string>();
 	messageTypeBackgroundsMap.set('info', 'variant-filled-secondary');
 	messageTypeBackgroundsMap.set('success', 'variant-filled-success');
 	messageTypeBackgroundsMap.set('warning', 'variant-filled-warning');
 	messageTypeBackgroundsMap.set('error', 'variant-filled-error');
+
 	afterNavigate(() => {
+		// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 		const message = $page.url.searchParams.get('message');
 		const background = messageTypeBackgroundsMap.get(
 			$page.url.searchParams.get('message_type') || ''
@@ -97,6 +100,8 @@
 
 	<!-- LIBS -->
 	<!-- LIBS -->
+	<!-- LIBS -->
+	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 	<!-- TITLE -->
@@ -113,19 +118,7 @@
 	<CookieConsentBanner />
 {/if}
 
-<!-- App Shell -->
-<AppShell>
-	<svelte:fragment slot="header"><Header /></svelte:fragment>
-	<div
-		class={$page.route.id === '/'
-			? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center'
-			: ''}
-	>
-		<div
-			class="py-[5vh] px-[5vw] md:px-[15vw] min-h-[calc(100vh-var(--header-height))] container mx-auto"
-		>
-			<slot />
-		</div>
-	</div>
-	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
-</AppShell>
+<!-- Layout -->
+<Header />
+<Main><slot /></Main>
+<Footer />

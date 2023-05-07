@@ -6,8 +6,10 @@ body {
 	@apply h-full;
 }
 
-.hide-number-input-arrows {
-	-webkit-appearance: none !important;
-	-moz-appearance: textfield !important;
-	margin: 0 !important;
+.active-link:not(:hover) {
+	@apply bg-primary-500 text-black;
+}
+
+.active-link:hover {
+	@apply !bg-primary-500 !text-black;
 }

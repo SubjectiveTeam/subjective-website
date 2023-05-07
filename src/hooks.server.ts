@@ -3,8 +3,15 @@ import type { Database } from '$lib/supabase/database.types';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
 import { redirect, type Handle } from '@sveltejs/kit';
 
-const adminRoutes: string[] = ['/dashboard', '/dashboard/*'];
-const authRoutes: string[] = ['/account', '/dashboard', '/dashboard/*'];
+const adminRoutes: string[] = [
+	'/dashboard',
+	'/dashboard',
+	'/dashboard/add-product',
+	'/dashboard/update-product',
+	'/dashboard/add-product-group',
+	'/dashboard/update-order'
+];
+const authRoutes: string[] = [...adminRoutes, '/account'];
 const antiAuthRoutes: string[] = ['/sign-in', '/sign-up'];
 
 export const handle: Handle = async ({ event, resolve }) => {
@@ -30,7 +37,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Route protection
 	const session = await event.locals.getSession();
 	const loggedIn: boolean = session !== null;
-	const isAdmin: boolean = session?.user.app_metadata.claims_admin;
+	const isAdmin: boolean = session ? session.user.app_metadata.claims_admin : false;
 	const destination: string = event.route.id as string;
 	if (!loggedIn && authRoutes.includes(destination))
 		throw redirect(
