@@ -2,11 +2,7 @@ import { stripe } from '$lib/server/stripe/stripe';
 import { supabaseServiceRole } from '$lib/server/supabase/supabase';
 import type { RequestHandler } from './$types';
 
-export const POST: RequestHandler = async ({
-	request,
-	url,
-	locals: { getSession }
-}) => {
+export const POST: RequestHandler = async ({ request, url, locals: { getSession } }) => {
 	const data = await request.json();
 	const cartItems: CartItem[] = data.items;
 
