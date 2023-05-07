@@ -15,7 +15,7 @@
 	};
 </script>
 
-<AppBar class="h-[var(--header-height)]" padding="py-4 px-[5vw] md:px-[12.5vw]" shadow="!shadow-lg">
+<AppBar class="h-[var(--header-height)] sticky top-0" padding="py-4 px-[5vw] md:px-[12.5vw]" shadow="!shadow-lg">
 	<svelte:fragment slot="lead">
 		<span class="hidden lg:block"><Navigation orientation="horizontal" /></span>
 		<button class="lg:hidden btn" aria-label="hamburger-menu" on:click={toggleSideBar}>

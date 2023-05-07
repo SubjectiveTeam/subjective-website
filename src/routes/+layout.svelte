@@ -3,7 +3,7 @@
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/all.css';
 	import '../app.postcss';
-	import { Toast, Modal, Drawer, AppShell, toastStore } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, Drawer, toastStore } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from '$lib/components/layout/Header.svelte';
@@ -116,15 +116,14 @@
 {/if}
 
 <!-- App Shell -->
-<AppShell>
-	<svelte:fragment slot="header"><Header /></svelte:fragment>
-		<div
-			class="
-				py-[5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh-var(--header-height))]  mx-auto
-				{$page.route.id === '/' ? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center' : ''}
-				"
-			>
-			<slot />
-		</div>
-	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
-</AppShell>
+<Header />
+<div
+	class="
+		py-[5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh-var(--header-height))]  mx-auto
+		{$page.route.id === '/' ? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center' : ''}
+		"
+	>
+	<slot />
+</div>
+<Footer />
+
