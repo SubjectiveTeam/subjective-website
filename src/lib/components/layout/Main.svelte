@@ -1,13 +1,12 @@
 <script>
-
-	import { page } from "$app/stores";
-
+	import { page } from '$app/stores';
 </script>
+
 <div
 	class="
-		py-[5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh-var(--header-height))]  mx-auto
-		{$page.route.id === '/' ? 'h-[100vh] xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center' : ''}
+		py-[5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh-var(--header-height))] mx-auto
+		{$page.route.id === '/' ? 'xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center' : ''}
 		"
-	>
+>
 	<slot />
 </div>

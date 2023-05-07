@@ -7,14 +7,28 @@
 			Subjective is an up and coming brand to change the fashion industry, are you tired of
 			'following the trend'? Well we are! With Subjective you can be and express yourself.
 		</p>
-		<a class="unstyled btn variant-filled-secondary mt-8 w-fit text-center mx-auto xl:mx-[unset]" href="/clothing">Start Shopping</a>
+		<a
+			class="unstyled btn variant-filled-secondary mt-8 w-fit text-center mx-auto xl:mx-[unset]"
+			href="/clothing">Start Shopping</a
+		>
 	</div>
-	<div class="flex-[50%]">
-		<p class="!text-[clamp(2.5rem,3vw,3rem)] font-bold !leading-tight xl:text-surface-50-900-token text-center ">Check out our newest collection</p>
-		<img src="" alt="" />
-		<a class="text-black" href="/clothing">
-			<svg class="w-12 aspect-square" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-				<path d="M6 17L11 12L6 7M13 17L18 12L13 7" stroke="inherit" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+	<div class="flex-[50%] flex flex-col items-center">
+		<p
+			class="!text-[clamp(2.5rem,3vw,3rem)] font-bold !leading-tight xl:text-surface-50-900-token text-center"
+		>
+			Check out our newest collection
+		</p>
+		<img class="w-[25rem]" src="AmoreVince.png" alt="AmoreVince.png" />
+		<a class="!text-white xl:!text-surface-50-900-token btn" href="/clothing?search=AmoreVince">
+			<svg
+				fill="currentColor"
+				class="h-12 aspect-square"
+				viewBox="0 0 20 20"
+				xmlns="http://www.w3.org/2000/svg"
+			>
+				<path
+					d="M2.54214478,2.15371704 L9.79625873,9.41418482 C9.93208624,9.55447396 10,9.71556193 10,9.89744874 C10,10.0793356 9.93208624,10.2457418 9.79625873,10.3966675 L2.22087106,17.7953128 C1.83778384,18.1121603 1.49706014,18.1121603 1.19869995,17.7953128 C0.900339762,17.4784653 0.900339762,17.151685 1.19869995,16.8149719 L8.27834846,9.89744874 L1.52534485,3.1342926 C1.28786041,2.79147628 1.30977541,2.47983785 1.59108986,2.19937732 C1.8724043,1.91891679 2.18942261,1.9036967 2.54214478,2.15371704 Z M11.5421448,2.15371704 L18.7962587,9.41418482 C18.9320862,9.55447396 19,9.71556193 19,9.89744874 C19,10.0793356 18.9320862,10.2457418 18.7962587,10.3966675 L11.2208711,17.7953128 C10.8377838,18.1121603 10.4970601,18.1121603 10.1987,17.7953128 C9.90033976,17.4784653 9.90033976,17.151685 10.1987,16.8149719 L17.2783485,9.89744874 L10.5253448,3.1342926 C10.2878604,2.79147628 10.3097754,2.47983785 10.5910899,2.19937732 C10.8724043,1.91891679 11.1894226,1.9036967 11.5421448,2.15371704 Z"
+				/>
 			</svg>
 		</a>
 	</div>
