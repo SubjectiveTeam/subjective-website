@@ -30,7 +30,7 @@ export const handle: Handle = async ({ event, resolve }) => {
 	// Route protection
 	const session = await event.locals.getSession();
 	const loggedIn: boolean = session !== null;
-	const isAdmin: boolean = session?.user.app_metadata.claims_admin;
+	const isAdmin: boolean = session ? session.user.app_metadata.claims_admin : false;
 	const destination: string = event.route.id as string;
 	if (!loggedIn && authRoutes.includes(destination))
 		throw redirect(
