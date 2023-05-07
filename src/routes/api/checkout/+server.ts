@@ -20,7 +20,7 @@ export const POST: RequestHandler = async ({
 
 	const cartItemsSimplified: CartItemSimplified[] = [];
 
-	cartItems.forEach(async (cartItem: CartItem) => {
+	for (const cartItem of cartItems) {
 		const { data } = await supabase_service_role
 			.from('products')
 			.select('*')
@@ -47,11 +47,11 @@ export const POST: RequestHandler = async ({
 			product_id: cartItem.product.id,
 			quantity: cartItem.quantity
 		});
-	});
+	}
 
 	const session = await stripe.checkout.sessions.create({
 		customer_email: (await getSession())?.user.email || undefined,
-		line_items,
+		line_items: line_items,
 		mode: 'payment',
 		success_url: `${url.origin}/success`,
 		cancel_url: `${url.origin}/cancel`,

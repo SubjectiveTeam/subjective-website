@@ -22,7 +22,7 @@ const createCartStore = () => {
 			if (stringifiedCart) customSet(JSON.parse(stringifiedCart));
 			else customSet([]);
 		},
-		add: (cartItem: CartItem) => {
+		add: (cartItem: CartItem) => {			
 			const cart = customGet();
 			for (const item of cart) {
 				if (cartItem.product.id === item.product.id) {
