@@ -118,7 +118,7 @@
 	<CookieConsentBanner />
 {/if}
 
-<!-- App Shell -->
+<!-- Layout -->
 <Header />
 <Main><slot /></Main>
 <Footer />
