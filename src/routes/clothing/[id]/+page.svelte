@@ -1,5 +1,5 @@
 <script lang="ts">
 	export let data;
 
-	$: ({ product } = data);
+	console.log(data);
 </script>

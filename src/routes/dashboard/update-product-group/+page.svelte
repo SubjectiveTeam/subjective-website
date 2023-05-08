@@ -15,6 +15,7 @@
 		}
 	});
 
+	// Set tainted to true once files aren't undefined anymore (files aren't handled by sveltekit-superforms as of v0.86)
 	let files: FileList;
 	$: if (files) {
 		if (!$tainted) $tainted = {};

@@ -40,8 +40,6 @@
 	};
 
 	const activeConstraints = { ...$constraints.active, required: undefined };
-
-	
 </script>
 
 <h1 class="!leading-loose">Add Product</h1>

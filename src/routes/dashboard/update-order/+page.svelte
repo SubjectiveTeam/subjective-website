@@ -28,7 +28,6 @@
 		// Close the popup when the item is clicked
 		closeQuery: '.listbox-item'
 	};
-
 </script>
 
 <h1 class="!leading-loose">Update Order</h1>
