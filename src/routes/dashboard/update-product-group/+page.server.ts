@@ -43,9 +43,9 @@ export const actions: Actions = {
 		const form = await superValidate(formData, addProductgroupSchema);
 
 		const files = formData.getAll('files') as File[];
-		
+
 		if (!form.valid) return fail(400, { form });
-		
+
 		if (files[0].size > 0) {
 			files.forEach((file) => {
 				if (!ALLOWED_FILE_TYPES.includes(file.type))

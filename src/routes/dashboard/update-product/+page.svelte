@@ -34,7 +34,7 @@
 		closeQuery: '.listbox-item'
 	};
 
-	const activeConstraints = {...$constraints.active, required: undefined}
+	const activeConstraints = { ...$constraints.active, required: undefined };
 
 	let working: boolean = false;
 </script>

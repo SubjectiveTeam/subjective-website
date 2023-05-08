@@ -22,7 +22,7 @@
 	let files: FileList;
 	let filesTainted: boolean = false;
 	$: if (files) filesTainted = true;
-	
+
 	let working: boolean = false;
 </script>
 
@@ -74,12 +74,15 @@
 			{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
 			<label for="files" class="label">
 				<span>Images:</span>
-				<FileDropzone name="files" bind:files={files} multiple disabled={working} />
+				<FileDropzone name="files" bind:files multiple disabled={working} />
 			</label>
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working || (!$tainted && !filesTainted)} class="btn variant-filled-secondary">
+			<button
+				disabled={working || (!$tainted && !filesTainted)}
+				class="btn variant-filled-secondary"
+			>
 				{#if working}
 					Working...
 				{:else}
