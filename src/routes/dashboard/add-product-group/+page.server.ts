@@ -23,7 +23,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin)
-			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+			throw redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
 
 		const formData = await request.formData();
 

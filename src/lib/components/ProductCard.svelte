@@ -41,6 +41,7 @@
 					product: productGroupDetailed.products[0],
 					productGroup: getProductGroup(productGroupDetailed),
 					quantity: 1
-				})}>Add To Cart</button>
+				})}>Add To Cart</button
+		>
 	</footer>
 </div>
