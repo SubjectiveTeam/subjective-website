@@ -7,7 +7,9 @@ const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp']
 const addProductgroupSchema = z.object({
 	id: z.string().uuid(),
 	name: z.string().nonempty(),
-	description: z.string().nonempty()
+	description: z.string().nonempty(),
+	// Files is here to enable tainting on the client, it serves no order purpose
+	files: z.any(),
 });
 
 export async function load({ url, locals: { supabase } }) {

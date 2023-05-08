@@ -18,6 +18,11 @@
 			}
 		}
 	});
+	
+	let files: FileList;
+
+	$: console.log(files);
+	
 
 	let working: boolean = false;
 </script>
@@ -55,7 +60,12 @@
 			{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
 			<label for="files" class="label">
 				<span>Images:</span>
-				<FileDropzone name="files" required multiple disabled={working} />
+				<FileDropzone name="files" bind:files={files} required multiple disabled={working} />
+				{#if files}
+					{#each Array.from(files) as file}
+						<img src={file.webkitRelativePath} alt={file.name} />
+					{/each}
+				{/if}
 			</label>
 		</div>
 
