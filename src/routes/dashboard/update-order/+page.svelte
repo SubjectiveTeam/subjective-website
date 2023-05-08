@@ -49,6 +49,7 @@
 						name="id"
 						placeholder="ID"
 						readonly
+						disabled={working}
 						data-invalid={$errors.id}
 						bind:value={$form.id}
 						{...$constraints.id}
@@ -62,6 +63,7 @@
 						type="text"
 						name="address"
 						placeholder="Address"
+						disabled={working}
 						data-invalid={$errors.address}
 						bind:value={$form.address}
 						{...$constraints.address}
@@ -75,6 +77,7 @@
 						type="text"
 						name="postal_code"
 						placeholder="Postal Code"
+						disabled={working}
 						data-invalid={$errors.postal_code}
 						bind:value={$form.postal_code}
 						{...$constraints.postal_code}
@@ -88,6 +91,7 @@
 						type="text"
 						name="city"
 						placeholder="city"
+						disabled={working}
 						data-invalid={$errors.city}
 						bind:value={$form.city}
 						{...$constraints.city}
@@ -102,7 +106,7 @@
 						{$form.status}
 					</button>
 					<div class="card w-48 shadow-xl py-2" data-popup="combobox">
-						<ListBox rounded="rounded-none">
+						<ListBox rounded="rounded-none" {...$constraints.status} data-invalid={$errors.status} disabled={working}>
 							<ListBoxItem bind:group={$form.status} name="status" value="ORDERED">
 								ORDERED
 							</ListBoxItem>
@@ -122,6 +126,7 @@
 						<div class="arrow bg-surface-100-800-token" />
 					</div>
 				</label>
+				{#if $errors.status}<span class="!text-error-500">{$errors.status}</span>{/if}
 			</div>
 		</div>
 

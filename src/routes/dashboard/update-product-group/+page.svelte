@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { toastStore, FileDropzone } from '@skeletonlabs/skeleton';
+	import { toastStore } from '@skeletonlabs/skeleton';
 
 	export let data;
 
-	const { form, errors, constraints, enhance } = superForm(data.form, {
+	const { form, errors, constraints, enhance, tainted } = superForm(data.form, {
 		applyAction: true,
 		onSubmit() {
 			working = true;
@@ -26,6 +26,21 @@
 <section class="flex flex-col gap-10 card p-16">
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col gap-4">
+			<label for="id" class="label">
+				<span>ID</span>
+				<input
+					class="input"
+					type="text"
+					name="id"
+					placeholder="ID"
+					readonly
+					disabled={working}
+					data-invalid={$errors.id}
+					bind:value={$form.id}
+					{...$constraints.id}
+				/>
+			</label>
+			{#if $errors.id}<span class="!text-error-500">{$errors.id}</span>{/if}
 			<label for="name" class="label">
 				<span>Name</span>
 				<input
@@ -53,14 +68,10 @@
 				/>
 			</label>
 			{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
-			<label for="files" class="label">
-				<span>Images:</span>
-				<FileDropzone name="files" required multiple disabled={working} />
-			</label>
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working} class="btn variant-filled-secondary">
+			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
 				{#if working}
 					Working...
 				{:else}
