@@ -4,17 +4,13 @@
 
 	export let data;
 
-	const { form, errors, constraints, enhance } = superForm(data.form, {
+	const { form, errors, constraints, enhance, submitting } = superForm(data.form, {
 		applyAction: true,
-		onSubmit() {
-			working = true;
-		},
 		onResult({ result }) {
 			if (result.type === 'success') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
-				working = false;
 			}
 		}
 	});
@@ -23,7 +19,7 @@
 
 	$: console.log(files);
 
-	let working: boolean = false;
+	
 </script>
 
 <h1 class="!leading-loose">Add Product Group</h1>
@@ -37,7 +33,7 @@
 					type="text"
 					name="name"
 					placeholder="Name"
-					disabled={working}
+					disabled={$submitting}
 					data-invalid={$errors.name}
 					bind:value={$form.name}
 					{...$constraints.name}
@@ -50,7 +46,7 @@
 					class="input resize-none"
 					name="description"
 					placeholder="Description"
-					disabled={working}
+					disabled={$submitting}
 					data-invalid={$errors.description}
 					bind:value={$form.description}
 					{...$constraints.description}
@@ -59,7 +55,7 @@
 			{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
 			<label for="files" class="label">
 				<span>Images:</span>
-				<FileDropzone name="files" bind:files required multiple disabled={working} />
+				<FileDropzone name="files" bind:files required multiple disabled={$submitting} />
 				{#if files}
 					<ul class="flex gap-4">
 						{#each Array.from(files) as file}
@@ -71,8 +67,8 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working} class="btn variant-filled-secondary">
-				{#if working}
+			<button disabled={$submitting} class="btn variant-filled-secondary">
+				{#if $submitting}
 					Working...
 				{:else}
 					Add Product Group

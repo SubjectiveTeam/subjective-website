@@ -10,17 +10,13 @@
 
 	export let data;
 
-	const { form, constraints, errors, enhance, tainted } = superForm(data.form, {
+	const { form, constraints, errors, enhance, submitting, tainted } = superForm(data.form, {
 		applyAction: true,
-		onSubmit() {
-			working = true;
-		},
 		onResult({ result }) {
 			if (result.type === 'success') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
-				working = false;
 			}
 		}
 	});
@@ -33,7 +29,6 @@
 		closeQuery: '.listbox-item'
 	};
 
-	let working: boolean = false;
 </script>
 
 <h1 class="!leading-loose">Update Order</h1>
@@ -49,7 +44,7 @@
 						name="id"
 						placeholder="ID"
 						readonly
-						disabled={working}
+						disabled={$submitting}
 						data-invalid={$errors.id}
 						bind:value={$form.id}
 						{...$constraints.id}
@@ -63,7 +58,7 @@
 						type="text"
 						name="address"
 						placeholder="Address"
-						disabled={working}
+						disabled={$submitting}
 						data-invalid={$errors.address}
 						bind:value={$form.address}
 						{...$constraints.address}
@@ -77,7 +72,7 @@
 						type="text"
 						name="postal_code"
 						placeholder="Postal Code"
-						disabled={working}
+						disabled={$submitting}
 						data-invalid={$errors.postal_code}
 						bind:value={$form.postal_code}
 						{...$constraints.postal_code}
@@ -91,7 +86,7 @@
 						type="text"
 						name="city"
 						placeholder="city"
-						disabled={working}
+						disabled={$submitting}
 						data-invalid={$errors.city}
 						bind:value={$form.city}
 						{...$constraints.city}
@@ -110,7 +105,7 @@
 							rounded="rounded-none"
 							{...$constraints.status}
 							data-invalid={$errors.status}
-							disabled={working}
+							disabled={$submitting}
 						>
 							<ListBoxItem bind:group={$form.status} name="status" value="ORDERED">
 								ORDERED
@@ -136,8 +131,8 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
-				{#if working}
+			<button disabled={$submitting || !$tainted} class="btn variant-filled-secondary">
+				{#if $submitting}
 					Working...
 				{:else}
 					Update Order

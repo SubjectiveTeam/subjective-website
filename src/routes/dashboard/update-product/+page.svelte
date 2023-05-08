@@ -11,17 +11,13 @@
 
 	export let data;
 
-	const { form, errors, constraints, enhance, tainted } = superForm(data.form, {
+	const { form, errors, constraints, enhance, submitting, tainted } = superForm(data.form, {
 		applyAction: true,
-		onSubmit() {
-			working = true;
-		},
 		onResult({ result }) {
 			if (result.type === 'success') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
-				working = false;
 			}
 		}
 	});
@@ -36,7 +32,7 @@
 
 	const activeConstraints = { ...$constraints.active, required: undefined };
 
-	let working: boolean = false;
+	
 </script>
 
 <h1 class="!leading-loose">Update Product</h1>
@@ -51,7 +47,7 @@
 					name="id"
 					placeholder="ID"
 					readonly
-					disabled={working}
+					disabled={$submitting}
 					data-invalid={$errors.id}
 					bind:value={$form.id}
 					{...$constraints.id}
@@ -66,7 +62,7 @@
 					type="number"
 					name="stock"
 					placeholder="Amount in stock"
-					disabled={working}
+					disabled={$submitting}
 					data-invalid={$errors.stock}
 					bind:value={$form.stock}
 					{...$constraints.stock}
@@ -83,7 +79,7 @@
 						rounded="rounded-none"
 						{...$constraints.size}
 						data-invalid={$errors.size}
-						disabled={working}
+						disabled={$submitting}
 					>
 						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
@@ -98,7 +94,7 @@
 				<span>Activate Product</span>
 				<SlideToggle
 					name="active"
-					disabled={working}
+					disabled={$submitting}
 					bind:checked={$form.active}
 					{activeConstraints}
 					data-invalid={$errors.active}
@@ -108,8 +104,8 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
-				{#if working}
+			<button disabled={$submitting || !$tainted} class="btn variant-filled-secondary">
+				{#if $submitting}
 					Working...
 				{:else}
 					Update Product
