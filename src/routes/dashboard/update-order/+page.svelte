@@ -106,7 +106,12 @@
 						{$form.status}
 					</button>
 					<div class="card w-48 shadow-xl py-2" data-popup="combobox">
-						<ListBox rounded="rounded-none" {...$constraints.status} data-invalid={$errors.status} disabled={working}>
+						<ListBox
+							rounded="rounded-none"
+							{...$constraints.status}
+							data-invalid={$errors.status}
+							disabled={working}
+						>
 							<ListBoxItem bind:group={$form.status} name="status" value="ORDERED">
 								ORDERED
 							</ListBoxItem>

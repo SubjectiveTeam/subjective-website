@@ -77,7 +77,12 @@
 					{$form.size}
 				</button>
 				<div class="card w-48 shadow-xl py-2 z-50" data-popup="combobox">
-					<ListBox rounded="rounded-none" {...$constraints.size} data-invalid={$errors.size} disabled={working}>
+					<ListBox
+						rounded="rounded-none"
+						{...$constraints.size}
+						data-invalid={$errors.size}
+						disabled={working}
+					>
 						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="M">M</ListBoxItem>

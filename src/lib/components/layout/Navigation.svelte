@@ -21,7 +21,7 @@
 	];
 </script>
 
-<nav class="list-nav flex {orientation === 'horizontal' ? 'flex-row' : 'flex-col'}">
+<nav class="list-nav flex {orientation === 'horizontal' ? 'flex-row' : 'flex-col'} gap-1">
 	<a class:active-link={$page.route.id === '/'} on:click={() => drawerStore.close()} href="/"
 		><img class="w-8 aspect-square" src="/SBJCTV-Logo.png" alt="SBJCTV-logo.png" /></a
 	>
