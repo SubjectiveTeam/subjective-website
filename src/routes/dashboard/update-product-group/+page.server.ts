@@ -55,12 +55,17 @@ export const actions: Actions = {
 					return fail(400, { form, message: 'Files must be of type: ' + ALLOWED_FILE_TYPES });
 			});
 
-			const { data } = await supabase.storage.from('product_images').list(form.data.id);
+			// Remove all existing product images to prepare for replacing them
+			const productImagesRequest = await supabase.storage.from('product_images').list(form.data.id);
+			if (productImagesRequest.data) {
+				const removePaths: string[] = [];
+				productImagesRequest.data.forEach((file) =>
+					removePaths.push(`${form.data.id}/${file.name}`)
+				);
+				await supabase.storage.from('product_images').remove(removePaths);
+			}
 
-			const removePaths: string[] = [];
-			data?.forEach((file) => removePaths.push(`${form.data.id}/${file.name}`));
-			await supabase.storage.from('product_images').remove(removePaths);
-
+			// Upload all files and retrieve links for them
 			const images: string[] = [];
 			for (const file of files) {
 				const uploadRequest = await supabase.storage
@@ -73,7 +78,9 @@ export const actions: Actions = {
 							.publicUrl
 					);
 			}
-			const { error } = await supabase
+
+			// Update supabase product group
+			const updateRequest = await supabase
 				.from('product_groups')
 				.update({
 					name: form.data.name,
@@ -81,33 +88,32 @@ export const actions: Actions = {
 					images
 				})
 				.eq('id', form.data.id);
+			if (updateRequest.error)
+				return fail(400, {
+					form,
+					message: 'Something went wrong during updating product group into supabase.'
+				});
 
+			// Update all products on stripe with new images
 			const productsRequest = await supabase
 				.from('products')
 				.select('*')
 				.eq('product_group_id', form.data.id);
-
 			if (productsRequest.data) {
 				for (const product of productsRequest.data) {
 					await stripe.products.update(product.id, { images });
 				}
 			}
-
-			if (error)
-				return fail(400, {
-					form,
-					message: 'Something went wrong during updating product group into supabase.'
-				});
 		} else {
-			const { error } = await supabase
+			// Update supabase product
+			const updateRequest = await supabase
 				.from('product_groups')
 				.update({
 					name: form.data.name,
 					description: form.data.description
 				})
 				.eq('id', form.data.id);
-
-			if (error)
+			if (updateRequest.error)
 				return fail(400, {
 					form,
 					message: 'Something went wrong during updating product group into supabase.'
