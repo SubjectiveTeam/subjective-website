@@ -1,3 +1,4 @@
+import { stripe } from '$lib/server/stripe/stripe.js';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
@@ -62,13 +63,13 @@ export const actions: Actions = {
 
 			const images: string[] = [];
 			for (const file of files) {
-				const { data, error } = await supabase.storage
+				const uploadRequest = await supabase.storage
 					.from('product_images')
 					.upload(`${form.data.id}/${file.name}`, file);
-				if (error) console.error(error.message);
-				if (data)
+				if (uploadRequest.error) console.error(uploadRequest.error.message);
+				if (uploadRequest.data)
 					images.push(
-						supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl
+						supabase.storage.from('product_images').getPublicUrl(uploadRequest.data.path).data.publicUrl
 					);
 			}
 			const { error } = await supabase
@@ -79,6 +80,14 @@ export const actions: Actions = {
 					images
 				})
 				.eq('id', form.data.id);
+
+			const productsRequest = await supabase.from('products').select('*').eq('product_group_id', form.data.id);
+
+			if (productsRequest.data) {
+				for (const product of productsRequest.data) {
+					await stripe.products.update(product.id, { images });
+				}
+			}
 
 			if (error)
 				return fail(400, {
