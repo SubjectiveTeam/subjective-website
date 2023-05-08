@@ -22,7 +22,7 @@ export const actions: Actions = {
 	default: async ({ request, locals: { supabase, getSession } }) => {
 		const session = await getSession();
 
-		if (!session || !session.user.app_metadata.claims_admin)
+		if (!session?.user.app_metadata.claims_admin)
 			throw redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
 
 		const formData = await request.formData();

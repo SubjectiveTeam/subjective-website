@@ -22,13 +22,13 @@ export const POST: RequestHandler = async ({ request, url, locals: { getSession 
 			.from('products')
 			.select('*')
 			.eq('id', cartItem.product.id)
-			.eq('active', true)
+			.is('active', true)
 			.gte('stock', cartItem.quantity)
 			.limit(1)
 			.single();
 
 		if (!data) {
-			return new Response('One of the products is unavailable.', {
+			return new Response('One of the products is unavailable/out of stock.', {
 				status: 400
 			});
 		}

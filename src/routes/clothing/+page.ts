@@ -4,8 +4,8 @@ export async function load({ url, parent }) {
 	const { supabase } = await parent();
 
 	const { data, error } = await supabase
-	.from('product_groups')
-	.select(
+		.from('product_groups')
+		.select(
 			`
 	id, 
 	name,
@@ -13,8 +13,8 @@ export async function load({ url, parent }) {
 	images,
 	products !inner ( * ) 
 	`
-		).is('products.active', true);
-		
+		)
+		.is('products.active', true);
 
 	if (error) throw redirect(303, '/');
 
