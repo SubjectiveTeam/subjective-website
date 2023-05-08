@@ -34,6 +34,8 @@
 		closeQuery: '.listbox-item'
 	};
 
+	const activeConstraints = { ...$constraints.active, required: undefined };
+
 	let working: boolean = false;
 </script>
 
@@ -49,6 +51,7 @@
 					name="id"
 					placeholder="ID"
 					readonly
+					disabled={working}
 					data-invalid={$errors.id}
 					bind:value={$form.id}
 					{...$constraints.id}
@@ -63,6 +66,7 @@
 					type="number"
 					name="stock"
 					placeholder="Amount in stock"
+					disabled={working}
 					data-invalid={$errors.stock}
 					bind:value={$form.stock}
 					{...$constraints.stock}
@@ -75,7 +79,12 @@
 					{$form.size}
 				</button>
 				<div class="card w-48 shadow-xl py-2 z-50" data-popup="combobox">
-					<ListBox rounded="rounded-none" {...$constraints.size} data-invalid={$errors.size}>
+					<ListBox
+						rounded="rounded-none"
+						{...$constraints.size}
+						data-invalid={$errors.size}
+						disabled={working}
+					>
 						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="M">M</ListBoxItem>
@@ -89,8 +98,9 @@
 				<span>Activate Product</span>
 				<SlideToggle
 					name="active"
+					disabled={working}
 					bind:checked={$form.active}
-					{...$constraints.active}
+					{activeConstraints}
 					data-invalid={$errors.active}
 				/>
 			</label>

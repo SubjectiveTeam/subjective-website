@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { toastStore, FileDropzone } from '@skeletonlabs/skeleton';
+	import { FileDropzone, toastStore } from '@skeletonlabs/skeleton';
 
 	export let data;
 
-	const { form, errors, constraints, enhance } = superForm(data.form, {
+	const { form, errors, constraints, enhance, tainted } = superForm(data.form, {
 		applyAction: true,
 		onSubmit() {
 			working = true;
@@ -20,16 +20,33 @@
 	});
 
 	let files: FileList;
-
-	$: console.log(files);
+	$: if (files) {
+		if (!$tainted) $tainted = {};
+		$tainted.files = true;
+	}
 
 	let working: boolean = false;
 </script>
 
-<h1 class="!leading-loose">Add Product Group</h1>
+<h1 class="!leading-loose">Update Product Group</h1>
 <section class="flex flex-col gap-10 card p-16">
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col gap-4">
+			<label for="id" class="label">
+				<span>ID</span>
+				<input
+					class="input"
+					type="text"
+					name="id"
+					placeholder="ID"
+					readonly
+					disabled={working}
+					data-invalid={$errors.id}
+					bind:value={$form.id}
+					{...$constraints.id}
+				/>
+			</label>
+			{#if $errors.id}<span class="!text-error-500">{$errors.id}</span>{/if}
 			<label for="name" class="label">
 				<span>Name</span>
 				<input
@@ -59,7 +76,7 @@
 			{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
 			<label for="files" class="label">
 				<span>Images:</span>
-				<FileDropzone name="files" bind:files required multiple disabled={working} />
+				<FileDropzone name="files" bind:files multiple disabled={working} />
 				{#if files}
 					<ul class="flex gap-4">
 						{#each Array.from(files) as file}
@@ -71,11 +88,11 @@
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working} class="btn variant-filled-secondary">
+			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
 				{#if working}
 					Working...
 				{:else}
-					Add Product Group
+					Update Product Group
 				{/if}
 			</button>
 		</div>

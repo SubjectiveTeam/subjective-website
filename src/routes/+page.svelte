@@ -19,7 +19,11 @@
 			Check out our newest collection
 		</p>
 		<img class="w-[25rem]" src="AmoreVince.png" alt="AmoreVince.png" />
-		<a class="!text-white xl:!text-surface-50-900-token btn" href="/clothing?search=AmoreVince">
+		<a
+			class="!text-white xl:!text-surface-50-900-token btn"
+			href="/clothing?search=AmoreVince"
+			aria-label="view-collection"
+		>
 			<svg
 				fill="currentColor"
 				class="h-12 aspect-square"

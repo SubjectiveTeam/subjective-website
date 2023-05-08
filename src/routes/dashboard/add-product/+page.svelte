@@ -26,8 +26,6 @@
 		}
 	});
 
-	console.log($constraints.active);
-
 	// Populate size value with M
 	form.update(
 		($form) => {
@@ -45,6 +43,8 @@
 		closeQuery: '.listbox-item'
 	};
 
+	const activeConstraints = { ...$constraints.active, required: undefined };
+
 	let working: boolean = false;
 </script>
 
@@ -59,6 +59,7 @@
 					type="text"
 					name="productGroupId"
 					placeholder="Product Group ID"
+					disabled={working}
 					data-invalid={$errors.productGroupId}
 					bind:value={$form.productGroupId}
 					{...$constraints.productGroupId}
@@ -73,6 +74,7 @@
 					type="number"
 					name="price"
 					placeholder="Price"
+					disabled={working}
 					data-invalid={$errors.price}
 					bind:value={$form.price}
 					{...$constraints.price}
@@ -85,6 +87,7 @@
 					class="input"
 					type="number"
 					name="stock"
+					disabled={working}
 					placeholder="Amount in stock"
 					data-invalid={$errors.stock}
 					bind:value={$form.stock}
@@ -98,7 +101,12 @@
 					{$form.size}
 				</button>
 				<div class="card w-48 shadow-xl py-2 z-50" data-popup="combobox">
-					<ListBox rounded="rounded-none" {...$constraints.size} data-invalid={$errors.size}>
+					<ListBox
+						rounded="rounded-none"
+						{...$constraints.size}
+						data-invalid={$errors.size}
+						disabled={working}
+					>
 						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="M">M</ListBoxItem>
@@ -112,8 +120,9 @@
 				<span>Activate Product</span>
 				<SlideToggle
 					name="active"
+					disabled={working}
 					bind:checked={$form.active}
-					{...$constraints.active}
+					{activeConstraints}
 					data-invalid={$errors.active}
 				/>
 			</label>
