@@ -40,8 +40,6 @@ export const actions: Actions = {
 
 		const form = await superValidate(request, updateProductSchema);
 
-		console.log(form);
-
 		if (!form.valid) return fail(400, { form });
 
 		await stripe.products.update(form.data.id, {

@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { FileDropzone, toastStore } from '@skeletonlabs/skeleton';
 
 	export let data;
 
@@ -19,10 +19,14 @@
 		}
 	});
 
+	let files: FileList;
+	let filesTainted: boolean = false;
+	$: if (files) filesTainted = true;
+	
 	let working: boolean = false;
 </script>
 
-<h1 class="!leading-loose">Add Product Group</h1>
+<h1 class="!leading-loose">Update Product Group</h1>
 <section class="flex flex-col gap-10 card p-16">
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col gap-4">
@@ -68,14 +72,18 @@
 				/>
 			</label>
 			{#if $errors.description}<span class="!text-error-500">{$errors.description}</span>{/if}
+			<label for="files" class="label">
+				<span>Images:</span>
+				<FileDropzone name="files" bind:files={files} multiple disabled={working} />
+			</label>
 		</div>
 
 		<div class="flex justify-end">
-			<button disabled={working || !$tainted} class="btn variant-filled-secondary">
+			<button disabled={working || (!$tainted && !filesTainted)} class="btn variant-filled-secondary">
 				{#if working}
 					Working...
 				{:else}
-					Add Product Group
+					Update Product Group
 				{/if}
 			</button>
 		</div>

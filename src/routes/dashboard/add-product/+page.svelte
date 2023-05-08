@@ -26,8 +26,6 @@
 		}
 	});
 
-	console.log($constraints.active);
-
 	// Populate size value with M
 	form.update(
 		($form) => {
@@ -44,6 +42,8 @@
 		// Close the popup when the item is clicked
 		closeQuery: '.listbox-item'
 	};
+
+	const activeConstraints = {...$constraints.active, required: undefined}
 
 	let working: boolean = false;
 </script>
@@ -122,7 +122,7 @@
 					name="active"
 					disabled={working}
 					bind:checked={$form.active}
-					{...$constraints.active}
+					{activeConstraints}
 					data-invalid={$errors.active}
 				/>
 			</label>

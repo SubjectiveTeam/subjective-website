@@ -34,6 +34,8 @@
 		closeQuery: '.listbox-item'
 	};
 
+	const activeConstraints = {...$constraints.active, required: undefined}
+
 	let working: boolean = false;
 </script>
 
@@ -98,7 +100,7 @@
 					name="active"
 					disabled={working}
 					bind:checked={$form.active}
-					{...$constraints.active}
+					{activeConstraints}
 					data-invalid={$errors.active}
 				/>
 			</label>

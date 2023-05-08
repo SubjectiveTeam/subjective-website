@@ -2,6 +2,8 @@ import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
+const ALLOWED_FILE_TYPES = ['image/png', 'image/jpeg', 'image/gif', 'image/bmp'];
+
 const addProductgroupSchema = z.object({
 	id: z.string().uuid(),
 	name: z.string().nonempty(),
@@ -34,25 +36,68 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session || !session.user.app_metadata.claims_admin)
-			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+			throw redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
 
-		const form = await superValidate(request, addProductgroupSchema);
+		const formData = await request.formData();
 
+		const form = await superValidate(formData, addProductgroupSchema);
+
+		const files = formData.getAll('files') as File[];
+		
 		if (!form.valid) return fail(400, { form });
-
-		const { error } = await supabase
-			.from('product_groups')
-			.update({
-				name: form.data.name,
-				description: form.data.description
-			})
-			.eq('id', form.data.id);
-
-		if (error)
-			return fail(400, {
-				form,
-				message: 'Something went wrong during updaeting product group into supabase.'
+		
+		if (files[0].size > 0) {
+			files.forEach((file) => {
+				if (!ALLOWED_FILE_TYPES.includes(file.type))
+					return fail(400, { form, message: 'Files must be of type: ' + ALLOWED_FILE_TYPES });
 			});
+
+			const { data } = await supabase.storage.from('product_images').list(form.data.id);
+
+			const removePaths: string[] = [];
+			data?.forEach((file) => removePaths.push(`${form.data.id}/${file.name}`));
+			await supabase.storage.from('product_images').remove(removePaths);
+
+			const images: string[] = [];
+			for (const file of files) {
+				const { data, error } = await supabase.storage
+					.from('product_images')
+					.upload(`${form.data.id}/${file.name}`, file);
+				if (error) console.error(error.message);
+				if (data)
+					images.push(
+						supabase.storage.from('product_images').getPublicUrl(data.path).data.publicUrl
+					);
+			}
+			const { error } = await supabase
+				.from('product_groups')
+				.update({
+					name: form.data.name,
+					description: form.data.description,
+					images
+				})
+				.eq('id', form.data.id);
+
+			if (error)
+				return fail(400, {
+					form,
+					message: 'Something went wrong during updating product group into supabase.'
+				});
+		} else {
+			const { error } = await supabase
+				.from('product_groups')
+				.update({
+					name: form.data.name,
+					description: form.data.description
+				})
+				.eq('id', form.data.id);
+
+			if (error)
+				return fail(400, {
+					form,
+					message: 'Something went wrong during updating product group into supabase.'
+				});
+		}
 
 		throw redirect(
 			303,
