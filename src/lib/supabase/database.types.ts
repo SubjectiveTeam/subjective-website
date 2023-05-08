@@ -109,7 +109,7 @@ export interface Database {
 			};
 		};
 		Views: {
-			product_groups_detailed: {
+			store_view: {
 				Row: {
 					description: string | null;
 					id: string | null;
