@@ -61,9 +61,11 @@
 				<span>Images:</span>
 				<FileDropzone name="files" bind:files required multiple disabled={working} />
 				{#if files}
-					{#each Array.from(files) as file}
-						<img src={file.webkitRelativePath} alt={file.name} />
-					{/each}
+					<ul class="flex gap-4">
+						{#each Array.from(files) as file}
+							<li class="chip variant-filled-tertiary">{file.name}</li>
+						{/each}
+					</ul>
 				{/if}
 			</label>
 		</div>

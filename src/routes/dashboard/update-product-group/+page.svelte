@@ -77,6 +77,13 @@
 			<label for="files" class="label">
 				<span>Images:</span>
 				<FileDropzone name="files" bind:files multiple disabled={working} />
+				{#if files}
+					<ul class="flex gap-4">
+						{#each Array.from(files) as file}
+							<li class="chip variant-filled-tertiary">{file.name}</li>
+						{/each}
+					</ul>
+				{/if}
 			</label>
 		</div>
 
