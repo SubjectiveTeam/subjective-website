@@ -104,6 +104,7 @@
 	<!-- LIBS -->
 	<!-- LIBS -->
 	<!-- LIBS -->
+	<!-- LIBS -->
 	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
 
 	<!-- TITLE -->

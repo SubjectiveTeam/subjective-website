@@ -10,7 +10,7 @@ const addProductgroupSchema = z.object({
 	name: z.string().nonempty(),
 	description: z.string().nonempty(),
 	// Files is here to enable tainting on the client, it serves no order purpose
-	files: z.any(),
+	files: z.any()
 });
 
 export async function load({ url, locals: { supabase } }) {
@@ -69,7 +69,8 @@ export const actions: Actions = {
 				if (uploadRequest.error) console.error(uploadRequest.error.message);
 				if (uploadRequest.data)
 					images.push(
-						supabase.storage.from('product_images').getPublicUrl(uploadRequest.data.path).data.publicUrl
+						supabase.storage.from('product_images').getPublicUrl(uploadRequest.data.path).data
+							.publicUrl
 					);
 			}
 			const { error } = await supabase
@@ -81,7 +82,10 @@ export const actions: Actions = {
 				})
 				.eq('id', form.data.id);
 
-			const productsRequest = await supabase.from('products').select('*').eq('product_group_id', form.data.id);
+			const productsRequest = await supabase
+				.from('products')
+				.select('*')
+				.eq('product_group_id', form.data.id);
 
 			if (productsRequest.data) {
 				for (const product of productsRequest.data) {
