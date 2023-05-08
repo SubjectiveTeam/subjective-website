@@ -50,8 +50,7 @@ const createCartStore = () => {
 			}
 		},
 		clear: () => {
-			const cart: CartItem[] = [] as CartItem[];
-			customSet(cart);
+			customSet([]);
 		},
 		checkout: async () => {
 			const items = customGet();
