@@ -3,7 +3,7 @@ import { redirect } from '@sveltejs/kit';
 export async function load({ url, parent }) {
 	const { supabase } = await parent();
 
-	const { data, error } = await supabase.from('product_groups_detailed').select('*');
+	const { data, error } = await supabase.from('store_view').select('*');
 
 	if (error) throw redirect(303, '/');
 
