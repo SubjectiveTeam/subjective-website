@@ -52,7 +52,7 @@
 	>
 </button>
 <div class="card p-4 w-64" data-popup="cart-menu">
-	<ul class="flex flex-col gap-2 h-48 overflow-scroll">
+	<ul class="h-48 overflow-y-scroll">
 		{#each [...$cartStore.values()] as cartItem (cartItem.product.id)}
 			<li animate:flip={{ duration: 400 }}>
 				<PreviewCartItem {cartItem} />
@@ -83,7 +83,7 @@
 				on:click={() => cartStore.clear()}
 			>
 				<svg
-					class="h-6 w-6 fill-token"
+					class="h-6 w-6 text-token"
 					version="1.1"
 					id="Layer_1"
 					xmlns="http://www.w3.org/2000/svg"

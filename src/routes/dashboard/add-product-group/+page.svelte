@@ -16,8 +16,6 @@
 	});
 
 	let files: FileList;
-
-	$: console.log(files);
 </script>
 
 <h1 class="h1 !leading-loose">Add Product Group</h1>
