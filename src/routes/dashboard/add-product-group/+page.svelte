@@ -20,7 +20,7 @@
 	$: console.log(files);
 </script>
 
-<h1 class="!leading-loose">Add Product Group</h1>
+<h1 class="h1 !leading-loose">Add Product Group</h1>
 <section class="flex flex-col gap-10 card p-16">
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col gap-4">

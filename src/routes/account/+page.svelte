@@ -26,7 +26,7 @@
 </script>
 
 <section>
-	<h1 class="!leading-loose">Account</h1>
+	<h1 class="h1 !leading-loose">Account</h1>
 	<TabGroup>
 		<Tab bind:group={tabSet} name="personal-info" value={0}>Personal Info</Tab>
 		<Tab bind:group={tabSet} name="my-orders" value={1}>My Orders</Tab>

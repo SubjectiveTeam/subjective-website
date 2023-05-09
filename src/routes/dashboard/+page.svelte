@@ -12,7 +12,7 @@
 </script>
 
 <section>
-	<h1 class="!leading-loose">Dashboard</h1>
+	<h1 class="h1 !leading-loose">Dashboard</h1>
 	<TabGroup>
 		<Tab bind:group={tabSet} name="products" value={0}>Products</Tab>
 		<Tab bind:group={tabSet} name="product-groups" value={1}>Product Groups</Tab>
