@@ -11,17 +11,13 @@
 
 	export let data;
 
-	const { form, errors, constraints, enhance } = superForm(data.form, {
+	const { form, errors, constraints, enhance, submitting } = superForm(data.form, {
 		applyAction: true,
-		onSubmit() {
-			working = true;
-		},
 		onResult({ result }) {
 			if (result.type === 'success') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
 			} else if (result.type === 'failure') {
 				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
-				working = false;
 			}
 		}
 	});
@@ -44,8 +40,6 @@
 	};
 
 	const activeConstraints = { ...$constraints.active, required: undefined };
-
-	let working: boolean = false;
 </script>
 
 <h1 class="!leading-loose">Add Product</h1>
@@ -59,7 +53,7 @@
 					type="text"
 					name="productGroupId"
 					placeholder="Product Group ID"
-					disabled={working}
+					disabled={$submitting}
 					data-invalid={$errors.productGroupId}
 					bind:value={$form.productGroupId}
 					{...$constraints.productGroupId}
@@ -74,7 +68,7 @@
 					type="number"
 					name="price"
 					placeholder="Price"
-					disabled={working}
+					disabled={$submitting}
 					data-invalid={$errors.price}
 					bind:value={$form.price}
 					{...$constraints.price}
@@ -87,7 +81,7 @@
 					class="input"
 					type="number"
 					name="stock"
-					disabled={working}
+					disabled={$submitting}
 					placeholder="Amount in stock"
 					data-invalid={$errors.stock}
 					bind:value={$form.stock}
@@ -105,7 +99,7 @@
 						rounded="rounded-none"
 						{...$constraints.size}
 						data-invalid={$errors.size}
-						disabled={working}
+						disabled={$submitting}
 					>
 						<ListBoxItem bind:group={$form.size} name="size" value="XL">XL</ListBoxItem>
 						<ListBoxItem bind:group={$form.size} name="size" value="L">L</ListBoxItem>
@@ -120,7 +114,7 @@
 				<span>Activate Product</span>
 				<SlideToggle
 					name="active"
-					disabled={working}
+					disabled={$submitting}
 					bind:checked={$form.active}
 					{activeConstraints}
 					data-invalid={$errors.active}
@@ -129,8 +123,8 @@
 			{#if $errors.active}<span class="!text-error-500">{$errors.active}</span>{/if}
 		</div>
 		<div class="flex justify-end">
-			<button disabled={working} class="btn variant-filled-secondary">
-				{#if working}
+			<button disabled={$submitting} class="btn variant-filled-secondary">
+				{#if $submitting}
 					Working...
 				{:else}
 					Add Product

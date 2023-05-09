@@ -26,7 +26,7 @@ export const POST: RequestHandler = async ({ request }) => {
 				!checkoutSession.shipping_details ||
 				!checkoutSession.shipping_details.address
 			) {
-				return new Response('Missing vital parameters: "metadata" to create an order', {
+				return new Response('Missing vital metadata', {
 					status: 400
 				});
 			}
@@ -42,10 +42,11 @@ export const POST: RequestHandler = async ({ request }) => {
 					) as CartItemSimplified[]
 				}
 			});
-			if (error) console.error(error.message);
-			break;
-		}
-		case 'payment_intent.created': {
+			if (error) {
+				return new Response('Failed to create order', {
+					status: 400
+				});
+			}
 			break;
 		}
 	}

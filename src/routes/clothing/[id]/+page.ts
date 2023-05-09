@@ -1,12 +1,21 @@
 import { redirect } from '@sveltejs/kit';
 
 export async function load({ parent, params }) {
-	const id = params.id;
 	const { supabase } = await parent();
 
+	const id = params.id;
+
 	const { data, error } = await supabase
-		.from('products')
-		.select('*')
+		.from('product_groups')
+		.select(
+			`
+	id, 
+	name,
+	description,
+	images,
+	products ( * )
+  `
+		)
 		.eq('id', id)
 		.limit(1)
 		.single();
@@ -14,6 +23,6 @@ export async function load({ parent, params }) {
 	if (error) throw redirect(303, '/');
 
 	return {
-		product: data as Product
+		productGroupDetailed: data as ProductGroupDetailed
 	};
 }
