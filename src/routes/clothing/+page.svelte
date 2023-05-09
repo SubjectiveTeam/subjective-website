@@ -23,7 +23,7 @@
 </script>
 
 <section>
-	<h1 class="!leading-loose">Clothing</h1>
+	<h1 class="h1 !leading-loose">Clothing</h1>
 	<input
 		class="input max-w-lg mx-auto"
 		type="search"

@@ -5,6 +5,7 @@
 
 	function getProductGroup(productGroupDetailed: ProductGroupDetailed): ProductGroup {
 		return {
+			id: productGroupDetailed.id,
 			name: productGroupDetailed.name,
 			description: productGroupDetailed.description,
 			images: productGroupDetailed.images

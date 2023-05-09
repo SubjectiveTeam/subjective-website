@@ -128,7 +128,7 @@
 		</form>
 	</div>
 	<div class="flex flex-col items-center">
-		<h1 class="text-center !leading-loose">Sign In</h1>
+		<h1 class="h1 text-center !leading-loose">Sign In</h1>
 		<img class="hidden xl:block w-96 aspect-square" src="/SBJCTV-Logo.png" alt="logo" />
 	</div>
 </section>

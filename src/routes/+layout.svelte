@@ -1,7 +1,7 @@
 <script lang="ts">
 	// Note: Import order for stylesheets is important (theme -> all -> app)
 	import '../theme.postcss';
-	import '@skeletonlabs/skeleton/styles/all.css';
+	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
 	import { Toast, Modal, Drawer, toastStore } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
@@ -98,6 +98,7 @@
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="English" />
 
+	<!-- LIBS -->
 	<!-- LIBS -->
 	<!-- LIBS -->
 	<!-- LIBS -->

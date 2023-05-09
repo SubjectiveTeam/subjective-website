@@ -10,7 +10,7 @@
 
 {#if $modalStore[0]}
 	<div class="flex flex-col gap-10 bg-surface-100-800-token p-16">
-		<h1 class="!leading-loose">View Order Products</h1>
+		<h1 class="h1 !leading-loose">View Order Products</h1>
 		<div class="table-container">
 			<table class="table table-hover">
 				<thead>

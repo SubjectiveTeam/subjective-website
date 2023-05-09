@@ -26,7 +26,7 @@
 
 <section class="flex flex-col xl:flex-row justify-evenly items-center gap-12 xl:mt-[12.5vh] w-full">
 	<div class="flex flex-col items-center">
-		<h1 class="text-center !leading-loose">Sign Up</h1>
+		<h1 class="h1 text-center !leading-loose">Sign Up</h1>
 		<img class="hidden xl:block w-96 aspect-square" src="/SBJCTV-Logo.png" alt="logo" />
 	</div>
 	<div class="card shadow-xl px-6 py-12 flex flex-col gap-4 max-w-[25rem]">
