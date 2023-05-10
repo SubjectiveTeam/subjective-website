@@ -5,7 +5,7 @@ import { z } from 'zod';
 
 const updateProductSchema = z.object({
 	id: z.string().nonempty(),
-	stock: z.number().gte(0).multipleOf(1).min(1),
+	stock: z.number().nonnegative().multipleOf(1),
 	size: z.enum(['XL', 'L', 'M', 'S']),
 	active: z.boolean()
 });
