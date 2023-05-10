@@ -29,7 +29,7 @@ export async function load({ locals: { supabase, getSession } }) {
 	if (error)
 		throw redirect(
 			303,
-			'/account?mesage=Something went wrong while retrieving your orders.&message_type=error'
+			'/account?message=Something went wrong while retrieving your orders.&message_type=error'
 		);
 
 	return {

@@ -27,6 +27,7 @@ export async function load({ url, locals: { supabase } }) {
 	const form = await superValidate(data, updateOrderSchema);
 
 	return {
+		order: data as Order,
 		form
 	};
 }

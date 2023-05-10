@@ -10,6 +10,10 @@ const signInSchema = z.object({
 	password: z.string().min(8)
 });
 
+const urlSchema = z.object({
+	redirectTo: z.string().regex(/^\//)
+});
+
 export async function load() {
 	const form = await superValidate(signInSchema);
 	return {
@@ -18,7 +22,7 @@ export async function load() {
 }
 
 export const actions: Actions = {
-	signIn: async ({ request, url, locals: { supabase } }) => {
+	signIn: async ({ request, url, locals: { supabase } }) => {		
 		const form = await superValidate(request, signInSchema);
 
 		const provider = url.searchParams.get('provider') as Provider;
@@ -52,8 +56,9 @@ export const actions: Actions = {
 			return fail(400, { form, message: 'Server Error. Try again later.' });
 		}
 
-		const redirectTo = url.searchParams.get('redirectTo');
-		if (redirectTo && redirectTo.startsWith('/')) throw redirect(303, redirectTo);
+		const urlValidate = await superValidate(url, urlSchema)
+
+		if (urlValidate.valid) throw redirect(303, urlValidate.data.redirectTo);
 		else throw redirect(303, '/');
 	}
 };

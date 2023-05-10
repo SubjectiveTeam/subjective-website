@@ -4,7 +4,7 @@
 
 	export let data;
 
-	const { form, errors, constraints, enhance, submitting } = superForm(data.form, {
+	const { form, errors, constraints, enhance, capture, restore, submitting } = superForm(data.form, {
 		applyAction: true,
 		onResult({ result }) {
 			if (result.type === 'success') {
@@ -14,6 +14,8 @@
 			}
 		}
 	});
+
+	export const snapshot = { capture, restore };
 
 	let files: FileList;
 </script>

@@ -10,7 +10,7 @@
 
 	export let data;
 
-	const { form, constraints, errors, enhance, submitting, tainted } = superForm(data.form, {
+	const { form, constraints, errors, enhance, submitting, tainted, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		onResult({ result }) {
 			if (result.type === 'success') {
@@ -20,6 +20,8 @@
 			}
 		}
 	});
+
+	export const snapshot = { capture, restore };
 
 	const popupCombobox: PopupSettings = {
 		event: 'click',

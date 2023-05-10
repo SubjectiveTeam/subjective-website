@@ -1,17 +1,16 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
+	import { page } from '$app/stores';
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
 
-	const { form, constraints, errors, enhance } = superForm(data.form, {
+	const { form, constraints, errors, enhance, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		invalidateAll: false,
 		taintedMessage: false,
 		onResult({ result }) {
 			if (result.type === 'redirect') {
-				goto(result.location);
 				toastStore.trigger({
 					message: 'Succesfully signed in.',
 					background: 'variant-filled-success'
@@ -22,6 +21,8 @@
 			}
 		}
 	});
+
+	export const snapshot = { capture, restore };
 </script>
 
 <section
@@ -100,7 +101,7 @@
 			<p class="px-2">or</p>
 			<span class="h-0.5 w-full bg-surface-300-600-token" />
 		</span>
-		<form class="flex flex-col gap-4 max-w-lg" method="post" action="?/signIn" use:enhance>
+		<form class="flex flex-col gap-4 max-w-lg" method="post" action="?/signIn&redirectTo={$page.url.searchParams.get('redirectTo')}" use:enhance>
 			<input
 				class="input"
 				placeholder="Email"
@@ -123,7 +124,7 @@
 			{#if $errors.password}<span class="!text-error-500">{$errors.password}</span>{/if}
 			<button class="btn variant-filled-primary">Sign In</button>
 			<p class="text-center">
-				Don't have an account? <a href="/sign-up">Sign Up</a> here.
+				Don't have an account? <a class="anchor" href="/sign-up">Sign Up</a> here.
 			</p>
 		</form>
 	</div>
