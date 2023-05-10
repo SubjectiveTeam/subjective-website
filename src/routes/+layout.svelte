@@ -75,7 +75,7 @@
 		else {
 			const locationSplit = location.split('/');
 
-			const lastLocation = locationSplit[locationSplit.length - 1];
+			const lastLocation = locationSplit[1];
 
 			const lastLocationSpaced = lastLocation.replace('-', ' ');
 
@@ -99,7 +99,7 @@
 	<meta name="language" content="English" />
 	
 	<!-- TITLE -->
-	{#key $page.route.id}<title>{getTitle($page.route.id || '')}</title>{/key}
+	{#key $page.url.pathname}<title>{getTitle($page.url.pathname || '')}</title>{/key}
 </svelte:head>
 
 <!-- Overlays -->
