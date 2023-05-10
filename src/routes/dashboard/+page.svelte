@@ -1,10 +1,10 @@
 <script lang="ts">
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
-	import ProductsTab from '$lib/components/ProductsTab.svelte';
-	import ProductGroupsTab from '$lib/components/ProductGroupsTab.svelte';
-	import OrdersTab from '$lib/components/OrdersTab.svelte';
-	import AnalyticsTab from '$lib/components/AnalyticsTab.svelte';
-	import PromotionCodesTab from '$lib/components/PromotionCodesTab.svelte';
+	import ProductsTab from '$components/dashboard-tabs/ProductsTab.svelte';
+	import ProductGroupsTab from '$lib/components/dashboard-tabs/ProductGroupsTab.svelte';
+	import OrdersTab from '$lib/components/dashboard-tabs/OrdersTab.svelte';
+	import AnalyticsTab from '$lib/components/dashboard-tabs/AnalyticsTab.svelte';
+	import PromotionCodesTab from '$lib/components/dashboard-tabs/PromotionCodesTab.svelte';
 
 	export let data;
 

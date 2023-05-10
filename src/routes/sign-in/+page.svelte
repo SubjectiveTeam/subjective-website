@@ -101,7 +101,12 @@
 			<p class="px-2">or</p>
 			<span class="h-0.5 w-full bg-surface-300-600-token" />
 		</span>
-		<form class="flex flex-col gap-4 max-w-lg" method="post" action="?/signIn&redirectTo={$page.url.searchParams.get('redirectTo')}" use:enhance>
+		<form
+			class="flex flex-col gap-4 max-w-lg"
+			method="post"
+			action="?/signIn&redirectTo={$page.url.searchParams.get('redirectTo')}"
+			use:enhance
+		>
 			<input
 				class="input"
 				placeholder="Email"

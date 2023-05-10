@@ -22,7 +22,7 @@ export async function load() {
 }
 
 export const actions: Actions = {
-	signIn: async ({ request, url, locals: { supabase } }) => {		
+	signIn: async ({ request, url, locals: { supabase } }) => {
 		const form = await superValidate(request, signInSchema);
 
 		const provider = url.searchParams.get('provider') as Provider;
@@ -56,7 +56,7 @@ export const actions: Actions = {
 			return fail(400, { form, message: 'Server Error. Try again later.' });
 		}
 
-		const urlValidate = await superValidate(url, urlSchema)
+		const urlValidate = await superValidate(url, urlSchema);
 
 		if (urlValidate.valid) throw redirect(303, urlValidate.data.redirectTo);
 		else throw redirect(303, '/');
