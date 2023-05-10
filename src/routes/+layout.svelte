@@ -97,23 +97,7 @@
 	<meta name="keywords" content="Subjective, Clothing, Branding" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="English" />
-
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<!-- LIBS -->
-	<script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-
+	
 	<!-- TITLE -->
 	{#key $page.route.id}<title>{getTitle($page.route.id || '')}</title>{/key}
 </svelte:head>
