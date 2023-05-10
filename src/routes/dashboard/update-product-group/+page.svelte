@@ -4,7 +4,7 @@
 
 	export let data;
 
-	const { form, errors, constraints, enhance, submitting, tainted } = superForm(data.form, {
+	const { form, errors, constraints, enhance, submitting, tainted, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		onResult({ result }) {
 			if (result.type === 'success') {
@@ -14,6 +14,8 @@
 			}
 		}
 	});
+
+	export const snapshot = { capture, restore };
 
 	// Set tainted to true once files aren't undefined anymore (files aren't handled by sveltekit-superforms as of v0.86)
 	let files: FileList;

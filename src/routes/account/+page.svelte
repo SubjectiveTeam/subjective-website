@@ -7,7 +7,7 @@
 
 	$: ({ orders } = data);
 
-	const { form, constraints, errors, enhance } = superForm(data.form, {
+	const { form, constraints, errors, enhance, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		invalidateAll: false,
 		taintedMessage: false,
@@ -21,6 +21,8 @@
 			}
 		}
 	});
+
+	export const snapshot = { capture, restore };
 
 	let tabSet: number = 0;
 </script>
