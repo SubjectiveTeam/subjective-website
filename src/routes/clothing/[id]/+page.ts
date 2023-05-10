@@ -16,7 +16,7 @@ export async function load({ parent, params }) {
 	products ( * )
   `
 		)
-		.eq('id', 'wow')
+		.eq('id', id)
 		.is('products.active', true)
 		.limit(1)
 		.single();

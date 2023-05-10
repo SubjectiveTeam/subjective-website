@@ -3,7 +3,7 @@
 	import { toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
-	export let data;
+	export let data;	
 
 	const { form, constraints, errors, enhance } = superForm(data.form, {
 		applyAction: true,
@@ -100,7 +100,7 @@
 			<p class="px-2">or</p>
 			<span class="h-0.5 w-full bg-surface-300-600-token" />
 		</span>
-		<form class="flex flex-col gap-4 max-w-lg" method="post" action="?/signIn" use:enhance>
+		<form class="flex flex-col gap-4 max-w-lg" method="post" action="?/signIn&redirectTo={$page.url.searchParams.get('redirectTo')}" use:enhance>
 			<input
 				class="input"
 				placeholder="Email"
@@ -123,7 +123,7 @@
 			{#if $errors.password}<span class="!text-error-500">{$errors.password}</span>{/if}
 			<button class="btn variant-filled-primary">Sign In</button>
 			<p class="text-center">
-				Don't have an account? <a href="/sign-up">Sign Up</a> here.
+				Don't have an account? <a class="anchor" href="/sign-up">Sign Up</a> here.
 			</p>
 		</form>
 	</div>
