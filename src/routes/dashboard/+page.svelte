@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Tab, TabGroup } from '@skeletonlabs/skeleton';
-	import ProductsTab from '$lib/components/ProductsTab.svelte';
+	import ProductsTab from '$components/dashboard-tabs/ProductsTab.svelte';
 	import ProductGroupsTab from '$lib/components/ProductGroupsTab.svelte';
 	import OrdersTab from '$lib/components/OrdersTab.svelte';
 	import AnalyticsTab from '$lib/components/AnalyticsTab.svelte';

@@ -22,7 +22,7 @@
 			}
 		}
 	});
-	
+
 	export const snapshot = { capture, restore };
 </script>
 

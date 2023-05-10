@@ -23,7 +23,12 @@ export async function load({ locals: { supabase, getSession } }) {
 
 	const { data, error } = await supabase
 		.from('orders')
-		.select('*')
+		.select(
+			`
+		*, 
+		order_products ( * )
+  `
+		)
 		.eq('customer_email', session?.user.email);
 
 	if (error)
@@ -34,7 +39,7 @@ export async function load({ locals: { supabase, getSession } }) {
 
 	return {
 		form,
-		orders: data as Order[]
+		ordersWithProducts: data as OrderWithProducts[]
 	};
 }
 

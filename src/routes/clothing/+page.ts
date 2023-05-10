@@ -16,7 +16,11 @@ export async function load({ url, parent }) {
 		)
 		.is('products.active', true);
 
-	if (error) throw redirect(303, '/?message=Something went wrong while retrieving products.&message_type=error');
+	if (error)
+		throw redirect(
+			303,
+			'/?message=Something went wrong while retrieving products.&message_type=error'
+		);
 
 	return {
 		search: url.searchParams.get('search') as string,

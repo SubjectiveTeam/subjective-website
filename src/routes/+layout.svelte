@@ -97,7 +97,7 @@
 	<meta name="keywords" content="Subjective, Clothing, Branding" />
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="language" content="English" />
-	
+
 	<!-- TITLE -->
 	{#key $page.url.pathname}<title>{getTitle($page.url.pathname || '')}</title>{/key}
 </svelte:head>

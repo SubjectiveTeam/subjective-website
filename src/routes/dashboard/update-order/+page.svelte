@@ -10,16 +10,22 @@
 
 	export let data;
 
-	const { form, constraints, errors, enhance, submitting, tainted, capture, restore } = superForm(data.form, {
-		applyAction: true,
-		onResult({ result }) {
-			if (result.type === 'success') {
-				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-success' });
-			} else if (result.type === 'failure') {
-				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+	const { form, constraints, errors, enhance, submitting, tainted, capture, restore } = superForm(
+		data.form,
+		{
+			applyAction: true,
+			onResult({ result }) {
+				if (result.type === 'success') {
+					toastStore.trigger({
+						message: result.data?.message,
+						background: 'variant-filled-success'
+					});
+				} else if (result.type === 'failure') {
+					toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+				}
 			}
 		}
-	});
+	);
 
 	export const snapshot = { capture, restore };
 
