@@ -1,6 +1,8 @@
 <script lang="ts">
 	import { cartStore } from '$lib/stores/cart';
 	import { scale } from 'svelte/transition';
+	import Fa from 'svelte-fa'
+	import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 	export let cartItem: CartItem;
 </script>
 
@@ -19,12 +21,10 @@
 			</p>
 		</div>
 	</a>
-	<div>
-		<button class="btn btn-sm variant-filled-error" on:click={() => cartStore.remove(cartItem)}
-			>-</button
-		>
-		<button class="btn btn-sm variant-filled-success" on:click={() => cartStore.add(cartItem)}
-			>+</button
-		>
+	<div> 	
+		<button class="btn btn-sm p-2 variant-filled-error" on:click={() => cartStore.remove(cartItem)}
+			><Fa class="text-token" icon={faMinus} /></button>
+		<button class="btn btn-sm p-2 variant-filled-success" on:click={() => cartStore.add(cartItem)}
+			><Fa class="text-token" icon={faPlus} /></button>
 	</div>
 </div>

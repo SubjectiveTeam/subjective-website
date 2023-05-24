@@ -45,10 +45,13 @@
 	"type": "module",
 	"dependencies": {
 		"@floating-ui/dom": "^1.2.7",
+		"@fortawesome/free-brands-svg-icons": "^6.4.0",
+		"@fortawesome/free-solid-svg-icons": "^6.4.0",
 		"@supabase/auth-helpers-sveltekit": "^0.9.4",
 		"@supabase/supabase-js": "^2.21.0",
 		"@vercel/analytics": "^1.0.1",
 		"stripe": "^12.3.0",
+		"svelte-fa": "^3.0.3",
 		"uuid": "^9.0.0"
 	}
 }
