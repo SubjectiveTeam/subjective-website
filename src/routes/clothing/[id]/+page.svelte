@@ -1,4 +1,7 @@
 <script lang="ts">
+	import Fa from 'svelte-fa'
+	import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+
 	export let data;
 
 	let carousalIndex = 0;
@@ -15,7 +18,9 @@
 </script>
 
 <section class="flex items-center">
-	<button class="btn variant-filled-primary" on:click={carousalPrevious}>Previous</button>
+	<button class="btn variant-filled-primary" on:click={carousalPrevious}>
+		<Fa icon={faArrowLeft} />
+	</button>
 	<div>
 		<img
 			src={data.productGroupDetailed.images[carousalIndex]}
@@ -23,5 +28,7 @@
 			loading="lazy"
 		/>
 	</div>
-	<button class="btn variant-filled-primary" on:click={carousalNext}>Next</button>
+	<button class="btn variant-filled-primary" on:click={carousalNext}>
+		<Fa icon={faArrowRight} />
+	</button>
 </section>
