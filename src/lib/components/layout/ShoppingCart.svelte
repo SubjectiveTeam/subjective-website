@@ -56,7 +56,7 @@
 <div class="card p-4 w-64" data-popup="cart-menu">
 	<ul class="h-48 overflow-y-scroll">
 		{#each [...$cartStore.values()] as cartItem (cartItem.product.id)}
-			<li animate:flip={{ duration: 400 }}>
+			<li animate:flip={{ duration: 200 }}>
 				<PreviewCartItem {cartItem} />
 			</li>
 		{:else}

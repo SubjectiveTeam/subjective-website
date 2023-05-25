@@ -6,7 +6,7 @@
 	export let cartItem: CartItem;
 </script>
 
-<div class="flex justify-between items-center" transition:scale={{ duration: 400 }}>
+<div class="flex justify-between items-center">
 	<a href="/clothing/{cartItem.productGroup.id}">
 		<p class="overflow-ellipsis">{cartItem.productGroup.name}</p>
 		<p
