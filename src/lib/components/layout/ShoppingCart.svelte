@@ -10,13 +10,12 @@
 	import { goto } from '$app/navigation';
 	import { flip } from 'svelte/animate';
 	import Fa from 'svelte-fa';
-	import { faTrash } from '@fortawesome/free-solid-svg-icons'
+	import { faShoppingCart, faTrash } from '@fortawesome/free-solid-svg-icons'
 
 	const cartMenuPopupSettings: PopupSettings = {
 		event: 'click',
 		target: 'cart-menu',
-		// TODO: Fix closequery after https://github.com/skeletonlabs/skeleton/issues/1350 is closed
-		closeQuery: 'marquee'
+		closeQuery: ''
 	};
 
 	let totalPrice = 0;
@@ -47,11 +46,7 @@
 </script>
 
 <button class="btn" use:popup={cartMenuPopupSettings} aria-label="shopping-cart">
-	<svg class="w-8 fill-token" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg"
-		><path
-			d="M432 928a48 48 0 1 1 0-96 48 48 0 0 1 0 96zm320 0a48 48 0 1 1 0-96 48 48 0 0 1 0 96zM96 128a32 32 0 0 1 0-64h160a32 32 0 0 1 31.36 25.728L320.64 256H928a32 32 0 0 1 31.296 38.72l-96 448A32 32 0 0 1 832 768H384a32 32 0 0 1-31.36-25.728L229.76 128H96zm314.24 576h395.904l82.304-384H333.44l76.8 384z"
-		/></svg
-	>
+	<Fa size="2x" class="text-token" icon={faShoppingCart} />
 </button>
 <div class="card p-4 w-64" data-popup="cart-menu">
 	<ul class="h-48 overflow-y-scroll">

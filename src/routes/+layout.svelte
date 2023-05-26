@@ -1,22 +1,23 @@
 <script lang="ts">
-	// Note: Import order for stylesheets is important (theme -> all -> app)
+	import ProgressBar from 'svelte-progress-bar';
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
-	import { Toast, Modal, Drawer, toastStore } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, Drawer, toastStore, modeCurrent } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import CookieConsentBanner from '$lib/components/layout/CookieConsentBanner.svelte';
 	import DrawerContentManager from '$lib/components/layout/DrawerContentManager.svelte';
-	import { afterNavigate, invalidate } from '$app/navigation';
+	import { afterNavigate, beforeNavigate, invalidate } from '$app/navigation';
 	import { onMount } from 'svelte';
 	import { cartStore } from '$lib/stores/cart';
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
 	import Main from '$lib/components/layout/Main.svelte';
+	import { progress } from '$lib/stores/progress';
 
 	export let data;
 
@@ -51,20 +52,24 @@
 	messageTypeBackgroundsMap.set('warning', 'variant-filled-warning');
 	messageTypeBackgroundsMap.set('error', 'variant-filled-error');
 
+	beforeNavigate(() => progress.start());
+
 	afterNavigate(() => {
 		// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
 		const message = $page.url.searchParams.get('message');
 		const background = messageTypeBackgroundsMap.get(
 			$page.url.searchParams.get('message_type') || ''
 		);
-		if (!message || !background) return;
-		toastStore.trigger({ message, background });
-		const url = new URL($page.url);
-		const searchParams = new URLSearchParams(url.search);
-		searchParams.delete('message');
-		searchParams.delete('message_type');
-		url.search = searchParams.toString();
-		window.history.replaceState(null, '', url.href);
+		if (message && background) {
+			toastStore.trigger({ message, background });
+			const url = new URL($page.url);
+			const searchParams = new URLSearchParams(url.search);
+			searchParams.delete('message');
+			searchParams.delete('message_type');
+			url.search = searchParams.toString();
+			window.history.replaceState(null, '', url.href);
+		}
+		progress.complete();
 	});
 
 	// Function that can retrieve the tile from a route for eg '/my-location/specific-action' converts to 'Subjective - Specific Location'
@@ -114,5 +119,6 @@
 
 <!-- Layout -->
 <Header />
+<ProgressBar bind:this={$progress} />
 <Main><slot /></Main>
 <Footer />
