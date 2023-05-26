@@ -20,7 +20,9 @@
 				Refresh
 			{/if}
 		</button>
-		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/product/add-product">Add Product</a>
+		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/product/add-product"
+			>Add Product</a
+		>
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">

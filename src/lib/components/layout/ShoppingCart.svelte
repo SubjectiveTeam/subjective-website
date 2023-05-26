@@ -10,7 +10,7 @@
 	import { goto } from '$app/navigation';
 	import { flip } from 'svelte/animate';
 	import Fa from 'svelte-fa';
-	import { faShoppingCart, faTrash } from '@fortawesome/free-solid-svg-icons'
+	import { faShoppingCart, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 	const cartMenuPopupSettings: PopupSettings = {
 		event: 'click',
@@ -79,7 +79,7 @@
 				class="btn p-2 variant-filled-error"
 				on:click={() => cartStore.clear()}
 			>
-			<Fa class="text-token" icon={faTrash} />
+				<Fa class="text-token" icon={faTrash} />
 			</button>
 		</div>
 	</div>

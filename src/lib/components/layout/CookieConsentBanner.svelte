@@ -2,7 +2,7 @@
 	import { applyAction, enhance, type SubmitFunction } from '$app/forms';
 	import { invalidateAll } from '$app/navigation';
 	import { fly } from 'svelte/transition';
-	import { cubicInOut, } from 'svelte/easing';
+	import { cubicInOut } from 'svelte/easing';
 
 	const acceptConsentCookie = {
 		essential: true,

@@ -1,11 +1,11 @@
 <script lang="ts">
-	import ProgressBar from 'svelte-progress-bar';
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
 	import { Toast, Modal, Drawer, toastStore, modeCurrent } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
+	import ProgressBar from '$lib/components/layout/ProgressBar.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import CookieConsentBanner from '$lib/components/layout/CookieConsentBanner.svelte';
@@ -116,9 +116,9 @@
 {#if !consentCookiePresent}
 	<CookieConsentBanner />
 {/if}
+<ProgressBar bind:this={$progress} />
 
 <!-- Layout -->
 <Header />
-<ProgressBar bind:this={$progress} />
 <Main><slot /></Main>
 <Footer />

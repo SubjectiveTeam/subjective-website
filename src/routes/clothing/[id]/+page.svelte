@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Fa from 'svelte-fa'
-	import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons'
+	import Fa from 'svelte-fa';
+	import { faArrowRight, faArrowLeft } from '@fortawesome/free-solid-svg-icons';
 
 	export let data;
 

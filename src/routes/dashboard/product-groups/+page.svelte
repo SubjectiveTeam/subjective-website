@@ -19,8 +19,9 @@
 				Refresh
 			{/if}
 		</button>
-		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/product-groups/add-product-group"
-			>Add Product Group</a
+		<a
+			class="btn btn-sm variant-filled-secondary"
+			href="/dashboard/product-groups/add-product-group">Add Product Group</a
 		>
 	</div>
 	<div class="table-container">
@@ -44,7 +45,8 @@
 						<td>
 							<a
 								class="btn btn-sm variant-filled-primary"
-								href="/dashboard/product-groups/update-product-group?product_group_id={productGroup.id}">Edit</a
+								href="/dashboard/product-groups/update-product-group?product_group_id={productGroup.id}"
+								>Edit</a
 							>
 						</td>
 					</tr>

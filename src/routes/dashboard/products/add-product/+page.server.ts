@@ -74,6 +74,9 @@ export const actions: Actions = {
 			return fail(400, { form, message: 'Something went wrong inserting the product in supabase' });
 		}
 
-		throw redirect(303, '/dashboard/products?message=Succesfully added product&message_type=success');
+		throw redirect(
+			303,
+			'/dashboard/products?message=Succesfully added product&message_type=success'
+		);
 	}
 };
