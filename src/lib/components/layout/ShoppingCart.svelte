@@ -68,7 +68,10 @@
 				on:click={checkout}
 			>
 				{#if checkingOut}
-					Working...
+					<span class="flex items-center gap-2">
+						<ProgressRadial width="w-3" stroke={150} value={undefined} />
+						Working...
+					</span>
 				{:else}
 					Checkout
 				{/if}

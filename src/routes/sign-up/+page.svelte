@@ -1,11 +1,11 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { ProgressRadial, toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
 
-	const { form, constraints, errors, enhance, capture, restore } = superForm(data.form, {
+	const { form, constraints, errors, submitting, enhance, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		invalidateAll: false,
 		taintedMessage: false,
@@ -145,7 +145,16 @@
 			{#if $errors.confirmPassword}<span class="!text-error-500">{$errors.confirmPassword}</span
 				>{/if}
 
-			<button class="btn variant-filled-primary">Sign Up</button>
+			<button class="btn variant-filled-primary">
+				{#if $submitting}
+					<span class="flex items-center gap-2">
+						<ProgressRadial width="w-3" stroke={150} value={undefined} />
+						Working...
+					</span>
+				{:else}
+					Sign Up
+				{/if}
+			</button>
 			<p class="text-center">
 				Already have an account? <a class="anchor" href="/sign-in">Sign In</a> here.
 			</p>

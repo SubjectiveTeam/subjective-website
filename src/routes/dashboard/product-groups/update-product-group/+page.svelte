@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { superForm } from 'sveltekit-superforms/client';
-	import { FileDropzone, toastStore } from '@skeletonlabs/skeleton';
+	import { FileDropzone, ProgressRadial, toastStore } from '@skeletonlabs/skeleton';
 
 	export let data;
 
@@ -93,7 +93,10 @@
 		<div class="flex justify-end">
 			<button disabled={$submitting || !$tainted} class="btn variant-filled-secondary">
 				{#if $submitting}
-					Working...
+					<span class="flex items-center gap-2">
+						<ProgressRadial width="w-3" stroke={150} value={undefined} />
+						Working...
+					</span>
 				{:else}
 					Update Product Group
 				{/if}
