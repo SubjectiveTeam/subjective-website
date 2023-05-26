@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { ProgressRadial } from '@skeletonlabs/skeleton/index';
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 
 	export let data;
 
