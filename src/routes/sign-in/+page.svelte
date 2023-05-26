@@ -127,7 +127,7 @@
 				{...$constraints.password}
 			/>
 			{#if $errors.password}<span class="!text-error-500">{$errors.password}</span>{/if}
-			<button class="btn variant-filled-primary">
+			<button disabled={$submitting} class="btn variant-filled-primary">
 				{#if $submitting}
 					<span class="flex items-center gap-2">
 						<ProgressRadial width="w-3" stroke={150} value={undefined} />

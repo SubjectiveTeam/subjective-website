@@ -4,7 +4,8 @@
 		popup,
 		toastStore,
 		type PopupSettings,
-		type ToastSettings
+		type ToastSettings,
+		ProgressRadial
 	} from '@skeletonlabs/skeleton';
 	import PreviewCartItem from '$lib/components/PreviewCartItem.svelte';
 	import { goto } from '$app/navigation';
@@ -27,9 +28,9 @@
 		totalPrice = result;
 	}
 
-	let checkingOut = false;
+	let working = false;
 	const checkout = async () => {
-		checkingOut = true;
+		working = true;
 		const checkoutResponse: CheckoutResponse = await cartStore.checkout();
 
 		if (checkoutResponse.type === 'success' && checkoutResponse.url) {
@@ -41,7 +42,7 @@
 			};
 			toastStore.trigger(toast);
 		}
-		checkingOut = false;
+		working = false;
 	};
 </script>
 
@@ -63,11 +64,11 @@
 		<p>Total: €{totalPrice}</p>
 		<div class="flex justify-between">
 			<button
-				disabled={$cartStore.length === 0 || checkingOut}
+				disabled={$cartStore.length === 0 || working}
 				class="btn variant-ringed-primary"
 				on:click={checkout}
 			>
-				{#if checkingOut}
+				{#if working}
 					<span class="flex items-center gap-2">
 						<ProgressRadial width="w-3" stroke={150} value={undefined} />
 						Working...
