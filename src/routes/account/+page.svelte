@@ -5,7 +5,7 @@
 
 	export let data;
 
-	let tabSet: number = 0;
+	let tabSet = 0;
 </script>
 
 <section>

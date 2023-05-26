@@ -1,6 +1,6 @@
 <script lang="ts">
-	import Fa from 'svelte-fa'
-	import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons'
+	import Fa from 'svelte-fa';
+	import { faAngleDoubleRight } from '@fortawesome/free-solid-svg-icons';
 </script>
 
 <section class="flex flex-col xl:flex-row justify-between mt-[12.5vh] gap-48">

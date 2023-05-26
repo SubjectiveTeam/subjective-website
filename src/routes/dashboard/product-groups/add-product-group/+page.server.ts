@@ -62,6 +62,9 @@ export const actions: Actions = {
 				message: 'Something went wrong during inserting product group into supabase.'
 			});
 
-		throw redirect(303, '/dashboard?message=Succesfully added product group&message_type=success');
+		throw redirect(
+			303,
+			'/dashboard/product-groups?message=Succesfully added product group&message_type=success'
+		);
 	}
 };

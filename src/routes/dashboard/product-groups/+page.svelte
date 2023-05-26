@@ -1,11 +1,10 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
 
-	export let products: Product[];
+	export let data;
 
-	let refreshing: boolean = false;
+	let refreshing = false;
 	const refresh = async () => {
-		refreshing = true;
 		await invalidateAll();
 		refreshing = false;
 	};
@@ -20,41 +19,39 @@
 				Refresh
 			{/if}
 		</button>
-		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/add-product">Add Product</a>
+		<a
+			class="btn btn-sm variant-filled-secondary"
+			href="/dashboard/product-groups/add-product-group">Add Product Group</a
+		>
 	</div>
 	<div class="table-container">
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th>ID</th>
-					<th>Product Group ID</th>
-					<th>Stripe_Price</th>
-					<th>Price</th>
-					<th>Stock</th>
-					<th>Active</th>
-					<th>Size</th>
+					<th>Name</th>
+					<th>Description</th>
+					<th>Images</th>
 					<th />
 				</tr>
 			</thead>
 			<tbody>
-				{#each products as product, i}
+				{#each data.productGroups as productGroup, i}
 					<tr>
-						<td>{product.id}</td>
-						<td>{product.product_group_id}</td>
-						<td>{product.stripe_price}</td>
-						<td>€{product.price}</td>
-						<td>{product.stock}</td>
-						<td>{product.active}</td>
-						<td>{product.size}</td>
+						<td>{productGroup.id}</td>
+						<td>{productGroup.name}</td>
+						<td>{productGroup.description}</td>
+						<td>{productGroup.images}</td>
 						<td>
 							<a
 								class="btn btn-sm variant-filled-primary"
-								href="/dashboard/update-product?product_id={product.id}">Edit</a
+								href="/dashboard/product-groups/update-product-group?product_group_id={productGroup.id}"
+								>Edit</a
 							>
 						</td>
 					</tr>
 				{:else}
-					<p class="text-center p-4">No Products</p>
+					<p class="text-center p-4">No Product Groups</p>
 				{/each}
 			</tbody>
 		</table>

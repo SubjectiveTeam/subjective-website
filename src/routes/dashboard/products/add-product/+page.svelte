@@ -43,7 +43,6 @@
 		event: 'click',
 		target: 'combobox',
 		placement: 'bottom',
-		// Close the popup when the item is clicked
 		closeQuery: '.listbox-item'
 	};
 

@@ -3,7 +3,7 @@
 	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
 	import ViewOrderProductsModal from '$lib/components/modal/ViewProductsModal.svelte';
 
-	export let ordersWithProducts: OrderWithProducts[];
+	export let data;
 
 	const triggerViewOrderProductsModal = (orderWithProducts: OrderWithProducts) => {
 		const modalComponent: ModalComponent = {
@@ -17,7 +17,7 @@
 		modalStore.trigger(modal);
 	};
 
-	let refreshing: boolean = false;
+	let refreshing = false;
 	const refresh = async () => {
 		refreshing = true;
 		await invalidateAll();
@@ -49,7 +49,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				{#each ordersWithProducts as orderWithProducts}
+				{#each data.ordersWithProducts as orderWithProducts}
 					<tr>
 						<td>{orderWithProducts.id}</td>
 						<td>{orderWithProducts.address}</td>
@@ -64,7 +64,7 @@
 								>View Products</button
 							>
 							<a
-								href="dashboard/update-order?order_id={orderWithProducts.id}"
+								href="/dashboard/orders/update-order?order_id={orderWithProducts.id}"
 								class="btn btn-sm variant-filled-primary">Edit</a
 							>
 						</td>

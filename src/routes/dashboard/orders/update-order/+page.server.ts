@@ -57,6 +57,6 @@ export const actions: Actions = {
 			return fail(500, { message: 'Something went wrong when updating order' });
 		}
 
-		throw redirect(303, '/dashboard?message=Succesfully updated order&message_type=success');
+		throw redirect(303, '/dashboard/orders?message=Succesfully updated order&message_type=success');
 	}
 };
