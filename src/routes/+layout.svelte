@@ -2,7 +2,7 @@
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
-	import { Toast, Modal, Drawer, toastStore, modeCurrent } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, Drawer, toastStore } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import ProgressBar from '$lib/components/layout/ProgressBar.svelte';
@@ -74,7 +74,7 @@
 
 	// Function that can retrieve the tile from a route for eg '/my-location/specific-action' converts to 'Subjective - Specific Location'
 	function getTitle(location: string) {
-		let title: string = 'Subjective';
+		let title = 'Subjective';
 
 		if (location === '/') location = 'Home';
 		else {

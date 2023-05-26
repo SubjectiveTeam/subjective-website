@@ -2,7 +2,7 @@
 	import { superForm } from 'sveltekit-superforms/client';
 	import { toastStore, FileDropzone } from '@skeletonlabs/skeleton';
 
-	export let data../product-groups/add-product-group/$types.js;
+	export let data;
 
 	const { form, errors, constraints, enhance, capture, restore, submitting } = superForm(
 		data.form,
@@ -21,7 +21,7 @@
 		}
 	);
 
-	export const snapshot../product-groups/add-product-group/$types.js = { capture, restore };
+	export const snapshot = { capture, restore };
 
 	let files: FileList;
 </script>

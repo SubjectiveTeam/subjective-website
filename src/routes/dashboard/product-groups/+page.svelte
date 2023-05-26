@@ -3,7 +3,7 @@
 
 	export let data;
 
-	let refreshing: boolean = false;
+	let refreshing = false;
 	const refresh = async () => {
 		await invalidateAll();
 		refreshing = false;

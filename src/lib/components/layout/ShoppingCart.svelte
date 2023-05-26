@@ -27,7 +27,7 @@
 		totalPrice = result;
 	}
 
-	let checkingOut: boolean = false;
+	let checkingOut = false;
 	const checkout = async () => {
 		checkingOut = true;
 		const checkoutResponse: CheckoutResponse = await cartStore.checkout();

@@ -11,7 +11,7 @@
 	};
 
 	const getCrumbHref = (crumb: string): string => {
-		let href: string = '';
+		let href = '';
 		for (const currentCrumb of breadCrumbs) {
 			href += '/' + currentCrumb;
 			if (currentCrumb === crumb) break;

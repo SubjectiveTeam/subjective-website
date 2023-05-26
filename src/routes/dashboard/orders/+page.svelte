@@ -17,7 +17,7 @@
 		modalStore.trigger(modal);
 	};
 
-	let refreshing: boolean = false;
+	let refreshing = false;
 	const refresh = async () => {
 		refreshing = true;
 		await invalidateAll();

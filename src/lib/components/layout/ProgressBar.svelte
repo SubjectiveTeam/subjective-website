@@ -10,15 +10,15 @@
 		return 0;
 	};
 
-	let width: number = 0;
-	let running: boolean = false;
+	let width = 0;
+	let running = false;
 	let updater: undefined | ReturnType<typeof setInterval>;
 	let completed = false;
 
-	const minimum: number = 0.08;
-	const maximum: number = 0.994;
-	const settleTime: number = 700;
-	const intervalTime: number = 700;
+	const minimum = 0.08;
+	const maximum = 0.994;
+	const settleTime = 700;
+	const intervalTime = 700;
 	const stepSizes: number[] = [0, 0.005, 0.01, 0.02];
 
 	export const reset = () => {
