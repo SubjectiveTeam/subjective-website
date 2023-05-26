@@ -127,7 +127,7 @@ export const actions: Actions = {
 
 		throw redirect(
 			303,
-			'/dashboard?message=Succesfully updated product group&message_type=success'
+			'/dashboard/product-groups?message=Succesfully updated product group&message_type=success'
 		);
 	}
 };

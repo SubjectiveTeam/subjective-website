@@ -94,6 +94,6 @@
 		"track",
 		"width"
 	],
-	"deno.enable": true,
+	"deno.enable": false,
 	"deno.lint": false
 }

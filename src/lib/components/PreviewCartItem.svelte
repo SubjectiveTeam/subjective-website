@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { cartStore } from '$lib/stores/cart';
-	import { scale } from 'svelte/transition';
 	import Fa from 'svelte-fa'
 	import { faMinus, faPlus } from '@fortawesome/free-solid-svg-icons'
 	export let cartItem: CartItem;
