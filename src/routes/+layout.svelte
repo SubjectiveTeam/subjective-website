@@ -51,6 +51,8 @@
 	beforeNavigate(() => progress.start());
 
 	afterNavigate(() => {
+		const pageElement = document.querySelector('#page');
+		if (pageElement) pageElement.scrollTop = 0;
 		triggerToastFromRedirect($page.url);
 		progress.complete();
 	});
