@@ -2,7 +2,7 @@
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
-	import { Toast, Modal, Drawer } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, Drawer, AppShell } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import ProgressBar from '$lib/components/layout/ProgressBar.svelte';
@@ -102,6 +102,8 @@
 <ProgressBar bind:this={$progress} />
 
 <!-- Layout -->
-<Header />
-<Main><slot /></Main>
-<Footer />
+<AppShell>
+	<svelte:fragment slot="header"><Header /></svelte:fragment>
+	<Main><slot /></Main>
+	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
+</AppShell>

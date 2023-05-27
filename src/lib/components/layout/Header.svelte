@@ -16,7 +16,7 @@
 </script>
 
 <AppBar
-	class="h-[var(--header-height)] sticky top-0 z-100"
+	class="h-[var(--header-height)]"
 	padding="py-4 px-[5vw] md:px-[12.5vw]"
 	shadow="!shadow-lg"
 >
