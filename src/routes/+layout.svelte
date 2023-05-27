@@ -7,6 +7,7 @@
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import ProgressBar from '$lib/components/layout/ProgressBar.svelte';
 	import Header from '$lib/components/layout/Header.svelte';
+	import Main from '$lib/components/layout/Main.svelte';
 	import Footer from '$lib/components/layout/Footer.svelte';
 	import CookieConsentBanner from '$lib/components/layout/CookieConsentBanner.svelte';
 	import DrawerContentManager from '$lib/components/layout/DrawerContentManager.svelte';
@@ -17,14 +18,12 @@
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
 	import Main from '$lib/components/layout/Main.svelte';
-	import { createProgressStore } from '$lib/stores/progress';
+	import { progress } from '$lib/stores/progress';
 	import { triggerToastFromRedirect } from '$lib/util/util';
 
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
-
-	const progress = createProgressStore();
 
 	onMount(() => {
 		// Initialize cartStore
