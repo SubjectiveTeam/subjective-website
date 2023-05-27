@@ -2,7 +2,7 @@
 	import '../theme.postcss';
 	import '@skeletonlabs/skeleton/styles/skeleton.css';
 	import '../app.postcss';
-	import { Toast, Modal, Drawer, toastStore } from '@skeletonlabs/skeleton';
+	import { Toast, Modal, Drawer } from '@skeletonlabs/skeleton';
 	import { computePosition, autoUpdate, flip, shift, offset, arrow } from '@floating-ui/dom';
 	import { storePopup } from '@skeletonlabs/skeleton';
 	import ProgressBar from '$lib/components/layout/ProgressBar.svelte';
@@ -18,6 +18,7 @@
 	import { inject } from '@vercel/analytics';
 	import Main from '$lib/components/layout/Main.svelte';
 	import { progress } from '$lib/stores/progress';
+	import { triggerToastFromRedirect } from '$lib/util/util';
 
 	export let data;
 
@@ -45,30 +46,10 @@
 	// Initialize popup
 	storePopup.set({ computePosition, autoUpdate, flip, shift, offset, arrow });
 
-	// Message Types
-	const messageTypeBackgroundsMap = new Map<string, string>();
-	messageTypeBackgroundsMap.set('info', 'variant-filled-secondary');
-	messageTypeBackgroundsMap.set('success', 'variant-filled-success');
-	messageTypeBackgroundsMap.set('warning', 'variant-filled-warning');
-	messageTypeBackgroundsMap.set('error', 'variant-filled-error');
-
 	beforeNavigate(() => progress.start());
 
 	afterNavigate(() => {
-		// System to display messages from anywhere in the app after a redirect, it's more user friendly to let someone know why they were redirected.
-		const message = $page.url.searchParams.get('message');
-		const background = messageTypeBackgroundsMap.get(
-			$page.url.searchParams.get('message_type') || ''
-		);
-		if (message && background) {
-			toastStore.trigger({ message, background });
-			const url = new URL($page.url);
-			const searchParams = new URLSearchParams(url.search);
-			searchParams.delete('message');
-			searchParams.delete('message_type');
-			url.search = searchParams.toString();
-			window.history.replaceState(null, '', url.href);
-		}
+		triggerToastFromRedirect($page.url);
 		progress.complete();
 	});
 

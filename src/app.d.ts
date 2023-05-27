@@ -82,4 +82,6 @@ declare global {
 		updated: number;
 		url: string;
 	};
+
+	type MessageType = 'success' | 'warning' | 'error' | 'info';
 }

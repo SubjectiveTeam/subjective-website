@@ -5,23 +5,26 @@
 
 	export let data;
 
-	const { form, constraints, errors, submitting, enhance, capture, restore } = superForm(data.form, {
-		applyAction: true,
-		invalidateAll: false,
-		taintedMessage: false,
-		onResult({ result }) {
-			if (result.type === 'redirect') {
-				goto(result.location);
-				toastStore.trigger({
-					message: 'Succesfully signed up.',
-					background: 'variant-filled-success'
-				});
-			}
-			if (result.type === 'failure') {
-				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+	const { form, constraints, errors, submitting, enhance, capture, restore } = superForm(
+		data.form,
+		{
+			applyAction: true,
+			invalidateAll: false,
+			taintedMessage: false,
+			onResult({ result }) {
+				if (result.type === 'redirect') {
+					goto(result.location);
+					toastStore.trigger({
+						message: 'Succesfully signed up.',
+						background: 'variant-filled-success'
+					});
+				}
+				if (result.type === 'failure') {
+					toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+				}
 			}
 		}
-	});
+	);
 
 	export const snapshot = { capture, restore };
 </script>

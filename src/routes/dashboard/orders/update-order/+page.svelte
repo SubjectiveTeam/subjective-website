@@ -5,9 +5,7 @@
 		popup,
 		toastStore,
 		type PopupSettings,
-
 		ProgressRadial
-
 	} from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 

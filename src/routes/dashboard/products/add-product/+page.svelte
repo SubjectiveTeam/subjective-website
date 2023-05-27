@@ -7,9 +7,7 @@
 		ListBox,
 		ListBoxItem,
 		popup,
-
 		ProgressRadial
-
 	} from '@skeletonlabs/skeleton';
 
 	export let data;

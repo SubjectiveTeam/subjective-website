@@ -1,5 +1,6 @@
 import { stripe } from '$lib/server/stripe/stripe';
-import { fail, type Actions, redirect } from '@sveltejs/kit';
+import { redirectWithMessage } from '$lib/util/util';
+import { fail, type Actions } from '@sveltejs/kit';
 import type Stripe from 'stripe';
 import { superValidate } from 'sveltekit-superforms/server';
 import { v4 } from 'uuid';
@@ -26,7 +27,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session?.user.app_metadata.claims_admin)
-			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+			redirectWithMessage(303, '/', 'Unauthorized to access this resource', 'error');
 
 		const form = await superValidate(request, addProductSchema);
 
@@ -74,9 +75,6 @@ export const actions: Actions = {
 			return fail(400, { form, message: 'Something went wrong inserting the product in supabase' });
 		}
 
-		throw redirect(
-			303,
-			'/dashboard/products?message=Succesfully added product&message_type=success'
-		);
+		redirectWithMessage(303, '/dashboard/products', 'Succesfully added product', 'success');
 	}
 };

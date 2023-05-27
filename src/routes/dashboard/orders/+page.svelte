@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { modalStore, type ModalSettings, type ModalComponent, ProgressRadial } from '@skeletonlabs/skeleton';
+	import {
+		modalStore,
+		type ModalSettings,
+		type ModalComponent,
+		ProgressRadial
+	} from '@skeletonlabs/skeleton';
 	import ViewOrderProductsModal from '$lib/components/modal/ViewProductsModal.svelte';
 
 	export let data;

@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { redirectWithMessage } from '$lib/util/util.js';
 
 export async function load({ url, parent }) {
 	const { supabase } = await parent();
@@ -17,10 +17,7 @@ export async function load({ url, parent }) {
 		.is('products.active', true);
 
 	if (error)
-		throw redirect(
-			303,
-			'/?message=Something went wrong while retrieving products.&message_type=error'
-		);
+		redirectWithMessage(303, '/', 'Something went wrong while retrieving products.', 'error');
 
 	return {
 		search: url.searchParams.get('search') as string,

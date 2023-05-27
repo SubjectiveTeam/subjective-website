@@ -1,5 +1,6 @@
 import { stripe } from '$lib/server/stripe/stripe.js';
-import { fail, type Actions, redirect } from '@sveltejs/kit';
+import { redirectWithMessage } from '$lib/util/util.js';
+import { fail, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
@@ -22,9 +23,11 @@ export async function load({ url, locals: { supabase } }) {
 		.single();
 
 	if (!data)
-		throw redirect(
+		redirectWithMessage(
 			303,
-			'/dashboard?message=Cannot edit product group because product group does not exist&message_type=warning'
+			'/dashboard',
+			'Cannot edit product group because product group does not exist',
+			'warning'
 		);
 
 	const form = await superValidate(data, addProductgroupSchema);
@@ -39,7 +42,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session?.user.app_metadata.claims_admin)
-			throw redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+			redirectWithMessage(303, '/', 'Unauthorized to access this resource', 'error');
 
 		const formData = await request.formData();
 		const form = await superValidate(formData, addProductgroupSchema);
@@ -125,9 +128,11 @@ export const actions: Actions = {
 			}
 		}
 
-		throw redirect(
+		redirectWithMessage(
 			303,
-			'/dashboard/product-groups?message=Succesfully updated product group&message_type=success'
+			'/dashboard/product-groups',
+			'Succesfully updated product group',
+			'success'
 		);
 	}
 };
