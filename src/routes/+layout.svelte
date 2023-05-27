@@ -25,6 +25,8 @@
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
+	
+	const progress = createProgressStore();
 
 	onMount(() => {
 		// Initialize cartStore

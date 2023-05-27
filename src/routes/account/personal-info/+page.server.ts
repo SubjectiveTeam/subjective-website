@@ -49,4 +49,4 @@ export const actions: Actions = {
 
 		return { form, message: 'Successfully updated password' };
 	}
-};
+}
