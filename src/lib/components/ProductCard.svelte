@@ -19,7 +19,7 @@
 		<p class="!text-sm">{productGroupDetailed.description}</p>
 	</header>
 	<a href="/clothing/{productGroupDetailed.id}">
-		<section class="p-4 relative group">
+		<section class="p-4 relative group flex justify-center">
 			{#if productGroupDetailed.images}
 				<img
 					class="rounded-token transition-opacity duration-350 group-hover:opacity-50"
