@@ -39,7 +39,7 @@
 					<th>Stock</th>
 					<th>Active</th>
 					<th>Size</th>
-					<th />
+					<th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -55,7 +55,7 @@
 						<td>
 							<a
 								class="btn btn-sm variant-filled-primary"
-								href="/dashboard/product/update-product?product_id={product.id}">Edit</a
+								href="/dashboard/products/update-product?product_id={product.id}">Edit</a
 							>
 						</td>
 					</tr>

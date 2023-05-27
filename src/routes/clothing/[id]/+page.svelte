@@ -17,18 +17,18 @@
 	};
 </script>
 
-<section class="flex items-center">
-	<button class="btn variant-filled-primary" on:click={carousalPrevious}>
-		<Fa icon={faArrowLeft} />
-	</button>
-	<div>
-		<img
-			src={data.productGroupDetailed.images[carousalIndex]}
-			alt={data.productGroupDetailed.name}
-			loading="lazy"
-		/>
+<div>
+	<img
+		src={data.productGroupDetailed.images[carousalIndex]}
+		alt={data.productGroupDetailed.name}
+		loading="lazy"
+	/>
+	<div class="flex justify-between">
+		<button class="btn variant-filled-primary" on:click={carousalPrevious}>
+			<Fa icon={faArrowLeft} />
+		</button>
+		<button class="btn variant-filled-primary" on:click={carousalNext}>
+			<Fa icon={faArrowRight} />
+		</button>
 	</div>
-	<button class="btn variant-filled-primary" on:click={carousalNext}>
-		<Fa icon={faArrowRight} />
-	</button>
-</section>
+</div>
