@@ -17,9 +17,10 @@
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
-	import Main from '$lib/components/layout/Main.svelte';
-	import { progress } from '$lib/stores/progress';
+	import { createProgressStore } from '$lib/stores/progress';
 	import { triggerToastFromRedirect } from '$lib/util/util';
+
+	const progress = createProgressStore();
 
 	export let data;
 
