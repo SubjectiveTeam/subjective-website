@@ -17,12 +17,14 @@
 	import { page } from '$app/stores';
 	import { dev } from '$app/environment';
 	import { inject } from '@vercel/analytics';
-	import { progress } from '$lib/stores/progress';
+	import { createProgressStore } from '$lib/stores/progress';
 	import { triggerToastFromRedirect } from '$lib/util/util';
 
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
+	
+	const progress = createProgressStore();
 
 	onMount(() => {
 		// Initialize cartStore
