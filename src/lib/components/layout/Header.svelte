@@ -34,6 +34,6 @@
 	<p class="font-semibold text-lg md:hidden">Subjective</p>
 	<svelte:fragment slot="trail">
 		<ShoppingCart />
-		<p class="hidden md:block !text-3xl">SBJCTV</p>
+		<p class="hidden md:block font-semibold text-3xl">SBJCTV</p>
 	</svelte:fragment>
 </AppBar>
