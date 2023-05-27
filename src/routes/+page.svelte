@@ -29,7 +29,7 @@
 			href="/clothing?search=AmoreVince"
 			aria-label="view-collection"
 		>
-			<Fa class="!h-12 !w-12 fill-token" icon={faAngleDoubleRight} />
+			<Fa size="3x" class="fill-token" icon={faAngleDoubleRight} />
 		</a>
 	</div>
 </section>
