@@ -83,7 +83,7 @@
 {#if width}
 	{#if !completed}
 		<div
-			class="variant-filled-primary fixed top-0 left-0 h-[2px] transition-[width] duration-[210ms] z-[1]"
+			class="variant-filled-primary fixed top-0 left-0 h-[2px] transition-[width] duration-[210ms] z-[11]"
 			class:running
 			style={barStyle}
 			out:fly={{ y: -8, duration: 800, easing: cubicOut }}
