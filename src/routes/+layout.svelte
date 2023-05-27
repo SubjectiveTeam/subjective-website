@@ -99,11 +99,13 @@
 {#if !consentCookiePresent}
 	<CookieConsentBanner />
 {/if}
-<ProgressBar bind:this={$progress} />
 
 <!-- Layout -->
 <AppShell>
-	<svelte:fragment slot="header"><Header /></svelte:fragment>
+	<svelte:fragment slot="header">
+		<ProgressBar bind:this={$progress} />
+		<Header />
+	</svelte:fragment>
 	<Main><slot /></Main>
 	<svelte:fragment slot="pageFooter"><Footer /></svelte:fragment>
 </AppShell>
