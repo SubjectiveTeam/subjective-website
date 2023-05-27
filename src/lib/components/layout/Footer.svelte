@@ -1,4 +1,4 @@
-<div
+<footer
 	class="bg-surface-100-800-token w-screen flex flex-col md:flex-row justify-between py-[10vh] px-[10vw]"
 >
 	<div class="flex flex-col h-32">
@@ -27,4 +27,4 @@
 		<p class="font-bold">Contact Us</p>
 		<p>subjectiveteam@gmail.com</p>
 	</div>
-</div>
+</footer>
