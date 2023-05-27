@@ -1,4 +1,5 @@
-import { fail, type Actions, redirect } from '@sveltejs/kit';
+import { redirectWithMessage } from '$lib/util/util';
+import { fail, type Actions } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { v4 } from 'uuid';
 import { z } from 'zod';
@@ -23,7 +24,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session?.user.app_metadata.claims_admin)
-			throw redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+			redirectWithMessage(303, '/', 'Unauthorized to access this resource', 'error');
 
 		const formData = await request.formData();
 
@@ -62,9 +63,11 @@ export const actions: Actions = {
 				message: 'Something went wrong during inserting product group into supabase.'
 			});
 
-		throw redirect(
+		redirectWithMessage(
 			303,
-			'/dashboard/product-groups?message=Succesfully added product group&message_type=success'
+			'/dashboard/product-groups',
+			'Succesfully added product group',
+			'success'
 		);
 	}
 };

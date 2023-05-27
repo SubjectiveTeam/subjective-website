@@ -1,3 +1,4 @@
+import { redirectWithMessage } from '$lib/util/util';
 import { redirect, type Actions, fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
@@ -32,9 +33,11 @@ export async function load({ locals: { supabase, getSession } }) {
 		.eq('customer_email', session?.user.email);
 
 	if (error)
-		throw redirect(
+		redirectWithMessage(
 			303,
-			'/account?message=Something went wrong while retrieving your orders.&message_type=error'
+			'/account',
+			'Something went wrong while retrieving your orders.',
+			'error'
 		);
 
 	return {
@@ -51,8 +54,7 @@ export const actions: Actions = {
 	changePassword: async ({ request, locals: { supabase, getSession } }) => {
 		const session = await getSession();
 
-		if (!session)
-			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+		if (!session) redirectWithMessage(303, '/', 'Unauthorized to access this resource', 'error');
 
 		const form = await superValidate(request, changePasswordSchema);
 

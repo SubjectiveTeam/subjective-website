@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
-	import { modalStore, type ModalSettings, type ModalComponent } from '@skeletonlabs/skeleton';
+	import {
+		modalStore,
+		type ModalSettings,
+		type ModalComponent,
+		ProgressRadial
+	} from '@skeletonlabs/skeleton';
 	import ViewOrderProductsModal from '$lib/components/modal/ViewProductsModal.svelte';
 
 	export let data;
@@ -29,7 +34,10 @@
 	<div class="ml-auto">
 		<button disabled={refreshing} class="btn btn-sm variant-filled-tertiary" on:click={refresh}>
 			{#if refreshing}
-				Working...
+				<span class="flex items-center gap-2">
+					<ProgressRadial width="w-3" stroke={150} value={undefined} />
+					Working...
+				</span>
 			{:else}
 				Refresh
 			{/if}

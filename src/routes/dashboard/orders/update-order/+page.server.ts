@@ -1,4 +1,5 @@
-import { redirect, type Actions, fail } from '@sveltejs/kit';
+import { redirectWithMessage } from '$lib/util/util.js';
+import { type Actions, fail } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
 import { z } from 'zod';
 
@@ -19,9 +20,11 @@ export async function load({ url, locals: { supabase } }) {
 		.single();
 
 	if (!data)
-		throw redirect(
+		redirectWithMessage(
 			303,
-			'/dashboard?message=Cannot edit order because order does not exist&message_type=warning'
+			'/dashboard',
+			'Cannot edit order because order does not exist',
+			'warning'
 		);
 
 	const form = await superValidate(data, updateOrderSchema);
@@ -37,7 +40,7 @@ export const actions: Actions = {
 		const session = await getSession();
 
 		if (!session?.user.app_metadata.claims_admin)
-			return redirect(303, '/?message=Unauthorized to access this resource&message_type=error');
+			redirectWithMessage(303, '/', 'Unauthorized to access this resource', 'error');
 
 		const form = await superValidate(request, updateOrderSchema);
 
@@ -57,6 +60,6 @@ export const actions: Actions = {
 			return fail(500, { message: 'Something went wrong when updating order' });
 		}
 
-		throw redirect(303, '/dashboard/orders?message=Succesfully updated order&message_type=success');
+		redirectWithMessage(303, '/dashboard/orders', 'Succesfully updated order', 'success');
 	}
 };

@@ -1,7 +1,8 @@
 import { PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY } from '$env/static/public';
 import type { Database } from '$lib/supabase/database.types';
+import { redirectWithMessage } from '$lib/util/util';
 import { createSupabaseServerClient } from '@supabase/auth-helpers-sveltekit';
-import { redirect, type Handle } from '@sveltejs/kit';
+import type { Handle } from '@sveltejs/kit';
 
 const adminRoutes: string[] = [
 	'/dashboard',
@@ -40,18 +41,16 @@ export const handle: Handle = async ({ event, resolve }) => {
 	const isAdmin: boolean = session ? session.user.app_metadata.claims_admin : false;
 	const destination: string = event.route.id as string;
 	if (!loggedIn && authRoutes.includes(destination))
-		throw redirect(
+		redirectWithMessage(
 			303,
-			`/sign-in?redirectTo=${destination}&message=Unauthorized to access this resource.&message_type=error`
+			`/sign-in?redirectTo=${encodeURIComponent(destination)}`,
+			'Unauthorized to access this resource',
+			'error'
 		);
 	else if (loggedIn && !isAdmin && adminRoutes.includes(destination))
-		throw redirect(
-			303,
-			'/account?message=Unauthorized to access this resource.&message_type=error'
-		);
+		redirectWithMessage(303, '/account', 'Unauthorized to access this resource', 'error');
 	else if (loggedIn && antiAuthRoutes.includes(destination))
-		throw redirect(303, '/account?message=You are already a logged in user.&message_type=info');
-
+		redirectWithMessage(303, '/account', 'You are already a logged in user.', 'info');
 	return resolve(event, {
 		/**
 		 * There´s an issue with `filterSerializedResponseHeaders` not working when using `sequence`

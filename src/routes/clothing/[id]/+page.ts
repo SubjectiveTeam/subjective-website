@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { redirectWithMessage } from '$lib/util/util.js';
 
 export async function load({ parent, params }) {
 	const { supabase } = await parent();
@@ -21,7 +21,7 @@ export async function load({ parent, params }) {
 		.limit(1)
 		.single();
 
-	if (error) throw redirect(303, '/?message=This product does not exist.&message_type=error');
+	if (error) redirectWithMessage(303, '/', 'This product does not exist.', 'error');
 
 	return {
 		productGroupDetailed: data as ProductGroupDetailed

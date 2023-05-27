@@ -1,3 +1,4 @@
+import { redirectWithMessage } from '$lib/util/util';
 import { AuthApiError, type Provider } from '@supabase/supabase-js';
 import { fail, type Actions, redirect } from '@sveltejs/kit';
 import { superValidate } from 'sveltekit-superforms/server';
@@ -58,7 +59,8 @@ export const actions: Actions = {
 
 		const urlValidate = await superValidate(url, urlSchema);
 
-		if (urlValidate.valid) throw redirect(303, urlValidate.data.redirectTo);
-		else throw redirect(303, '/');
+		if (urlValidate.valid)
+			redirectWithMessage(303, urlValidate.data.redirectTo, 'Successfully signed in', 'success');
+		else redirectWithMessage(303, '/', 'Successfully signed in', 'success');
 	}
 };

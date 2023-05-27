@@ -4,7 +4,8 @@
 		ListBoxItem,
 		popup,
 		toastStore,
-		type PopupSettings
+		type PopupSettings,
+		ProgressRadial
 	} from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
@@ -140,7 +141,10 @@
 		<div class="flex justify-end">
 			<button disabled={$submitting || !$tainted} class="btn variant-filled-secondary">
 				{#if $submitting}
-					Working...
+					<span class="flex items-center gap-2">
+						<ProgressRadial width="w-3" stroke={150} value={undefined} />
+						Working...
+					</span>
 				{:else}
 					Update Order
 				{/if}

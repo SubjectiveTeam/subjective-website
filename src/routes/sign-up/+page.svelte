@@ -1,27 +1,30 @@
 <script lang="ts">
 	import { goto } from '$app/navigation';
-	import { toastStore } from '@skeletonlabs/skeleton';
+	import { ProgressRadial, toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
 	export let data;
 
-	const { form, constraints, errors, enhance, capture, restore } = superForm(data.form, {
-		applyAction: true,
-		invalidateAll: false,
-		taintedMessage: false,
-		onResult({ result }) {
-			if (result.type === 'redirect') {
-				goto(result.location);
-				toastStore.trigger({
-					message: 'Succesfully signed up.',
-					background: 'variant-filled-success'
-				});
-			}
-			if (result.type === 'failure') {
-				toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+	const { form, constraints, errors, submitting, enhance, capture, restore } = superForm(
+		data.form,
+		{
+			applyAction: true,
+			invalidateAll: false,
+			taintedMessage: false,
+			onResult({ result }) {
+				if (result.type === 'redirect') {
+					goto(result.location);
+					toastStore.trigger({
+						message: 'Succesfully signed up.',
+						background: 'variant-filled-success'
+					});
+				}
+				if (result.type === 'failure') {
+					toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
+				}
 			}
 		}
-	});
+	);
 
 	export const snapshot = { capture, restore };
 </script>
@@ -145,7 +148,16 @@
 			{#if $errors.confirmPassword}<span class="!text-error-500">{$errors.confirmPassword}</span
 				>{/if}
 
-			<button class="btn variant-filled-primary">Sign Up</button>
+			<button disabled={$submitting} class="btn variant-filled-primary">
+				{#if $submitting}
+					<span class="flex items-center gap-2">
+						<ProgressRadial width="w-3" stroke={150} value={undefined} />
+						Working...
+					</span>
+				{:else}
+					Sign Up
+				{/if}
+			</button>
 			<p class="text-center">
 				Already have an account? <a class="anchor" href="/sign-in">Sign In</a> here.
 			</p>

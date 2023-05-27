@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { invalidateAll } from '$app/navigation';
+	import { ProgressRadial } from '@skeletonlabs/skeleton';
 
 	export let data;
 
@@ -15,7 +16,10 @@
 	<div class="ml-auto">
 		<button disabled={refreshing} class="btn btn-sm variant-filled-tertiary" on:click={refresh}>
 			{#if refreshing}
-				Working...
+				<span class="flex items-center gap-2">
+					<ProgressRadial width="w-3" stroke={150} value={undefined} />
+					Working...
+				</span>
 			{:else}
 				Refresh
 			{/if}
