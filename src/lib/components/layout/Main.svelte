@@ -3,12 +3,11 @@
 	import BreadCrumbs from './BreadCrumbs.svelte';
 </script>
 
-<main
+<div
 	class="
-		pt-[calc(5vh+var(--header-height))] pb-[5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh)] mx-auto
+		pt-[2.5vh] px-[5vw] md:px-[12.5vw] min-h-[calc(100vh-var(--header-height))]
 		{$page.url.pathname === '/' ? 'xl:bg-[url("/homepage-bg.svg")] bg-cover bg-center' : ''}
-		"
->
+		">
 	<BreadCrumbs />
 	<slot />
-</main>
+</div>
