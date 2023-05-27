@@ -5,7 +5,7 @@
 
 	export let data;
 
-	const { form, constraints, errors, enhance, capture, restore } = superForm(data, {
+	const { form, constraints, errors, enhance, capture, restore } = superForm(data.form, {
 		applyAction: true,
 		invalidateAll: false,
 		taintedMessage: false,

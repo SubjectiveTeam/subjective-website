@@ -1,7 +1,7 @@
 import { redirectWithMessage } from "$lib/util/util";
 
-export async function load({ locals: { supabase, getSession } }) {
-	const session = await getSession();
+export async function load({ parent }) {
+    const { supabase, session } = await parent();
 
 	const { data, error } = await supabase
 		.from('orders')
