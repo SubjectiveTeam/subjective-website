@@ -5,7 +5,7 @@ type ProgressType = {
 	complete: () => void;
 };
 
-const createProgressStore = () => {
+export const createProgressStore = () => {
 	const { subscribe, update, set }: Writable<ProgressType | undefined> = writable(undefined);
 
 	return {
@@ -26,5 +26,3 @@ const createProgressStore = () => {
 		}
 	};
 };
-
-export const progress = createProgressStore();

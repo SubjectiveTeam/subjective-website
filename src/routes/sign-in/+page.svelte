@@ -12,12 +12,6 @@
 			invalidateAll: false,
 			taintedMessage: false,
 			onResult({ result }) {
-				if (result.type === 'redirect') {
-					toastStore.trigger({
-						message: 'Succesfully signed in.',
-						background: 'variant-filled-success'
-					});
-				}
 				if (result.type === 'failure') {
 					toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
 				}
