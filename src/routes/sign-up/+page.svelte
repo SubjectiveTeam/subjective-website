@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { ProgressRadial, toastStore } from '@skeletonlabs/skeleton';
 	import { superForm } from 'sveltekit-superforms/client';
 
@@ -12,13 +11,6 @@
 			invalidateAll: false,
 			taintedMessage: false,
 			onResult({ result }) {
-				if (result.type === 'redirect') {
-					goto(result.location);
-					toastStore.trigger({
-						message: 'Succesfully signed up.',
-						background: 'variant-filled-success'
-					});
-				}
 				if (result.type === 'failure') {
 					toastStore.trigger({ message: result.data?.message, background: 'variant-filled-error' });
 				}
