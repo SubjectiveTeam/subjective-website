@@ -36,7 +36,7 @@
 					<th>Name</th>
 					<th>Description</th>
 					<th>Images</th>
-					<th />
+					<th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>

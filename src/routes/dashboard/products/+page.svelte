@@ -39,7 +39,7 @@
 					<th>Stock</th>
 					<th>Active</th>
 					<th>Size</th>
-					<th />
+					<th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>

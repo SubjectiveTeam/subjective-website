@@ -53,7 +53,7 @@
 					<th>City</th>
 					<th>Customer Email</th>
 					<th>Status</th>
-					<th />
+					<th>Edit</th>
 				</tr>
 			</thead>
 			<tbody>
