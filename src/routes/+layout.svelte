@@ -19,9 +19,7 @@
 	import { inject } from '@vercel/analytics';
 	import { createProgressStore } from '$lib/stores/progress';
 	import { triggerToastFromRedirect } from '$lib/util/util';
-
-	const progress = createProgressStore();
-
+	
 	export let data;
 
 	$: ({ supabase, session, consentCookiePresent } = data);
