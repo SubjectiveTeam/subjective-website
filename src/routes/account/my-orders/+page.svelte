@@ -1,5 +1,5 @@
 <script lang="ts">
-	export let data
+	export let data;
 </script>
 
 <section class="flex flex-wrap gap-2">

@@ -1,7 +1,7 @@
-import { redirectWithMessage } from "$lib/util/util";
-import { fail, redirect, type Actions } from "@sveltejs/kit";
-import { superValidate } from "sveltekit-superforms/client";
-import { z } from "zod";
+import { redirectWithMessage } from '$lib/util/util';
+import { fail, redirect, type Actions } from '@sveltejs/kit';
+import { superValidate } from 'sveltekit-superforms/client';
+import { z } from 'zod';
 
 const changePasswordSchema = z
 	.object({
@@ -18,12 +18,11 @@ const changePasswordSchema = z
 	});
 
 export async function load() {
+	const form = await superValidate(changePasswordSchema);
 
-    const form = await superValidate(changePasswordSchema);
-
-    return {
-        form,
-    };
+	return {
+		form
+	};
 }
 
 export const actions: Actions = {
