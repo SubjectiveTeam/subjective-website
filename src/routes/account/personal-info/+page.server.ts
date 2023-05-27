@@ -17,6 +17,15 @@ const changePasswordSchema = z
 		}
 	});
 
+export async function load() {
+
+    const form = await superValidate(changePasswordSchema);
+
+    return {
+        form,
+    };
+}
+
 export const actions: Actions = {
 	signOut: async ({ locals: { supabase } }) => {
 		await supabase.auth.signOut();
@@ -41,12 +50,3 @@ export const actions: Actions = {
 		return { form, message: 'Successfully updated password' };
 	}
 };
-
-export async function load() {
-
-	const form = await superValidate(changePasswordSchema);
-
-	return {
-		form,
-	};
-}
