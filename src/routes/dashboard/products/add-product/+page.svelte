@@ -50,8 +50,8 @@
 	const activeConstraints = { ...$constraints.active, required: undefined };
 </script>
 
-<h1 class="h1 !leading-loose">Add Product</h1>
-<section class="flex flex-col gap-10 card p-16">
+<section class="flex flex-col gap-5">
+	<p class="text-2xl">Add Product</p>
 	<form class="flex flex-col gap-16" method="post" use:enhance>
 		<div class="flex flex-col gap-4">
 			<label for="productGroupId" class="label">
