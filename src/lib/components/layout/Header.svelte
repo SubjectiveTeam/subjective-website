@@ -18,7 +18,7 @@
 </script>
 
 <AppBar
-	class="h-[var(--header-height)] fixed w-full top-0 z-[10]"
+	class="h-[var(--header-height)] sticky top-0 z-[10]"
 	padding="py-4 px-[5vw] md:px-[12.5vw]"
 	gridColumns="grid-cols-3"
 	shadow="!shadow-lg"

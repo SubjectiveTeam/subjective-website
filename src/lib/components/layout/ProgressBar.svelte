@@ -90,7 +90,7 @@
 		>
 			{#if running}
 				<div
-					class="variant-filled-primary absolute top-0 right-0 h-[3px] w-[100px] rotate-[2.5deg] -translate-y-[4px] shadow-[0_0_8px] z-[2]"
+					class="variant-filled-primary absolute top-0 right-0 h-[3px] w-[100px] rotate-[2.5deg] -translate-y-[4px] shadow-[0_0_8px] z-[11]"
 				/>
 			{/if}
 		</div>
