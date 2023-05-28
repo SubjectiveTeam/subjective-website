@@ -24,7 +24,7 @@
 				Refresh
 			{/if}
 		</button>
-		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/product/add-product"
+		<a class="btn btn-sm variant-filled-secondary" href="/dashboard/products/add-product"
 			>Add Product</a
 		>
 	</div>
